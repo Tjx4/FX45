@@ -8,24 +8,24 @@ import android.view.View
 import android.view.ViewGroup
 import com.platform45.fx45.R
 
-class MainFragment : Fragment() {
+class HistoryFragment : Fragment() {
 
     companion object {
-        fun newInstance() = MainFragment()
+        fun newInstance() = HistoryFragment()
     }
 
-    private lateinit var viewModel: MainViewModel
+    private lateinit var viewModel: HistoryViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.main_fragment, container, false)
+        return inflater.inflate(R.layout.history_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(HistoryViewModel::class.java)
         // TODO: Use the ViewModel
     }
 
