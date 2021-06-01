@@ -46,7 +46,7 @@ class PopularPairsAdapter(var context: Context) : PagingDataAdapter<PopularPairT
 
         override fun onClick(view: View) {
             pairClickListener?.onPairClicked(adapterPosition)
-            selIndicatorV.background = context.resources.getDrawable(R.drawable.fx_button_background)
+            selIndicatorV.background = context.resources.getDrawable(R.drawable.selected_background)
         }
     }
 

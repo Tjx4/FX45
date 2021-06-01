@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.Button
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -21,6 +23,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import androidx.lifecycle.lifecycleScope
+import com.platform45.fx45.helpers.showDateTimeDialogFragment
 import com.platform45.fx45.helpers.showErrorDialog
 import com.platform45.fx45.ui.dashboard.datetime.DateTimePickerFragment
 
@@ -55,7 +58,38 @@ class DashboardFragment : BaseFragment(), PopularPairsAdapter.AddPairClickListen
 
         dashboardViewModel.checkState()
         addObservers()
+        initRecyclerView()
 
+        spnFrmCurrency.onItemSelectedListener  = object : AdapterView.OnItemSelectedListener{
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                dashboardViewModel.setCurrencyPair(position, spnToCurrency.selectedItemPosition)
+            }
+        }
+
+        spnToCurrency.onItemSelectedListener  = object : AdapterView.OnItemSelectedListener{
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                dashboardViewModel.setCurrencyPair(spnFrmCurrency.selectedItemPosition, position)
+            }
+        }
+
+        btnFrom.setOnClickListener {
+            indx = 0
+            showDateTimeDialogFragment(this, (it as Button).text.toString())
+        }
+
+        btnTo.setOnClickListener {
+            indx = 1
+            showDateTimeDialogFragment(this, (it as Button).text.toString())
+        }
+    }
+
+    fun initRecyclerView(){
         rvPorpularCp.apply {
             rvPorpularCp?.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             setHasFixedSize(true)

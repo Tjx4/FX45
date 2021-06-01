@@ -82,6 +82,10 @@ class DashboardViewModel(val app: Application, private val fXRepository: FXRepos
         availableCurrencies.value = tmpList?.sortedBy { it }
     }
 
+    fun setCurrencyPair(frmIndx: Int, ToIndx: Int) {
+        _userSelectedPair.value = "${availableCurrencies.value?.get(frmIndx) ?: ""}${availableCurrencies.value?.get(ToIndx)}"
+    }
+
     fun addCreatedPairToList() {
         _userSelectedPair.value?.let { addCurrencyPairToList(it) }
     }
