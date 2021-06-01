@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <com.wang.avi.AVLoadingIndicatorView
+        android:id="@+id/pb_progress"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:visibility="visible"
+        app:indicatorColor="@color/lightText"
+        app:indicatorName="LineSpinFadeLoaderIndicator"
+        android:layout_gravity="center"/>
+
+    <Button
+        style="@style/FX45Button"
+        android:id="@+id/b_retry"
+        android:layout_marginTop="@dimen/xsmall_margin"
+        android:layout_gravity="center"
+        android:text="@string/retry"/>
+
+</LinearLayout>
