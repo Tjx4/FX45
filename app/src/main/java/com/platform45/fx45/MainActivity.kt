@@ -8,7 +8,6 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.platform45.fx45.ui.dashboard.DashboardFragment
-import com.platform45.fx45.ui.history.HistoryFragment
 import kotlinx.android.synthetic.main.main_activity.*
 
 class MainActivity : AppCompatActivity(), MyDrawerController{
@@ -30,7 +29,7 @@ class MainActivity : AppCompatActivity(), MyDrawerController{
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.history_menu, menu)
         convertMenuItem = menu.findItem(R.id.action_convert)
-        findMenuItem = menu.findItem(R.id.action_select)
+        findMenuItem = menu.findItem(R.id.action_tweak)
         closeMenuItem = menu.findItem(R.id.action_close_selection)
         toolbarMenu = menu
         return true

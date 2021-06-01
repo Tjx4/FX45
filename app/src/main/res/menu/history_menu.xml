@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_select"
+        android:id="@+id/action_tweak"
         android:title="@string/select"
         android:icon="@drawable/ic_tweak"
         app:showAsAction="always"/>
@@ -20,6 +20,5 @@
         android:title="@string/convert"
         android:icon="@drawable/ic_convert"
         app:showAsAction="always"/>
-
 
 </menu>
