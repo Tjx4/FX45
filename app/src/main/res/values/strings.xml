@@ -38,4 +38,5 @@
     <string name="end_date">End date</string>
     <string name="select">Select</string>
     <string name="retry">Retry</string>
+    <string name="request_trade_history">Request trade history</string>
 </resources>

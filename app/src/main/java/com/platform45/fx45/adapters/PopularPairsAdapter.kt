@@ -31,7 +31,7 @@ class PopularPairsAdapter(var context: Context) : PagingDataAdapter<PopularPairT
         holder.favCpTv.text = currentPair?.pair
         holder.favCpFnTv.text = currentPair?.fullName
         holder.convertImgb.setOnClickListener { currentPair?.pair?.let { it1 -> pairClickListener?.onConvertClicked(it1) } }
-        holder.selIndicatorV.background = context.resources.getDrawable( if(currentPair?.isSelected == true) R.drawable.fx_button_background  else R.drawable.fx_disabled_button_background)
+        holder.selIndicatorV.background = context.resources.getDrawable( if(currentPair?.isSelected == true) R.drawable.selected_background  else R.drawable.fx_disabled_button_background)
     }
 
     inner class PopularViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
@@ -45,13 +45,16 @@ class PopularPairsAdapter(var context: Context) : PagingDataAdapter<PopularPairT
         }
 
         override fun onClick(view: View) {
-            pairClickListener?.onPairClicked(adapterPosition)
+            val currencyPair = getItem(adapterPosition)
+            currencyPair?.isSelected = true
+            getItem(adapterPosition)?.isSelected = true
+            pairClickListener?.onPairClicked(adapterPosition, currencyPair?.pair ?: "")
             selIndicatorV.background = context.resources.getDrawable(R.drawable.selected_background)
         }
     }
 
     interface AddPairClickListener {
-        fun onPairClicked(position: Int)
+        fun onPairClicked(position: Int, pair: String)
         fun onConvertClicked(pair: String)
     }
 

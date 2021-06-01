@@ -90,9 +90,8 @@ class DashboardViewModel(val app: Application, private val fXRepository: FXRepos
         _userSelectedPair.value?.let { addCurrencyPairToList(it) }
     }
 
-    fun addPopularPairToList(indx: Int) {
-        val popularCurrencyPairs = popularCurrencyPairs as ArrayList<CurrencyPair?>
-        popularCurrencyPairs[indx]?.pair?.let { addCurrencyPairToList(it) }
+    fun addPopularPairToList(currencyPair: String) {
+        currencyPair.let { addCurrencyPairToList(it) }
     }
 
     private fun addCurrencyPairToList(currencyPair: String) {

@@ -131,11 +131,12 @@ class DashboardFragment : BaseFragment(), PopularPairsAdapter.AddPairClickListen
 
     private fun addObservers() {
         dashboardViewModel.isPairsUpdated.observe(viewLifecycleOwner, Observer { onPairsListUpdated(it)})
+        dashboardViewModel.canProceed.observe(viewLifecycleOwner, Observer { canProceed(it)})
     }
 
-    override fun onPairClicked(position: Int) {
-        //Add to pairs list
-        Toast.makeText(context, "$position onPairClicked", Toast.LENGTH_SHORT).show()
+    override fun onPairClicked(position: Int, pair: String) {
+        dashboardViewModel.addPopularPairToList(pair)
+        Toast.makeText(context, "$pair selected", Toast.LENGTH_SHORT).show()
     }
 
     override fun onConvertClicked(pair: String) {
@@ -171,6 +172,7 @@ class DashboardFragment : BaseFragment(), PopularPairsAdapter.AddPairClickListen
         btnGetHistory.isEnabled = proceed
         btnGetHistory.background = resources.getDrawable( if(proceed) R.drawable.fx_button_background  else R.drawable.fx_disabled_button_background)
         tvRequestingPairs.visibility = if(proceed) View.VISIBLE else View.GONE
+        btnRequestHistory.visibility = if(proceed) View.VISIBLE else View.GONE
     }
 
     override fun setDate(year: Int, month: Int, day: Int) {
