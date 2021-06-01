@@ -109,5 +109,4 @@ class DashboardViewModel(val app: Application, private val fXRepository: FXRepos
         _pairsMessage.value = "You selected ${currencyPairs.size} pair${if(currencyPairs.size == 1) "" else "s"}"
         _isPairsUpdated.value = true
     }
-
 }

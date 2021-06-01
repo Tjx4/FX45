@@ -23,11 +23,14 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
+import com.platform45.fx45.adapters.CurrencyPairAdapter
+import com.platform45.fx45.extensions.getScreenCols
 import com.platform45.fx45.helpers.showDateTimeDialogFragment
 import com.platform45.fx45.helpers.showErrorDialog
 import com.platform45.fx45.ui.dashboard.datetime.DateTimePickerFragment
 
-class DashboardFragment : BaseFragment(), PopularPairsAdapter.AddPairClickListener, DateTimePickerFragment.DateTimeSetter {
+class DashboardFragment : BaseFragment(), PopularPairsAdapter.AddPairClickListener, CurrencyPairAdapter.UserInteractions, DateTimePickerFragment.DateTimeSetter {
     private lateinit var binding: FragmentDashboardBinding
     private val dashboardViewModel: DashboardViewModel by viewModel()
     private lateinit var popularPairsAdapter: PopularPairsAdapter
@@ -76,6 +79,10 @@ class DashboardFragment : BaseFragment(), PopularPairsAdapter.AddPairClickListen
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 dashboardViewModel.setCurrencyPair(spnFrmCurrency.selectedItemPosition, position)
             }
+        }
+
+        btnAddCurrencyPair.setOnClickListener {
+            dashboardViewModel.addCreatedPairToList()
         }
 
         btnFrom.setOnClickListener {
@@ -151,6 +158,13 @@ class DashboardFragment : BaseFragment(), PopularPairsAdapter.AddPairClickListen
         //Go to convert
         Toast.makeText(context, "$pair convert", Toast.LENGTH_SHORT).show()
     }
+    override fun onPairClicked(view: View, position: Int) {
+    }
+
+    override fun onDeleteClicked(pair: String, position: Int) {
+        dashboardViewModel.deleteCurrencyPairFromList(position)
+        Toast.makeText(context, "$pair deleted", Toast.LENGTH_SHORT).show()
+    }
 
     private fun showError(errorMessage: String){
         flLoader.visibility = View.INVISIBLE
@@ -165,14 +179,14 @@ class DashboardFragment : BaseFragment(), PopularPairsAdapter.AddPairClickListen
     fun showPairSelector(){
         flLoader.visibility = View.INVISIBLE
         clPairSelector.visibility = View.VISIBLE
-        rvPorpularCp.visibility = View.INVISIBLE
+        clPairSeriesInfo.visibility = View.INVISIBLE
         myDrawerController.showSelectionMode()
     }
 
     fun showPairSeriesInfo() {
         flLoader.visibility = View.INVISIBLE
         clPairSelector.visibility = View.INVISIBLE
-        rvPorpularCp.visibility = View.VISIBLE
+        clPairSeriesInfo.visibility = View.VISIBLE
         myDrawerController.showContent()
     }
 
@@ -197,8 +211,16 @@ class DashboardFragment : BaseFragment(), PopularPairsAdapter.AddPairClickListen
         }
     }
 
+    private fun onCurrencyPairsSet(pairs: List<String>) {
+        val pairsAdapter = CurrencyPairAdapter(requireContext(), pairs)
+        pairsAdapter.setPairClickListener(this)
+        val cols = requireActivity().getScreenCols(125f)
+        val requestingPairsManager = GridLayoutManager(context, cols)
+        rvRequestingPairs?.adapter = pairsAdapter
+        rvRequestingPairs?.layoutManager = requestingPairsManager
+    }
+
     fun onPairsListUpdated(isUpdated: Boolean){
         rvRequestingPairs?.adapter?.notifyDataSetChanged()
     }
-
 }

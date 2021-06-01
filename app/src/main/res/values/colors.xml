@@ -17,7 +17,7 @@
     <color name="light_text_2">#bbb</color>
     <color name="greyText">#888</color>
     <color name="darkText">#111</color>
-    <color name="darkGreyBackground">#bbb</color>
+    <color name="darkGrey_background">#bbb</color>
     <color name="grey_background">#EEE</color>
     <color name="light_background">#FFF</color>
     <color name="pairItemBackground">#111</color>

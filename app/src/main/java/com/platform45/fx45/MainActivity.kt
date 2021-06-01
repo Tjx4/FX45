@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -39,7 +40,7 @@ class MainActivity : AppCompatActivity(), MyDrawerController{
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            //R.id.action_convert -> navController.navigate(R.id.dashboard_to_conversion)
+            R.id.action_convert ->  Toast.makeText(this, "Action convert", Toast.LENGTH_SHORT).show() //navController.navigate(R.id.dashboard_to_conversion)
             R.id.action_tweak -> dbFragment?.showPairSelector()
             R.id.action_close_selection -> dbFragment?.showPairSeriesInfo()
         }
