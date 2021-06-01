@@ -100,7 +100,7 @@ class DashboardFragment : BaseFragment(), PopularPairsAdapter.AddPairClickListen
         }
 
         btnGetHistory.setOnClickListener {
-            //view history
+            Toast.makeText(context, "btnGetHistory", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -147,11 +147,11 @@ class DashboardFragment : BaseFragment(), PopularPairsAdapter.AddPairClickListen
     private fun addObservers() {
         dashboardViewModel.isPairsUpdated.observe(viewLifecycleOwner, Observer { onPairsListUpdated(it)})
         dashboardViewModel.canProceed.observe(viewLifecycleOwner, Observer { canProceed(it)})
+        dashboardViewModel.currencyPairs.observe(viewLifecycleOwner, Observer { onCurrencyPairsSet(it)})
     }
 
     override fun onPairClicked(position: Int, pair: String) {
         dashboardViewModel.addPopularPairToList(pair)
-        Toast.makeText(context, "$pair selected", Toast.LENGTH_SHORT).show()
     }
 
     override fun onConvertClicked(pair: String) {

@@ -16,10 +16,10 @@ import kotlinx.android.synthetic.main.main_activity.*
 class MainActivity : AppCompatActivity(), MyDrawerController{
     override lateinit var navController: NavController
     override var toolbarMenu: Menu? = null
-    var convertMenuItem: MenuItem? = null
-    var findMenuItem: MenuItem? = null
-    var closeMenuItem: MenuItem? = null
-    var dbFragment: DashboardFragment? = null
+    private var convertMenuItem: MenuItem? = null
+    private var findMenuItem: MenuItem? = null
+    private var closeMenuItem: MenuItem? = null
+    private var dbFragment: DashboardFragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

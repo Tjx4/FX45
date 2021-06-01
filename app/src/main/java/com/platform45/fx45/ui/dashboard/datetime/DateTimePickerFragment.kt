@@ -74,7 +74,7 @@ class DateTimePickerFragment : BaseDialogFragment(){
         timePickerContainerLl?.visibility = View.GONE
         dateTimeBackBtn?.visibility = View.GONE
         dateTimeNextBtn?.visibility = View.VISIBLE
-        dateTimeDoneBtn?.visibility = View.GONE
+        dateTimeDoneBtn?.visibility = View.VISIBLE
     }
 
     fun showTimePicker(){

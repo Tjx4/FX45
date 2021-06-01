@@ -74,17 +74,17 @@
             <Button
                 android:id="@+id/btnDateTimeNext"
                 style="@style/FX45Button"
-                android:text="Set time" />
+                android:text="Set time"
+                android:layout_weight="1"/>
 
             <Button
                 android:visibility="gone"
                 android:id="@+id/btnDateTimeBack"
                 style="@style/FX45Button"
-                android:layout_weight="2"
+                android:layout_weight="1"
                 android:text="Back" />
 
             <Button
-                android:visibility="gone"
                 android:id="@+id/btnDateTimeDone"
                 style="@style/FX45Button"
                 android:layout_marginLeft="@dimen/xsmall_margin"
