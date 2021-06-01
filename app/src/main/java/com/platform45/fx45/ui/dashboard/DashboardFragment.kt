@@ -18,7 +18,6 @@ import kotlinx.android.synthetic.main.fragment_dashboard.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 
 class DashboardFragment : BaseFragment() {
