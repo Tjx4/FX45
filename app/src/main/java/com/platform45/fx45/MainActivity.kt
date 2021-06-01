@@ -54,14 +54,14 @@ class MainActivity : AppCompatActivity(), MyDrawerController{
         findMenuItem?.isVisible = true
         closeMenuItem?.isVisible = false
         convertMenuItem?.isVisible = true
-        toolbar.isVisible = true
+        toolbar?.isVisible = true
     }
 
     override fun showSelectionMode() {
         findMenuItem?.isVisible = false
         closeMenuItem?.isVisible = true
         convertMenuItem?.isVisible = false
-        toolbar.isVisible = true
+        toolbar?.isVisible = true
     }
 
     override fun setDashboardFragment(dashboardFragment: DashboardFragment) {
@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity(), MyDrawerController{
     }
     
     override fun hideToolbar() {
-        toolbar.isVisible = false
+        toolbar?.isVisible = false
     }
 
     override fun showMenu() {

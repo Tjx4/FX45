@@ -87,6 +87,14 @@ class DashboardFragment : BaseFragment(), PopularPairsAdapter.AddPairClickListen
             indx = 1
             showDateTimeDialogFragment(this, (it as Button).text.toString())
         }
+
+        btnRequestHistory.setOnClickListener {
+            showPairSelector()
+        }
+
+        btnGetHistory.setOnClickListener {
+            //view history
+        }
     }
 
     fun initRecyclerView(){
@@ -145,7 +153,7 @@ class DashboardFragment : BaseFragment(), PopularPairsAdapter.AddPairClickListen
     }
 
     private fun showError(errorMessage: String){
-        flLoader.visibility = View.GONE
+        flLoader.visibility = View.INVISIBLE
         showErrorDialog(requireContext(), getString(R.string.error), errorMessage, getString(R.string.close))
     }
 
@@ -155,15 +163,15 @@ class DashboardFragment : BaseFragment(), PopularPairsAdapter.AddPairClickListen
     }
 
     fun showPairSelector(){
-        flLoader.visibility = View.GONE
+        flLoader.visibility = View.INVISIBLE
         clPairSelector.visibility = View.VISIBLE
-        rvPorpularCp.visibility = View.GONE
+        rvPorpularCp.visibility = View.INVISIBLE
         myDrawerController.showSelectionMode()
     }
 
     fun showPairSeriesInfo() {
-        flLoader.visibility = View.GONE
-        clPairSelector.visibility = View.GONE
+        flLoader.visibility = View.INVISIBLE
+        clPairSelector.visibility = View.INVISIBLE
         rvPorpularCp.visibility = View.VISIBLE
         myDrawerController.showContent()
     }
@@ -171,8 +179,8 @@ class DashboardFragment : BaseFragment(), PopularPairsAdapter.AddPairClickListen
     private fun canProceed(proceed: Boolean){
         btnGetHistory.isEnabled = proceed
         btnGetHistory.background = resources.getDrawable( if(proceed) R.drawable.fx_button_background  else R.drawable.fx_disabled_button_background)
-        tvRequestingPairs.visibility = if(proceed) View.VISIBLE else View.GONE
-        btnRequestHistory.visibility = if(proceed) View.VISIBLE else View.GONE
+        tvRequestingPairs.visibility = if(proceed) View.VISIBLE else View.INVISIBLE
+        btnRequestHistory.visibility = if(proceed) View.VISIBLE else View.INVISIBLE
     }
 
     override fun setDate(year: Int, month: Int, day: Int) {
