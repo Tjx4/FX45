@@ -30,6 +30,9 @@ class ConversionViewModel(application: Application, private val fXRepository: FX
     val convert: MutableLiveData<Conversion?>
         get() = _convert
 
+    init {
+        _amount.value = 5
+    }
 
     fun checkAndConvert(){
         _showLoading.value = true
