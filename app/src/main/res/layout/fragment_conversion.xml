@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="conversionViewModel"
+            type="com.platform45.fx45.ui.convert.ConversionViewModel"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        style="@style/ParentView"
+        android:animateLayoutChanges="true"
+        tools:context=".features.convertion.ConversionFragment">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.2"
+            android:scaleType="fitXY"
+            android:src="@drawable/bg_image"/>
+
+        <EditText
+            style="@style/FX4EditText"
+            android:id="@+id/tvFrom"
+            android:layout_width="0dp"
+            android:hint="From"
+            android:textColorHint="@color/greyText"
+            android:text="@={conversionViewModel.from}"
+            android:layout_marginTop="@dimen/xsmall_margin"
+            android:layout_marginLeft="@dimen/xsmall_margin"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintEnd_toStartOf="@+id/tvTo" />
+
+        <EditText
+            style="@style/FX4EditText"
+            android:id="@+id/tvTo"
+            android:layout_width="0dp"
+            android:hint="To"
+            android:textColorHint="@color/greyText"
+            android:text="@={conversionViewModel.to}"
+            android:layout_marginTop="@dimen/xsmall_margin"
+            android:layout_marginHorizontal="@dimen/xsmall_margin"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tvFrom"
+            app:layout_constraintHorizontal_bias="0.5" />
+
+        <EditText
+            style="@style/FX4EditText"
+            android:id="@+id/tvAmount"
+            android:ems="10"
+            android:inputType="number"
+            android:hint="Amount"
+            android:textColorHint="@color/greyText"
+            android:text="@={``+conversionViewModel.amount}"
+            android:layout_marginTop="@dimen/xsmall_margin"
+            android:layout_marginHorizontal="@dimen/xsmall_margin"
+            app:layout_constraintTop_toBottomOf="@+id/tvFrom"
+            app:layout_constraintEnd_toStartOf="@+id/tvFrom"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            style="@style/FX45Button"
+            android:id="@+id/btnConvert"
+            android:text="Convert"
+            android:layout_marginTop="@dimen/xsmall_margin"
+            android:layout_marginHorizontal="@dimen/xsmall_margin"
+            app:layout_constraintTop_toBottomOf="@+id/tvAmount"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+        <TextView
+            android:visibility="invisible"
+            style="@style/LargeTextView"
+            android:id="@+id/tvTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="= (ZAR)0.00"
+            android:text="@{`= (`+conversionViewModel.convert.to+`)`+conversionViewModel.convert.total}"
+            android:textStyle="bold"
+            android:layout_marginTop="@dimen/large_margin"
+            app:layout_constraintTop_toBottomOf="@+id/btnConvert"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+        <com.wang.avi.AVLoadingIndicatorView
+            android:id="@+id/cnvLoader"
+            android:visibility="invisible"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:indicatorColor="@color/lightText"
+            app:indicatorName="LineSpinFadeLoaderIndicator"
+            app:layout_constraintTop_toTopOf="@+id/tvTotal"
+            app:layout_constraintLeft_toLeftOf="@+id/tvTotal"
+            app:layout_constraintRight_toRightOf="@+id/tvTotal"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
