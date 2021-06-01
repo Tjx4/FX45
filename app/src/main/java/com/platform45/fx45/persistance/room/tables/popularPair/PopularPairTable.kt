@@ -1,4 +1,4 @@
-package com.platform45.weather45.persistance.room.tables.popularPair
+package com.platform45.fx45.persistance.room.tables.popularPair
 
 import android.os.Parcelable
 import androidx.room.ColumnInfo

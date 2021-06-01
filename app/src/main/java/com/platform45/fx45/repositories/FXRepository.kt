@@ -2,6 +2,8 @@ package com.platform45.fx45.repositories
 
 import com.platform45.fx45.models.Currencies
 import com.platform45.fx45.networking.retrofit.RetrofitHelper
+import com.platform45.fx45.persistance.room.FX45Db
+import com.platform45.weather45.models.Conversion
 
 class FXRepository(private val retrofitHelper: RetrofitHelper, private val database: FX45Db) {
 
@@ -23,67 +25,5 @@ class FXRepository(private val retrofitHelper: RetrofitHelper, private val datab
         }
     }
 
-
-    suspend fun getSeriesCache(apiKey: String, startDate: String, endDate: String, currency: String, format: String) : List<PairHistoryTable>{
-        return try {
-            val historyTables = ArrayList<PairHistoryTable>()
-            val currencyPairs = currency.split(",")
-            val price = retrofitHelper.series(apiKey, startDate, endDate, currency, format)?.price
-            val pairHistories = getPairHistoryList(startDate, endDate, currencyPairs, price)
-            pairHistories?.forEach {
-                it?.let { pairHistory -> historyTables.add(pairHistory?.toDbTable()) }
-            }
-
-            historyTables
-        }
-        catch (ex: Exception){
-            ArrayList<PairHistoryTable>()
-        }
-    }
-
-    suspend fun getAllPairHistoriesFromDb() : List<PairTradeHistory?>??{
-        return try {
-            val tradeHistories = ArrayList<PairTradeHistory>()
-            database.pairHistoryDAO.getAllHistories()?.forEach { tradeHistories.add(it.toPairHistory()) }
-            tradeHistories
-        }
-        catch (ex: Exception){
-            null
-        }
-    }
-
-    suspend fun getPairTradeHistoryFromDb(id: Long) : PairTradeHistory?{
-        return try {
-            database.pairHistoryDAO.get(id)?.toPairHistory()
-        }
-        catch (ex: Exception){
-            null
-        }
-    }
-
-    suspend fun addPairTradeHistoryToDb(pairTradeHistory: PairTradeHistory) : DbOperation {
-        return try {
-            database.pairHistoryDAO.insert(pairTradeHistory.toDbTable())
-            DbOperation(true)
-        }
-        catch (ex: Exception){
-            DbOperation(false, "$ex")
-        }
-    }
-
-    suspend fun addAllPairTradeHistoriesToDb(pairTradeHistories: List<PairTradeHistory?>?) : DbOperation {
-        return try {
-            val tradeTables = ArrayList<PairHistoryTable>()
-            pairTradeHistories?.forEach {
-               // tradeTables.add(it.toDbTable())
-                it?.let { it1 -> addPairTradeHistoryToDb(it1) }
-            }
-            //database.pairHistoryDAO.insertAll(tradeTables)
-            DbOperation(true)
-        }
-        catch (ex: Exception){
-            DbOperation(false, "$ex")
-        }
-    }
 
 }

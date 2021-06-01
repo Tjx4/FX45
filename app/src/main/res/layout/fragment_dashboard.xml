@@ -7,6 +7,9 @@
             name="dashboardViewModel"
             type="com.platform45.fx45.ui.dashboard.DashboardViewModel"/>
     </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
