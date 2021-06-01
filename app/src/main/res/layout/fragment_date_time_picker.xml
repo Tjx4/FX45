@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.dashboard.datetime.DateTimePickerFragment"
+    android:background="@color/black">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/llDt"
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:id="@+id/llDatePickerContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/MediumTextView"
+                    android:gravity="center"
+                    android:padding="@dimen/small_margin"
+                    android:text="@string/please_select_a_none_weekend_date" />
+
+                <DatePicker
+                    style="@style/DateTimePickerStyle"
+                    android:id="@+id/dpAppointmentDate"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/llTimePickerContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/MediumTextView"
+                    android:gravity="center"
+                    android:padding="@dimen/small_margin"
+                    android:text="@string/please_set_time" />
+
+                <TimePicker
+                    style="@style/DateTimePickerStyle"
+                    android:id="@+id/tpAppointmentTime"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/buttonsContainer"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/small_margin"
+            app:layout_constraintTop_toBottomOf="@+id/llDt">
+
+            <Button
+                android:id="@+id/btnDateTimeNext"
+                style="@style/FX45Button"
+                android:text="Set time" />
+
+            <Button
+                android:visibility="gone"
+                android:id="@+id/btnDateTimeBack"
+                style="@style/FX45Button"
+                android:layout_weight="2"
+                android:text="Back" />
+
+            <Button
+                android:visibility="gone"
+                android:id="@+id/btnDateTimeDone"
+                style="@style/FX45Button"
+                android:layout_marginLeft="@dimen/xsmall_margin"
+                android:layout_weight="1"
+                android:text="Done" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

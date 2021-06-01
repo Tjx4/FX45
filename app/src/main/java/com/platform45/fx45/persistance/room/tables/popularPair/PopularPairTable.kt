@@ -1,12 +1,9 @@
 package com.platform45.fx45.persistance.room.tables.popularPair
 
-import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import kotlinx.android.parcel.Parcelize
 
-@Parcelize
 @Entity(tableName = "popularPairs")
 data class PopularPairTable (
     @PrimaryKey(autoGenerate = true)
@@ -16,4 +13,4 @@ data class PopularPairTable (
     var pair: String?,
     @ColumnInfo(name ="fullName")
     var fullName: String?,
-): Parcelable
+)
