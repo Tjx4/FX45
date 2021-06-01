@@ -13,4 +13,5 @@ data class PopularPairTable (
     var pair: String?,
     @ColumnInfo(name ="fullName")
     var fullName: String?,
+    var isSelected: Boolean = false
 )

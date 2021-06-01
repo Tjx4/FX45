@@ -7,9 +7,19 @@
             name="dashboardViewModel"
             type="com.platform45.fx45.ui.dashboard.DashboardViewModel"/>
     </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
+        style="@style/ParentView">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.2"
+            android:scaleType="fitXY"
+            android:src="@drawable/bg_image"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvPorpularCp"
@@ -21,6 +31,185 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:visibility="gone"
+            android:id="@+id/clPairSelector"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingBottom="80dp">
+
+                    <TextView
+                        style="@style/MediumTextView"
+                        android:id="@+id/tvTradingPair"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/select_currencies_and_create_a_trading_pair"
+                        android:gravity="left"
+                        android:layout_margin="@dimen/xsmall_margin"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <com.platform45.fx45.customViews.MySpinner
+                        style="@style/mySpinnerItemStyle"
+                        android:id="@+id/spnFrmCurrency"
+                        android:layout_width="0dp"
+                        android:layout_marginLeft="@dimen/xsmall_margin"
+                        android:entries="@{dashboardViewModel.availableCurrencies}"
+                        app:layout_constraintTop_toBottomOf="@+id/tvTradingPair"
+                        app:layout_constraintRight_toLeftOf="@+id/spnToCurrency"
+                        app:layout_constraintLeft_toLeftOf="parent"/>
+
+                    <com.platform45.fx45.customViews.MySpinner
+                        style="@style/mySpinnerItemStyle"
+                        android:id="@+id/spnToCurrency"
+                        android:layout_width="0dp"
+                        android:layout_marginHorizontal="@dimen/xsmall_margin"
+                        android:entries="@{dashboardViewModel.availableCurrencies}"
+                        app:layout_constraintTop_toBottomOf="@+id/tvTradingPair"
+                        app:layout_constraintLeft_toRightOf="@+id/spnFrmCurrency"
+                        app:layout_constraintRight_toRightOf="parent"/>
+
+                    <TextView
+                        style="@style/FX45Button"
+                        android:id="@+id/tvCurrentTradingPair"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="ZARUSD"
+                        android:text="@{dashboardViewModel.userSelectedPair}"
+                        android:background="@drawable/pair_item_background"
+                        android:textStyle="bold"
+                        android:gravity="left"
+                        android:paddingVertical="14dp"
+                        android:paddingHorizontal="@dimen/small_margin"
+                        android:layout_marginTop="@dimen/xsmall_margin"
+                        android:layout_marginLeft="@dimen/xsmall_margin"
+                        app:layout_constraintTop_toBottomOf="@+id/spnFrmCurrency"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+                    <Button
+                        android:id="@+id/btnAddCurrencyPair"
+                        android:layout_width="55dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/add"
+                        android:textColor="@color/lightText"
+                        android:padding="0dp"
+                        android:textAllCaps="false"
+                        android:background="@android:color/transparent"
+                        android:layout_marginRight="@dimen/xsmall_margin"
+                        app:layout_constraintTop_toTopOf="@+id/tvCurrentTradingPair"
+                        app:layout_constraintBottom_toBottomOf="@+id/tvCurrentTradingPair"
+                        app:layout_constraintLeft_toRightOf="@+id/tvCurrentTradingPair"/>
+
+                    <TextView
+                        style="@style/MediumTextView"
+                        android:id="@+id/tvStartDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/start_date"
+                        app:layout_constraintBottom_toTopOf="@+id/btnFrom"
+                        app:layout_constraintLeft_toLeftOf="@+id/btnFrom"/>
+
+                    <Button
+                        style="@style/DatePreview"
+                        android:id="@+id/btnFrom"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        tools:text="0000-00-00"
+                        android:text="@={dashboardViewModel.startDate}"
+                        android:layout_marginTop="@dimen/xlarge_margin"
+                        android:layout_marginLeft="@dimen/xsmall_margin"
+                        app:layout_constraintTop_toBottomOf="@+id/tvCurrentTradingPair"
+                        app:layout_constraintRight_toLeftOf="@+id/btnTo"
+                        app:layout_constraintLeft_toLeftOf="parent"/>
+
+                    <TextView
+                        style="@style/MediumTextView"
+                        android:id="@+id/tvEndDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/end_date"
+                        app:layout_constraintBottom_toTopOf="@+id/btnTo"
+                        app:layout_constraintLeft_toLeftOf="@+id/btnTo"/>
+
+                    <Button
+                        style="@style/DatePreview"
+                        android:id="@+id/btnTo"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        tools:text="0000-00-00"
+                        android:text="@={dashboardViewModel.endDate}"
+                        android:layout_marginTop="@dimen/xlarge_margin"
+                        android:layout_marginHorizontal="@dimen/xsmall_margin"
+                        app:layout_constraintTop_toBottomOf="@+id/tvCurrentTradingPair"
+                        app:layout_constraintLeft_toRightOf="@+id/btnFrom"
+                        app:layout_constraintRight_toRightOf="parent"/>
+
+                    <TextView
+                        android:visibility="gone"
+                        style="@style/MediumTextView"
+                        android:id="@+id/tvRequestingPairs"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@={dashboardViewModel.pairsMessage}"
+                        android:textStyle="bold"
+                        android:gravity="left"
+                        android:layout_marginTop="@dimen/large_margin"
+                        android:layout_marginHorizontal="@dimen/xsmall_margin"
+                        app:layout_constraintTop_toBottomOf="@+id/btnTo"/>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvRequestingPairs"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clipToPadding="true"
+                        android:nestedScrollingEnabled="false"
+                        android:background="@color/dark_ackground"
+                        app:layout_constraintTop_toBottomOf="@+id/tvRequestingPairs"
+                        app:layout_constraintLeft_toLeftOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </ScrollView>
+
+            <Button
+                style="@style/FX45Button"
+                android:id="@+id/btnGetHistory"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="@string/view_trade_history"
+                android:layout_margin="@dimen/xsmall_margin"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <FrameLayout
+            android:visibility="gone"
+            android:id="@+id/flLoader"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:background="@color/dark_ackground">
+
+            <com.wang.avi.AVLoadingIndicatorView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:visibility="visible"
+                app:indicatorColor="@color/lightText"
+                app:indicatorName="LineSpinFadeLoaderIndicator"
+                android:layout_gravity="center"/>
+
+        </FrameLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

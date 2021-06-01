@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,17 +22,19 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import androidx.lifecycle.lifecycleScope
 import com.platform45.fx45.helpers.showErrorDialog
-import kotlinx.android.synthetic.main.history_fragment.*
+import com.platform45.fx45.ui.dashboard.datetime.DateTimePickerFragment
 
-class DashboardFragment : BaseFragment(), PopularPairsAdapter.AddPairClickListener {
+class DashboardFragment : BaseFragment(), PopularPairsAdapter.AddPairClickListener, DateTimePickerFragment.DateTimeSetter {
     private lateinit var binding: FragmentDashboardBinding
     private val dashboardViewModel: DashboardViewModel by viewModel()
-    private var popularPairsAdapter: PopularPairsAdapter =  PopularPairsAdapter()
+    private lateinit var popularPairsAdapter: PopularPairsAdapter
+    override var indx: Int = 0
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         myDrawerController.setDashboardFragment(this)
         myDrawerController.setTitle(getString(R.string.app_name))
+        popularPairsAdapter = PopularPairsAdapter(context)
     }
 
     override fun onCreateView(
@@ -96,19 +100,21 @@ class DashboardFragment : BaseFragment(), PopularPairsAdapter.AddPairClickListen
     }
 
     override fun onPairClicked(position: Int) {
-
+        //Add to pairs list
+        Toast.makeText(context, "$position onPairClicked", Toast.LENGTH_SHORT).show()
     }
 
     override fun onConvertClicked(pair: String) {
-
+        //Go to convert
+        Toast.makeText(context, "$pair convert", Toast.LENGTH_SHORT).show()
     }
 
-    fun showError(errorMessage: String){
+    private fun showError(errorMessage: String){
         flLoader.visibility = View.GONE
         showErrorDialog(requireContext(), getString(R.string.error), errorMessage, getString(R.string.close))
     }
 
-    fun showLoading(){
+    private fun showLoading(){
         myDrawerController.hideToolbar()
         flLoader.visibility = View.VISIBLE
     }
@@ -116,14 +122,14 @@ class DashboardFragment : BaseFragment(), PopularPairsAdapter.AddPairClickListen
     fun showPairSelector(){
         flLoader.visibility = View.GONE
         clPairSelector.visibility = View.VISIBLE
-        clPairSeriesInfo.visibility = View.GONE
+        rvPorpularCp.visibility = View.GONE
         myDrawerController.showSelectionMode()
     }
 
     fun showPairSeriesInfo() {
         flLoader.visibility = View.GONE
         clPairSelector.visibility = View.GONE
-        clPairSeriesInfo.visibility = View.VISIBLE
+        rvPorpularCp.visibility = View.VISIBLE
         myDrawerController.showContent()
     }
 

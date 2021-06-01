@@ -9,13 +9,13 @@ import android.widget.DatePicker
 import android.widget.TimePicker
 import com.platform45.fx45.R
 import com.platform45.fx45.base.fragments.BaseDialogFragment
+import com.platform45.fx45.constants.DATETIME
 import java.sql.Time
 import java.text.Format
 import java.text.SimpleDateFormat
 
 class DateTimePickerFragment : BaseDialogFragment(){
     private var dateTimeContext: DateTimeSetter? = null
-
     private var datePickerContainerLl: View? = null
     private var timePickerContainerLl: View? = null
     private var selectedDateDp: DatePicker? = null
@@ -30,16 +30,6 @@ class DateTimePickerFragment : BaseDialogFragment(){
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        /*
-        dialog?.setCancelable(false)
-        dialog?.setCanceledOnTouchOutside(false)
-        dialog?.window?.setDimAmount(0.8f)
-        dialog?.window?.attributes?.windowAnimations = R.style.DialogAnimation
-        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        */
-        //val title = arguments?.getString(TITLE)
-       // dialog?.window?.setTitle(title)
-
         val parentView = super.onCreateView(inflater, container, savedInstanceState)
         initViews(parentView)
         return parentView

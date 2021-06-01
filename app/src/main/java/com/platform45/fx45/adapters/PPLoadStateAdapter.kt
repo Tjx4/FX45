@@ -26,7 +26,7 @@ class PPLoadStateAdapter(
     }
 
     inner class NetworkStateItemViewHolder internal constructor(parent: ViewGroup, private val retryCallback: () -> Unit) : RecyclerView.ViewHolder(
-        LayoutInflater.from(parent.context).inflate(R.layout.network_state_item, parent, false)){
+        LayoutInflater.from(parent.context).inflate(R.layout.load_state_layout, parent, false)){
         private val progressBar: AVLoadingIndicatorView = itemView.findViewById(R.id.pb_progress)
         private val retry: Button = itemView.findViewById(R.id.b_retry)
 

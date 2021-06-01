@@ -1,5 +1,6 @@
 package com.platform45.fx45.adapters
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,8 +11,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.platform45.fx45.R
 import com.platform45.fx45.persistance.room.tables.popularPair.PopularPairTable
+import kotlinx.android.synthetic.main.fragment_dashboard.*
 
-class PopularPairsAdapter : PagingDataAdapter<PopularPairTable, PopularPairsAdapter.PopularViewHolder>(PairComparator)  {
+class PopularPairsAdapter(var context: Context) : PagingDataAdapter<PopularPairTable, PopularPairsAdapter.PopularViewHolder>(PairComparator)  {
 
     private var pairClickListener: AddPairClickListener? = null
 
@@ -28,15 +30,15 @@ class PopularPairsAdapter : PagingDataAdapter<PopularPairTable, PopularPairsAdap
         val currentPair = getItem(position)
         holder.favCpTv.text = currentPair?.pair
         holder.favCpFnTv.text = currentPair?.fullName
-        holder.convertImgb.setOnClickListener {
-            currentPair?.pair?.let { it1 -> pairClickListener?.onConvertClicked(it1) }
-        }
+        holder.convertImgb.setOnClickListener { currentPair?.pair?.let { it1 -> pairClickListener?.onConvertClicked(it1) } }
+        holder.selIndicatorV.background = context.resources.getDrawable( if(currentPair?.isSelected == true) R.drawable.fx_button_background  else R.drawable.fx_disabled_button_background)
     }
 
     inner class PopularViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
         internal var favCpTv = itemView.findViewById<TextView>(R.id.tvFavCp)
         internal var favCpFnTv = itemView.findViewById<TextView>(R.id.tvFavCpFn)
         internal var convertImgb = itemView.findViewById<ImageButton>(R.id.btnConvert)
+        internal var selIndicatorV = itemView.findViewById<View>(R.id.vSelIndicator)
 
         init {
             itemView.setOnClickListener(this)
@@ -44,6 +46,7 @@ class PopularPairsAdapter : PagingDataAdapter<PopularPairTable, PopularPairsAdap
 
         override fun onClick(view: View) {
             pairClickListener?.onPairClicked(adapterPosition)
+            selIndicatorV.background = context.resources.getDrawable(R.drawable.fx_button_background)
         }
     }
 
@@ -55,7 +58,6 @@ class PopularPairsAdapter : PagingDataAdapter<PopularPairTable, PopularPairsAdap
     fun addPairClickListener(pairClickListener: AddPairClickListener) {
         this.pairClickListener = pairClickListener
     }
-
 }
 
 object PairComparator : DiffUtil.ItemCallback<PopularPairTable>() {

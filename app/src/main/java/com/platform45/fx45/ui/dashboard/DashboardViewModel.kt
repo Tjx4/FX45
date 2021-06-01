@@ -16,7 +16,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class DashboardViewModel(val app: Application, private val fXRepository: FXRepository) : BaseVieModel(app) {
-    private val availableCurrencies: MutableLiveData<List<String>> = MutableLiveData()
+    val availableCurrencies: MutableLiveData<List<String>> = MutableLiveData()
 
     private val _showLoading: MutableLiveData<Boolean> = MutableLiveData()
     val showLoading: MutableLiveData<Boolean>
@@ -52,7 +52,7 @@ class DashboardViewModel(val app: Application, private val fXRepository: FXRepos
 
     val popularCurrencyPairs = Pager(
         config = PagingConfig(pageSize = 10),
-        pagingSourceFactory = { PopularPairPagingSource(fXRepository) }
+        pagingSourceFactory = { PopularPairPagingSource(fXRepository, _currencyPairs.value) }
     ).flow.cachedIn(viewModelScope)
 
     init {
@@ -62,7 +62,7 @@ class DashboardViewModel(val app: Application, private val fXRepository: FXRepos
     }
 
     private fun initStartAndEndDate() {
-        _startDate.value = getDaysAgo(28)
+        _startDate.value = getDaysAgo(30)
         _endDate.value = getCurrentDate()
     }
 
