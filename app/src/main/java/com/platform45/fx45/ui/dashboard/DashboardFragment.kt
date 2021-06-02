@@ -209,8 +209,8 @@ class DashboardFragment : BaseFragment(), PopularPairsPagingAdapter.AddPairClick
 
     override fun setTime(scheduledTime: String) {
         when (indx) {
-            0 -> dashboardViewModel.setStartDate("${btnFrom.text}-$scheduledTime")
-            1 -> dashboardViewModel.setEndDate("${btnTo.text}-$scheduledTime")
+            0 -> dashboardViewModel.setStartTime("$scheduledTime")
+            1 -> dashboardViewModel.setEndTime("$scheduledTime")
         }
     }
 

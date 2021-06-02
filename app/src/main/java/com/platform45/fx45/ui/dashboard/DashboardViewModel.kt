@@ -91,12 +91,20 @@ class DashboardViewModel(val app: Application, private val fXRepository: FXRepos
         _userSelectedPair.value?.let { addCurrencyPairToList(it) }
     }
 
-    fun setStartDate(startDate: String) {
+    fun setStartDate(startDate: String?) {
         _startDate.value = "$startDate"
     }
 
-    fun setEndDate(endDate: String) {
+    fun setEndDate(endDate: String?) {
         _endDate.value = "$endDate"
+    }
+
+    fun setStartTime(startTime: String?) {
+        startTime?.let { _startDate.value = "${_startDate.value}-$it" }
+    }
+
+    fun setEndTime(endTime: String?) {
+        endTime.let { _endDate.value = "${_endDate.value}-$it"}
     }
 
     fun togglePopularPairFromList(currencyPair: String) {
