@@ -1,4 +1,4 @@
-package com.platform45.fx45.ui.history
+package com.platform45.fx45.ui.test
 
 import android.content.Context
 import android.os.Bundle
@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.platform45.fx45.R
 import com.platform45.fx45.adapters.HistoryLoadStateAdapter
 import com.platform45.fx45.adapters.HistoryPagingAdapter
-import com.platform45.fx45.adapters.PPLoadStateAdapter
 import com.platform45.fx45.base.fragments.BaseFragment
+import com.platform45.fx45.databinding.FragmentTestBinding
 import com.platform45.fx45.helpers.showErrorDialog
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import kotlinx.android.synthetic.main.history_fragment.*
@@ -23,8 +23,8 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class HistoryFragment : BaseFragment() {
-    private lateinit var binding: FragmentHistoryBinding
+class TestFragment : BaseFragment() {
+    private lateinit var binding: FragmentTestBinding
     private val historyViewModel: HistoryViewModel by viewModel()
     private lateinit var historyPagingAdapter: HistoryPagingAdapter
 
@@ -37,9 +37,9 @@ class HistoryFragment : BaseFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         myDrawerController.hideMenu()
-        binding = DataBindingUtil.inflate(inflater, R.layout.history_fragment, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_test, container, false)
         binding.lifecycleOwner = this
         binding.historyViewModel = historyViewModel
         return binding.root
@@ -102,5 +102,6 @@ class HistoryFragment : BaseFragment() {
         showErrorDialog(requireContext(), getString(R.string.error), errorMessage, getString(R.string.close))
         myDrawerController.hideLoading()
     }
+
 
 }

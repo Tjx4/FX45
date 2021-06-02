@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools">
-<data>
-    <variable
-        name="historyViewModel"
-        type="com.platform45.fx45.ui.test.HistoryViewModel"/>
-</data>
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="historyViewModel"
+            type="com.platform45.fx45.ui.test.HistoryViewModel"/>
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:animateLayoutChanges="true"
-        tools:context=".ui.history.HistoryFragment"
+        tools:context=".ui.test.TestFragment"
         style="@style/ParentView">
 
         <ImageView
@@ -28,5 +27,4 @@ xmlns:tools="http://schemas.android.com/tools">
             android:layout_height="match_parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </layout>
