@@ -7,6 +7,7 @@ import com.platform45.fx45.constants.PP_PAGE_SIZE
 import com.platform45.fx45.helpers.getPairHistoryList
 import com.platform45.fx45.helpers.toDbTable
 import com.platform45.fx45.helpers.toPricseLinkedTreeMap
+import com.platform45.fx45.models.ResponseError
 import com.platform45.fx45.persistance.room.tables.pairHistory.PairHistoryTable
 import com.platform45.fx45.repositories.FXRepository
 import java.lang.NullPointerException
@@ -24,7 +25,8 @@ class HistoryPairPagingSource(private val startDate: String, private val endDate
         )
 
         if (result?.price == null) {
-            LoadResult.Error(NullPointerException("Something went wrong"))
+            val error = result as ResponseError
+            LoadResult.Error(NullPointerException(error.info))
         }
         else{
             val response = ArrayList<PairHistoryTable>()
