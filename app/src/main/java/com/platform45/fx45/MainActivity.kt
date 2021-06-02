@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity(), MyDrawerController{
         findMenuItem?.isVisible = false
         closeMenuItem?.isVisible = true
         convertMenuItem?.isVisible = false
-        flLoader.visibility = View.GONE
+        flLoader?.visibility = View.GONE
     }
 
     override fun setDashboardFragment(dashboardFragment: DashboardFragment) {
@@ -76,11 +76,11 @@ class MainActivity : AppCompatActivity(), MyDrawerController{
     }
     
     override fun showLoading() {
-        flLoader.visibility = View.VISIBLE
+        flLoader?.visibility = View.VISIBLE
     }
 
     override fun hideLoading() {
-        flLoader.visibility = View.GONE
+        flLoader?.visibility = View.GONE
     }
 
     override fun showMenu() {

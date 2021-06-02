@@ -102,7 +102,11 @@ class DashboardFragment : BaseFragment(), PopularPairsPagingAdapter.AddPairClick
         }
 
         btnGetHistory.setOnClickListener {
-            Toast.makeText(context, "btnGetHistory", Toast.LENGTH_SHORT).show()
+            val startDate = dashboardViewModel.startDate.value ?: ""
+            val endDate = dashboardViewModel.endDate.value ?: ""
+            val currencyPairs = dashboardViewModel.getCurrencyPairsString()
+            val action = DashboardFragmentDirections.dashboardToTradeHistory(startDate, endDate, currencyPairs)
+            findNavController().navigate(action)
         }
     }
 

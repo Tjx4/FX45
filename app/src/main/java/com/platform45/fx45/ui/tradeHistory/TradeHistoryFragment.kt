@@ -1,4 +1,4 @@
-package com.platform45.fx45.ui.test
+package com.platform45.fx45.ui.tradeHistory
 
 import android.content.Context
 import android.os.Bundle
@@ -9,24 +9,27 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.navArgs
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.platform45.fx45.R
 import com.platform45.fx45.adapters.HistoryLoadStateAdapter
 import com.platform45.fx45.adapters.HistoryPagingAdapter
 import com.platform45.fx45.base.fragments.BaseFragment
-import com.platform45.fx45.databinding.FragmentTestBinding
+import com.platform45.fx45.databinding.FragmentTradeHistoryBinding
 import com.platform45.fx45.helpers.showErrorDialog
+import com.platform45.fx45.ui.convert.ConversionFragmentArgs
 import kotlinx.android.synthetic.main.fragment_dashboard.*
-import kotlinx.android.synthetic.main.history_fragment.*
+import kotlinx.android.synthetic.main.fragment_trade_history.*
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class TestFragment : BaseFragment() {
-    private lateinit var binding: FragmentTestBinding
-    private val historyViewModel: HistoryViewModel by viewModel()
+class TradeHistoryFragment : BaseFragment() {
+    private lateinit var binding: FragmentTradeHistoryBinding
+    private val tradeHistoryViewModel: TradeHistoryViewModel by viewModel()
     private lateinit var historyPagingAdapter: HistoryPagingAdapter
+    private val args: TradeHistoryFragmentArgs by navArgs()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -39,9 +42,9 @@ class TestFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         myDrawerController.hideMenu()
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_test, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_trade_history, container, false)
         binding.lifecycleOwner = this
-        binding.historyViewModel = historyViewModel
+        binding.tradeHistoryViewModel = tradeHistoryViewModel
         return binding.root
     }
 
@@ -49,11 +52,12 @@ class TestFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         Navigation.findNavController(view).currentDestination?.label = getString(R.string.trade_history)
 
+        tradeHistoryViewModel.setParams(args.startDate, args.endDate, args.currencyPairs)
         addObservers()
         initRecyclerView()
     }
 
-    fun initRecyclerView(){
+    private fun initRecyclerView(){
         rvtrades.apply {
             rvPorpularCp?.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             setHasFixedSize(true)
@@ -63,7 +67,7 @@ class TestFragment : BaseFragment() {
         }
 
         lifecycleScope.launch {
-            historyViewModel.popularCurrencyPairs.collectLatest {
+            tradeHistoryViewModel.popularCurrencyPairs.collectLatest {
                 historyPagingAdapter.submitData(it)
             }
         }
@@ -91,7 +95,7 @@ class TestFragment : BaseFragment() {
     }
 
     private fun addObservers() {
-        historyViewModel.showLoading.observe(viewLifecycleOwner, Observer { onShowLoading(it) })
+        tradeHistoryViewModel.showLoading.observe(viewLifecycleOwner, Observer { onShowLoading(it) })
     }
 
     private fun onShowLoading(showLoading: Boolean){
@@ -102,6 +106,5 @@ class TestFragment : BaseFragment() {
         showErrorDialog(requireContext(), getString(R.string.error), errorMessage, getString(R.string.close))
         myDrawerController.hideLoading()
     }
-
 
 }
