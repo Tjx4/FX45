@@ -74,7 +74,7 @@
             <Button
                 android:id="@+id/btnDateTimeNext"
                 style="@style/FX45Button"
-                android:text="Set time"
+                android:text="@string/set_time"
                 android:layout_weight="1"/>
 
             <Button
@@ -82,14 +82,14 @@
                 android:id="@+id/btnDateTimeBack"
                 style="@style/FX45Button"
                 android:layout_weight="1"
-                android:text="Back" />
+                android:text="@string/set_date" />
 
             <Button
                 android:id="@+id/btnDateTimeDone"
                 style="@style/FX45Button"
                 android:layout_marginLeft="@dimen/xsmall_margin"
                 android:layout_weight="1"
-                android:text="Done" />
+                android:text="@string/done" />
 
         </LinearLayout>
 

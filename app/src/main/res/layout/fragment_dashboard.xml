@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:animateLayoutChanges="true"
+        tools:context=".ui.dashboard.DashboardFragment"
         style="@style/ParentView">
 
         <ImageView
@@ -225,24 +226,6 @@
                 app:layout_constraintRight_toRightOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <FrameLayout
-            android:visibility="gone"
-            android:id="@+id/flLoader"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clickable="true"
-            android:background="@color/dark_ackground">
-
-            <com.wang.avi.AVLoadingIndicatorView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:visibility="visible"
-                app:indicatorColor="@color/lightText"
-                app:indicatorName="LineSpinFadeLoaderIndicator"
-                android:layout_gravity="center"/>
-
-        </FrameLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -10,9 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.platform45.fx45.R
 import com.wang.avi.AVLoadingIndicatorView
 
-class PPLoadStateAdapter(
-    private val pagingAdapter: PopularPairsPagingAdapter
-) : LoadStateAdapter<PPLoadStateAdapter.NetworkStateItemViewHolder>() {
+class HistoryLoadStateAdapter(
+    private val pagingAdapter: HistoryPagingAdapter
+) : LoadStateAdapter<HistoryLoadStateAdapter.NetworkStateItemViewHolder>() {
 
     override fun onBindViewHolder(holder: NetworkStateItemViewHolder, loadState: LoadState) {
         holder.bindTo(loadState)

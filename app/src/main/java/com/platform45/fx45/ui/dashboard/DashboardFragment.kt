@@ -15,7 +15,7 @@ import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.platform45.fx45.R
 import com.platform45.fx45.adapters.PPLoadStateAdapter
-import com.platform45.fx45.adapters.PopularPairsAdapter
+import com.platform45.fx45.adapters.PopularPairsPagingAdapter
 import com.platform45.fx45.base.fragments.BaseFragment
 import com.platform45.fx45.databinding.FragmentDashboardBinding
 import kotlinx.android.synthetic.main.fragment_dashboard.*
@@ -32,17 +32,17 @@ import com.platform45.fx45.helpers.showDateTimeDialogFragment
 import com.platform45.fx45.helpers.showErrorDialog
 import com.platform45.fx45.ui.dashboard.datetime.DateTimePickerFragment
 
-class DashboardFragment : BaseFragment(), PopularPairsAdapter.AddPairClickListener, CurrencyPairAdapter.UserInteractions, DateTimePickerFragment.DateTimeSetter {
+class DashboardFragment : BaseFragment(), PopularPairsPagingAdapter.AddPairClickListener, CurrencyPairAdapter.UserInteractions, DateTimePickerFragment.DateTimeSetter {
     private lateinit var binding: FragmentDashboardBinding
     private val dashboardViewModel: DashboardViewModel by viewModel()
-    private lateinit var popularPairsAdapter: PopularPairsAdapter
+    private lateinit var popularPairsPagingAdapter: PopularPairsPagingAdapter
     override var indx: Int = 0
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         myDrawerController.setDashboardFragment(this)
         myDrawerController.setTitle(getString(R.string.app_name))
-        popularPairsAdapter = PopularPairsAdapter(context)
+        popularPairsPagingAdapter = PopularPairsPagingAdapter(context)
     }
 
     override fun onCreateView(
@@ -102,29 +102,34 @@ class DashboardFragment : BaseFragment(), PopularPairsAdapter.AddPairClickListen
         }
 
         btnGetHistory.setOnClickListener {
-            Toast.makeText(context, "btnGetHistory", Toast.LENGTH_SHORT).show()
+            val startDate = dashboardViewModel.startDate.value ?: ""
+            val endDate = dashboardViewModel.endDate.value ?: ""
+            val currencyPairs = dashboardViewModel.getCurrencyPairsString()
+            val action = DashboardFragmentDirections.dashboardToTradeHistory(startDate, endDate, currencyPairs)
+            findNavController().navigate(action)
         }
     }
 
     fun initRecyclerView(){
+        popularPairsPagingAdapter.dashboardViewModel = dashboardViewModel
         rvPorpularCp.apply {
             rvPorpularCp?.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             setHasFixedSize(true)
-            adapter = popularPairsAdapter.withLoadStateFooter(
-                footer =  PPLoadStateAdapter(popularPairsAdapter)
+            adapter = popularPairsPagingAdapter.withLoadStateFooter(
+                footer =  PPLoadStateAdapter(popularPairsPagingAdapter)
             )
         }
 
-        popularPairsAdapter.addPairClickListener(this)
+        popularPairsPagingAdapter.addPairClickListener(this)
 
         lifecycleScope.launch {
             dashboardViewModel.popularCurrencyPairs.collectLatest {
-                popularPairsAdapter.submitData(it)
+                popularPairsPagingAdapter.submitData(it)
             }
         }
 
         lifecycleScope.launch {
-            popularPairsAdapter.loadStateFlow.collectLatest { loadState ->
+            popularPairsPagingAdapter.loadStateFlow.collectLatest { loadState ->
                 when (loadState.refresh) {
                     is LoadState.Error -> {
                         val error = when {
@@ -138,7 +143,7 @@ class DashboardFragment : BaseFragment(), PopularPairsAdapter.AddPairClickListen
                             showError(message)
                         }
                     }
-                    is LoadState.Loading ->  showLoading()
+                    is LoadState.Loading -> myDrawerController.showLoading()
                     is LoadState.NotLoading -> showPairSeriesInfo()
                 }
             }
@@ -153,7 +158,7 @@ class DashboardFragment : BaseFragment(), PopularPairsAdapter.AddPairClickListen
     }
 
     override fun onPairClicked(position: Int, pair: String) {
-        dashboardViewModel.addPopularPairToList(pair)
+        dashboardViewModel.togglePopularPairFromList(pair)
     }
 
     override fun onConvertClicked(pair: String) {
@@ -167,29 +172,22 @@ class DashboardFragment : BaseFragment(), PopularPairsAdapter.AddPairClickListen
     }
 
     override fun onDeleteClicked(pair: String, position: Int) {
-        dashboardViewModel.deleteCurrencyPairFromList(position)
+        dashboardViewModel.removePairFromList(position)
         Toast.makeText(context, "$pair deleted", Toast.LENGTH_SHORT).show()
     }
 
     private fun showError(errorMessage: String){
-        flLoader.visibility = View.INVISIBLE
         showErrorDialog(requireContext(), getString(R.string.error), errorMessage, getString(R.string.close))
-    }
-
-    private fun showLoading(){
-        myDrawerController.hideToolbar()
-        flLoader.visibility = View.VISIBLE
+        myDrawerController.hideLoading()
     }
 
     fun showPairSelector(){
-        flLoader.visibility = View.INVISIBLE
         clPairSelector.visibility = View.VISIBLE
         clPairSeriesInfo.visibility = View.INVISIBLE
         myDrawerController.showSelectionMode()
     }
 
     fun showPairSeriesInfo() {
-        flLoader.visibility = View.INVISIBLE
         clPairSelector.visibility = View.INVISIBLE
         clPairSeriesInfo.visibility = View.VISIBLE
         myDrawerController.showContent()
@@ -204,15 +202,15 @@ class DashboardFragment : BaseFragment(), PopularPairsAdapter.AddPairClickListen
 
     override fun setDate(year: Int, month: Int, day: Int) {
         when (indx) {
-            0 -> btnFrom.text = "$year-$month-$day" //Todo fix
-            1 -> btnTo.text = "$year-$month-$day"
+            0 -> dashboardViewModel.setStartDate("$year-$month-$day")
+            1 -> dashboardViewModel.setEndDate("$year-$month-$day")
         }
     }
 
     override fun setTime(scheduledTime: String) {
         when (indx) {
-            0 -> btnFrom.text = "${btnFrom.text}-$scheduledTime"
-            1 -> btnTo.text = "${btnTo.text}-$scheduledTime"
+            0 -> dashboardViewModel.setStartDate("${btnFrom.text}-$scheduledTime")
+            1 -> dashboardViewModel.setEndDate("${btnTo.text}-$scheduledTime")
         }
     }
 
@@ -226,6 +224,7 @@ class DashboardFragment : BaseFragment(), PopularPairsAdapter.AddPairClickListen
     }
 
     fun onPairsListUpdated(isUpdated: Boolean){
+        rvPorpularCp?.adapter?.notifyDataSetChanged()
         rvRequestingPairs?.adapter?.notifyDataSetChanged()
     }
 }

@@ -12,10 +12,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.platform45.fx45.R
 import com.platform45.fx45.persistance.room.tables.popularPair.PopularPairTable
+import com.platform45.fx45.ui.dashboard.DashboardViewModel
 
-class PopularPairsAdapter(var context: Context) : PagingDataAdapter<PopularPairTable, PopularPairsAdapter.PopularViewHolder>(PairComparator)  {
-
+class PopularPairsPagingAdapter(var context: Context) : PagingDataAdapter<PopularPairTable, PopularPairsPagingAdapter.PopularViewHolder>(PairComparator)  {
     private var pairClickListener: AddPairClickListener? = null
+    var dashboardViewModel: DashboardViewModel? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PopularViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(
@@ -31,10 +32,13 @@ class PopularPairsAdapter(var context: Context) : PagingDataAdapter<PopularPairT
         holder.favCpTv.text = currentPair?.pair
         holder.favCpFnTv.text = currentPair?.fullName
         holder.convertImgb.setOnClickListener { currentPair?.pair?.let { it1 -> pairClickListener?.onConvertClicked(it1) } }
-        holder.selIndicatorV.background = getStateIndicatoer(currentPair)
+        holder.selIndicatorV.background = getStateIndicator(currentPair?.pair ?: "")
     }
 
-    private fun getStateIndicatoer(currentPair: PopularPairTable?) = context.resources.getDrawable(if (currentPair?.isSelected == true) R.drawable.selected_background else R.drawable.fx_disabled_button_background)
+    private fun isSelected(currentPair: String): Boolean {
+        return dashboardViewModel?.currencyPairs?.value?.contains(currentPair) == true
+    }
+    private fun getStateIndicator(currentPair: String) = context.resources.getDrawable(if(isSelected(currentPair)) R.drawable.selected_background else R.drawable.fx_disabled_button_background)
 
     inner class PopularViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
         internal var favCpTv = itemView.findViewById<TextView>(R.id.tvFavCp)
@@ -52,14 +56,10 @@ class PopularPairsAdapter(var context: Context) : PagingDataAdapter<PopularPairT
         }
 
         private fun handleViewClick(currencyPair: PopularPairTable) {
-            val selecItem = !currencyPair.isSelected
-            currencyPair.isSelected = selecItem
-            getItem(adapterPosition)?.isSelected = selecItem
+            val isSelectedItem = isSelected(currencyPair?.pair ?: "")
             pairClickListener?.onPairClicked(adapterPosition, currencyPair?.pair ?: "")
-            selIndicatorV.background = getStateIndicatoer(currencyPair)
-            if(selecItem)
-                Toast.makeText(context, "${currencyPair.pair} selected", Toast.LENGTH_SHORT).show()
-            //Handle click toggle
+            selIndicatorV.background = getStateIndicator(currencyPair.pair ?: "")
+            if(!isSelectedItem) Toast.makeText(context, "${currencyPair.pair} selected", Toast.LENGTH_SHORT).show()
         }
     }
 

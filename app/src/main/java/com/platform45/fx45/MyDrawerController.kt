@@ -13,5 +13,6 @@ interface MyDrawerController {
     fun setDashboardFragment(dashboardFragment: DashboardFragment)
     fun showContent()
     fun showSelectionMode()
-    fun hideToolbar()
+    fun showLoading()
+    fun hideLoading()
 }

@@ -5,6 +5,9 @@ import com.google.gson.internal.LinkedTreeMap
 import com.google.gson.reflect.TypeToken
 import com.platform45.fx45.models.DayData
 import com.platform45.fx45.models.PairTradeHistory
+import com.platform45.fx45.persistance.room.tables.pairHistory.PairHistoryTable
+
+fun Object.toPricseLinkedTreeMap() = this as LinkedTreeMap<String?, LinkedTreeMap<String?, LinkedTreeMap<String?, Double?>?>?>?
 
 fun String.toLinkedTreeMap(): LinkedTreeMap<String?, LinkedTreeMap<String?, LinkedTreeMap<String?, Double?>?>?>? {
     return Gson().fromJson(this,  object : TypeToken<LinkedTreeMap<String?, LinkedTreeMap<String?, LinkedTreeMap<String?, Double?>?>?>?>() {}.type)
@@ -56,5 +59,10 @@ fun getPairHistoryList(startDate: String, endDate: String, currencies: List<Stri
 
     return tempPairTrades
 }
+
+fun PairTradeHistory.toDbTable() = PairHistoryTable(`tradingPair` = this.tradingPair , `startDate` = this.startDate, `endDate` = this.endDate, `history` = this.history.mapToString())
+fun PairHistoryTable.toPairHistory() =  PairTradeHistory(this.tradingPair, this.startDate, this.endDate, this.history?.toDayDataList())
+
+
 
 
