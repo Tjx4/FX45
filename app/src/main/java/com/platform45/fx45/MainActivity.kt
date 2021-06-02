@@ -14,6 +14,7 @@ import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.platform45.fx45.ui.dashboard.DashboardFragment
 import com.platform45.fx45.ui.dashboard.DashboardFragmentDirections
+import kotlinx.android.synthetic.main.fragment_dashboard.*
 import kotlinx.android.synthetic.main.main_activity.*
 
 class MainActivity : AppCompatActivity(), MyDrawerController{
@@ -94,6 +95,15 @@ class MainActivity : AppCompatActivity(), MyDrawerController{
 
     override fun hideMenu() {
         toolbarMenu?.clear()
+    }
+
+    override fun onBackPressed() {
+        if(dbFragment?.clPairSeriesInfo?.visibility == View.INVISIBLE){
+            dbFragment?.showPairSeriesInfo()
+        }
+        else{
+            super.onBackPressed()
+        }
     }
 
 }

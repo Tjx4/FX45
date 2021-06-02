@@ -52,7 +52,7 @@ class DashboardViewModel(val app: Application, private val fXRepository: FXRepos
 
     val popularCurrencyPairs = Pager(
         config = PagingConfig(pageSize = 10),
-        pagingSourceFactory = { PopularPairPagingSource(fXRepository, _currencyPairs.value) }
+        pagingSourceFactory = { PopularPairPagingSource(fXRepository) }
     ).flow.cachedIn(viewModelScope)
 
     init {
@@ -82,6 +82,7 @@ class DashboardViewModel(val app: Application, private val fXRepository: FXRepos
         availableCurrencies.value = tmpList?.sortedBy { it }
     }
 
+
     fun setCurrencyPair(frmIndx: Int, ToIndx: Int) {
         _userSelectedPair.value = "${availableCurrencies.value?.get(frmIndx) ?: ""}${availableCurrencies.value?.get(ToIndx)}"
     }
@@ -90,8 +91,20 @@ class DashboardViewModel(val app: Application, private val fXRepository: FXRepos
         _userSelectedPair.value?.let { addCurrencyPairToList(it) }
     }
 
-    fun addPopularPairToList(currencyPair: String) {
-        currencyPair.let { addCurrencyPairToList(it) }
+    fun setStartDate(startDate: String) {
+        _endDate.value = "$startDate"
+    }
+
+    fun setEndDate(endDate: String) {
+        _endDate.value = "$endDate"
+    }
+
+    fun togglePopularPairFromList(currencyPair: String) {
+        val currencyPairs = _currencyPairs.value as ArrayList
+        if(currencyPairs.contains(currencyPair))
+            removePairFromList(currencyPair)
+        else
+            addCurrencyPairToList(currencyPair)
     }
 
     private fun addCurrencyPairToList(currencyPair: String) {
@@ -102,9 +115,18 @@ class DashboardViewModel(val app: Application, private val fXRepository: FXRepos
         _isPairsUpdated.value = true
     }
 
-    fun deleteCurrencyPairFromList(indx: Int) {
+    fun removePairFromList(indx: Int) {
         val currencyPairs = _currencyPairs.value as ArrayList
+        if(indx > currencyPairs.size) return
         currencyPairs.removeAt(indx)
+        _canProceed.value = !_currencyPairs.value.isNullOrEmpty()
+        _pairsMessage.value = "You selected ${currencyPairs.size} pair${if(currencyPairs.size == 1) "" else "s"}"
+        _isPairsUpdated.value = true
+    }
+
+    fun removePairFromList(pair: String) {
+        val currencyPairs = _currencyPairs.value as ArrayList
+        currencyPairs.remove(pair)
         _canProceed.value = !_currencyPairs.value.isNullOrEmpty()
         _pairsMessage.value = "You selected ${currencyPairs.size} pair${if(currencyPairs.size == 1) "" else "s"}"
         _isPairsUpdated.value = true

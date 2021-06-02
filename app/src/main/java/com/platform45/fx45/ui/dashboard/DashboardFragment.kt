@@ -111,6 +111,7 @@ class DashboardFragment : BaseFragment(), PopularPairsPagingAdapter.AddPairClick
     }
 
     fun initRecyclerView(){
+        popularPairsPagingAdapter.dashboardViewModel = dashboardViewModel
         rvPorpularCp.apply {
             rvPorpularCp?.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             setHasFixedSize(true)
@@ -157,7 +158,7 @@ class DashboardFragment : BaseFragment(), PopularPairsPagingAdapter.AddPairClick
     }
 
     override fun onPairClicked(position: Int, pair: String) {
-        dashboardViewModel.addPopularPairToList(pair)
+        dashboardViewModel.togglePopularPairFromList(pair)
     }
 
     override fun onConvertClicked(pair: String) {
@@ -171,7 +172,7 @@ class DashboardFragment : BaseFragment(), PopularPairsPagingAdapter.AddPairClick
     }
 
     override fun onDeleteClicked(pair: String, position: Int) {
-        dashboardViewModel.deleteCurrencyPairFromList(position)
+        dashboardViewModel.removePairFromList(position)
         Toast.makeText(context, "$pair deleted", Toast.LENGTH_SHORT).show()
     }
 
@@ -201,15 +202,15 @@ class DashboardFragment : BaseFragment(), PopularPairsPagingAdapter.AddPairClick
 
     override fun setDate(year: Int, month: Int, day: Int) {
         when (indx) {
-            0 -> btnFrom.text = "$year-$month-$day" //Todo fix
-            1 -> btnTo.text = "$year-$month-$day"
+            0 -> dashboardViewModel.setStartDate("$year-$month-$day")
+            1 -> dashboardViewModel.setEndDate("$year-$month-$day")
         }
     }
 
     override fun setTime(scheduledTime: String) {
         when (indx) {
-            0 -> btnFrom.text = "${btnFrom.text}-$scheduledTime"
-            1 -> btnTo.text = "${btnTo.text}-$scheduledTime"
+            0 -> dashboardViewModel.setStartDate("${btnFrom.text}-$scheduledTime")
+            1 -> dashboardViewModel.setEndDate("${btnTo.text}-$scheduledTime")
         }
     }
 
@@ -223,6 +224,7 @@ class DashboardFragment : BaseFragment(), PopularPairsPagingAdapter.AddPairClick
     }
 
     fun onPairsListUpdated(isUpdated: Boolean){
+        rvPorpularCp?.adapter?.notifyDataSetChanged()
         rvRequestingPairs?.adapter?.notifyDataSetChanged()
     }
 }
