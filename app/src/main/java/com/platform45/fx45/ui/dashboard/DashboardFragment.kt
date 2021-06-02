@@ -138,7 +138,7 @@ class DashboardFragment : BaseFragment(), PopularPairsPagingAdapter.AddPairClick
                             showError(message)
                         }
                     }
-                    is LoadState.Loading ->  showLoading()
+                    is LoadState.Loading -> myDrawerController.showLoading()
                     is LoadState.NotLoading -> showPairSeriesInfo()
                 }
             }
@@ -174,10 +174,6 @@ class DashboardFragment : BaseFragment(), PopularPairsPagingAdapter.AddPairClick
     private fun showError(errorMessage: String){
         showErrorDialog(requireContext(), getString(R.string.error), errorMessage, getString(R.string.close))
         myDrawerController.hideLoading()
-    }
-
-    private fun showLoading(){
-        myDrawerController.showLoading()
     }
 
     fun showPairSelector(){

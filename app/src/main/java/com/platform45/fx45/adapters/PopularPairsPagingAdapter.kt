@@ -31,10 +31,10 @@ class PopularPairsPagingAdapter(var context: Context) : PagingDataAdapter<Popula
         holder.favCpTv.text = currentPair?.pair
         holder.favCpFnTv.text = currentPair?.fullName
         holder.convertImgb.setOnClickListener { currentPair?.pair?.let { it1 -> pairClickListener?.onConvertClicked(it1) } }
-        holder.selIndicatorV.background = getStateIndicatoer(currentPair)
+        holder.selIndicatorV.background = getStateIndicator(currentPair)
     }
 
-    private fun getStateIndicatoer(currentPair: PopularPairTable?) = context.resources.getDrawable(if (currentPair?.isSelected == true) R.drawable.selected_background else R.drawable.fx_disabled_button_background)
+    private fun getStateIndicator(currentPair: PopularPairTable?) = context.resources.getDrawable(if (currentPair?.isSelected == true) R.drawable.selected_background else R.drawable.fx_disabled_button_background)
 
     inner class PopularViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
         internal var favCpTv = itemView.findViewById<TextView>(R.id.tvFavCp)
@@ -56,10 +56,10 @@ class PopularPairsPagingAdapter(var context: Context) : PagingDataAdapter<Popula
             currencyPair.isSelected = selecItem
             getItem(adapterPosition)?.isSelected = selecItem
             pairClickListener?.onPairClicked(adapterPosition, currencyPair?.pair ?: "")
-            selIndicatorV.background = getStateIndicatoer(currencyPair)
+            selIndicatorV.background = getStateIndicator(currencyPair)
             if(selecItem)
                 Toast.makeText(context, "${currencyPair.pair} selected", Toast.LENGTH_SHORT).show()
-            //Handle click toggle
+            //Todo Handle click toggle
         }
     }
 
