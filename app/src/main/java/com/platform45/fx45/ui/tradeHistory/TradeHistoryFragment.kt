@@ -18,7 +18,6 @@ import com.platform45.fx45.adapters.HistoryPagingAdapter
 import com.platform45.fx45.base.fragments.BaseFragment
 import com.platform45.fx45.databinding.FragmentTradeHistoryBinding
 import com.platform45.fx45.helpers.showErrorDialog
-import com.platform45.fx45.ui.convert.ConversionFragmentArgs
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import kotlinx.android.synthetic.main.fragment_trade_history.*
 import kotlinx.coroutines.flow.collectLatest
@@ -59,7 +58,7 @@ class TradeHistoryFragment : BaseFragment() {
 
     private fun initRecyclerView(){
         rvtrades.apply {
-            rvPorpularCp?.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            rvtrades?.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             setHasFixedSize(true)
             adapter = historyPagingAdapter.withLoadStateFooter(
                 footer = HistoryLoadStateAdapter(historyPagingAdapter)
