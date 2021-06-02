@@ -43,4 +43,5 @@
     <string name="set_date">Set date</string>
     <string name="done">Done</string>
     <string name="set_time">Set time</string>
+    <string name="no_content_found_for_your_current_search">No content found for your current search</string>
 </resources>

@@ -87,7 +87,7 @@ class TradeHistoryFragment : BaseFragment() {
                         }
                     }
                     is LoadState.Loading -> myDrawerController.showLoading()
-                    is LoadState.NotLoading -> myDrawerController.hideLoading()
+                    is LoadState.NotLoading -> showHistory()
                 }
             }
         }
@@ -104,6 +104,11 @@ class TradeHistoryFragment : BaseFragment() {
     fun showError(errorMessage: String){
         showErrorDialog(requireContext(), getString(R.string.error), errorMessage, getString(R.string.close))
         myDrawerController.hideLoading()
+    }
+
+    fun showHistory(){
+        myDrawerController.hideLoading()
+        tvNoContent.visibility = View.GONE
     }
 
 }
