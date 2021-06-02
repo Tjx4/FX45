@@ -2,6 +2,8 @@ package com.platform45.fx45.ui.tradeHistory.pagging
 
 import androidx.paging.PagingSource
 import com.platform45.fx45.constants.API_KEY
+import com.platform45.fx45.constants.H_PAGE_SIZE
+import com.platform45.fx45.constants.PP_PAGE_SIZE
 import com.platform45.fx45.helpers.getPairHistoryList
 import com.platform45.fx45.helpers.toDbTable
 import com.platform45.fx45.helpers.toPricseLinkedTreeMap
@@ -27,10 +29,12 @@ class HistoryPairPagingSource(private val startDate: String, private val endDate
             it?.let { pairHistory -> response.add(pairHistory.toDbTable()) }
         }
 
+        val pages = response.size / H_PAGE_SIZE
+
         LoadResult.Page(
             data = response,
             prevKey = null,
-            nextKey = loadPage + 1
+            nextKey = if(loadPage < pages)  loadPage + 1 else null
         )
     } catch (e: Exception) {
         LoadResult.Error(e)

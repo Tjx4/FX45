@@ -7,6 +7,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import com.platform45.fx45.base.viewmodel.BaseVieModel
+import com.platform45.fx45.constants.PP_PAGE_SIZE
 import com.platform45.fx45.helpers.getCurrentDate
 import com.platform45.fx45.helpers.getDaysAgo
 import com.platform45.fx45.models.CurrencyPair
@@ -50,10 +51,9 @@ class DashboardViewModel(val app: Application, private val fXRepository: FXRepos
     val isPairsUpdated: MutableLiveData<Boolean>
         get() = _isPairsUpdated
 
-    val popularCurrencyPairs = Pager(
-        config = PagingConfig(pageSize = 10),
-        pagingSourceFactory = { PopularPairPagingSource(fXRepository) }
-    ).flow.cachedIn(viewModelScope)
+    val popularCurrencyPairs = Pager(config = PagingConfig(pageSize = PP_PAGE_SIZE)) {
+        PopularPairPagingSource(fXRepository)
+    }.flow.cachedIn(viewModelScope)
 
     init {
         initCurrencies()

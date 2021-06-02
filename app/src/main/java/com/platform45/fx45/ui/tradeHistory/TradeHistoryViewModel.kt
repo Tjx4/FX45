@@ -7,6 +7,8 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import com.platform45.fx45.base.viewmodel.BaseVieModel
+import com.platform45.fx45.constants.H_PAGE_SIZE
+import com.platform45.fx45.constants.PP_PAGE_SIZE
 import com.platform45.fx45.repositories.FXRepository
 import com.platform45.fx45.ui.tradeHistory.pagging.HistoryPairPagingSource
 
@@ -20,7 +22,7 @@ class TradeHistoryViewModel(val app: Application, private val fXRepository: FXRe
     var endDate: String = ""
     var currencyPairs: String = ""
 
-    val popularCurrencyPairs = Pager(config = PagingConfig(pageSize = 10)) {
+    val popularCurrencyPairs = Pager(config = PagingConfig(pageSize = H_PAGE_SIZE)) {
         HistoryPairPagingSource(startDate, endDate, currencyPairs, fXRepository)
     }.flow.cachedIn(viewModelScope)
 
