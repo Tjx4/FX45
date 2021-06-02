@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.navArgs
 import com.platform45.fx45.R
 import com.platform45.fx45.base.fragments.BaseFragment
 import com.platform45.fx45.databinding.FragmentConversionBinding
@@ -18,6 +19,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class ConversionFragment : BaseFragment() {
     private lateinit var binding: FragmentConversionBinding
     private val conversionViewModel: ConversionViewModel by viewModel()
+    private val args: ConversionFragmentArgs by navArgs()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -40,6 +42,7 @@ class ConversionFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         Navigation.findNavController(view).currentDestination?.label = getString(R.string.convert_currencies)
 
+        conversionViewModel.presetCurrencies(args.fromCurrency, args.toCurrency)
         addObservers()
 
         btnConvert.setOnClickListener {

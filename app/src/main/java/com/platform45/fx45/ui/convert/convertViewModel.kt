@@ -31,7 +31,7 @@ class ConversionViewModel(application: Application, private val fXRepository: FX
         get() = _convert
 
     init {
-        _amount.value = 5
+        _amount.value = 1
     }
 
     fun checkAndConvert(){
@@ -42,6 +42,11 @@ class ConversionViewModel(application: Application, private val fXRepository: FX
         ioScope.launch {
             convertCurrency(from, to, amount)
         }
+    }
+
+    fun presetCurrencies(from: String?, to: String?) {
+        from.let { _from.value = it }
+        to.let { _to.value = it }
     }
 
     suspend fun convertCurrency(from: String, to: String, amount: Int) {

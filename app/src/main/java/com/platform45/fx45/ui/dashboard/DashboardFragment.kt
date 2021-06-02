@@ -23,9 +23,11 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.platform45.fx45.adapters.CurrencyPairAdapter
 import com.platform45.fx45.extensions.getScreenCols
+import com.platform45.fx45.extensions.splitInTwo
 import com.platform45.fx45.helpers.showDateTimeDialogFragment
 import com.platform45.fx45.helpers.showErrorDialog
 import com.platform45.fx45.ui.dashboard.datetime.DateTimePickerFragment
@@ -155,9 +157,12 @@ class DashboardFragment : BaseFragment(), PopularPairsAdapter.AddPairClickListen
     }
 
     override fun onConvertClicked(pair: String) {
-        //Go to convert
-        Toast.makeText(context, "$pair convert", Toast.LENGTH_SHORT).show()
+        val fromCurrency = pair.splitInTwo()[0]
+        val toCurrency = pair.splitInTwo()[1]
+        val action = DashboardFragmentDirections.dashboardToConversion(fromCurrency, toCurrency)
+        findNavController().navigate(action)
     }
+
     override fun onPairClicked(view: View, position: Int) {
     }
 

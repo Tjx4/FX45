@@ -12,10 +12,21 @@
             android:id="@+id/dashboard_to_conversion"
             app:destination="@id/conversionFragment"
             app:enterAnim="@anim/slide_right"
-            app:exitAnim="@anim/no_transition" />
+            app:exitAnim="@anim/no_transition"
+            app:popEnterAnim="@anim/slide_left"
+            app:popExitAnim="@anim/no_transition"  />
     </fragment>
     <fragment
         android:id="@+id/conversionFragment"
         android:name="com.platform45.fx45.ui.convert.ConversionFragment"
-        android:label="ConversionFragment" />
+        android:label="ConversionFragment" >
+        <argument
+            android:name="toCurrency"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="fromCurrency"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
 </navigation>
