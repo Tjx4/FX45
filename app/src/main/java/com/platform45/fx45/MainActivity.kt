@@ -8,9 +8,11 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.platform45.fx45.ui.dashboard.DashboardFragment
+import com.platform45.fx45.ui.dashboard.DashboardFragmentDirections
 import kotlinx.android.synthetic.main.main_activity.*
 
 class MainActivity : AppCompatActivity(), MyDrawerController{
@@ -40,7 +42,10 @@ class MainActivity : AppCompatActivity(), MyDrawerController{
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_convert -> navController.navigate(R.id.dashboard_to_conversion)
+            R.id.action_convert -> {
+                val action = DashboardFragmentDirections.dashboardToConversion(null, null)
+                navController.navigate(action)
+            }
             R.id.action_tweak -> dbFragment?.showPairSelector()
             R.id.action_close_selection -> dbFragment?.showPairSeriesInfo()
         }
