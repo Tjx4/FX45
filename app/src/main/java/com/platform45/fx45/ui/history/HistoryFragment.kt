@@ -1,32 +1,59 @@
 package com.platform45.fx45.ui.history
 
-import androidx.lifecycle.ViewModelProvider
+import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.navigation.Navigation
 import com.platform45.fx45.R
+import com.platform45.fx45.base.fragments.BaseFragment
+import com.platform45.fx45.helpers.showErrorDialog
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class HistoryFragment : Fragment() {
+class HistoryFragment : BaseFragment() {
+    private lateinit var binding: FragmentHistoryBinding
+    private val dashboardViewModel: HistoryViewModel by viewModel()
 
-    companion object {
-        fun newInstance() = HistoryFragment()
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        myDrawerController.setTitle(getString(R.string.trade_history))
     }
-
-    private lateinit var viewModel: HistoryViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.history_fragment, container, false)
+        myDrawerController.hideMenu()
+        binding = DataBindingUtil.inflate(inflater, R.layout.history_fragment, container, false)
+        binding.lifecycleOwner = this
+        binding.dashboardViewModel = dashboardViewModel
+        return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(HistoryViewModel::class.java)
-        // TODO: Use the ViewModel
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        Navigation.findNavController(view).currentDestination?.label = getString(R.string.trade_history)
+
+    }
+
+    private fun addObservers() {
+        dashboardViewModel.showLoading.observe(viewLifecycleOwner, Observer { onShowLoading(it) })
+    }
+
+    private fun onShowLoading(showLoading: Boolean){
+        showLoading()
+    }
+
+    fun showError(errorMessage: String){
+        showErrorDialog(requireContext(), getString(R.string.error), errorMessage, getString(R.string.close))
+        myDrawerController.hideLoading()
+    }
+
+    fun showLoading(){
+        myDrawerController.showLoading()
     }
 
 }

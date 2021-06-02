@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.navigation.NavController
@@ -60,22 +61,26 @@ class MainActivity : AppCompatActivity(), MyDrawerController{
         findMenuItem?.isVisible = true
         closeMenuItem?.isVisible = false
         convertMenuItem?.isVisible = true
-        toolbar?.isVisible = true
+        flLoader.visibility = View.GONE
     }
 
     override fun showSelectionMode() {
         findMenuItem?.isVisible = false
         closeMenuItem?.isVisible = true
         convertMenuItem?.isVisible = false
-        toolbar?.isVisible = true
+        flLoader.visibility = View.GONE
     }
 
     override fun setDashboardFragment(dashboardFragment: DashboardFragment) {
         dbFragment = dashboardFragment
     }
     
-    override fun hideToolbar() {
-        toolbar?.isVisible = false
+    override fun showLoading() {
+        flLoader.visibility = View.VISIBLE
+    }
+
+    override fun hideLoading() {
+        flLoader.visibility = View.GONE
     }
 
     override fun showMenu() {

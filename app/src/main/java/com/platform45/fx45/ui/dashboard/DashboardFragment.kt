@@ -15,7 +15,7 @@ import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.platform45.fx45.R
 import com.platform45.fx45.adapters.PPLoadStateAdapter
-import com.platform45.fx45.adapters.PopularPairsAdapter
+import com.platform45.fx45.adapters.PopularPairsPagingAdapter
 import com.platform45.fx45.base.fragments.BaseFragment
 import com.platform45.fx45.databinding.FragmentDashboardBinding
 import kotlinx.android.synthetic.main.fragment_dashboard.*
@@ -32,17 +32,17 @@ import com.platform45.fx45.helpers.showDateTimeDialogFragment
 import com.platform45.fx45.helpers.showErrorDialog
 import com.platform45.fx45.ui.dashboard.datetime.DateTimePickerFragment
 
-class DashboardFragment : BaseFragment(), PopularPairsAdapter.AddPairClickListener, CurrencyPairAdapter.UserInteractions, DateTimePickerFragment.DateTimeSetter {
+class DashboardFragment : BaseFragment(), PopularPairsPagingAdapter.AddPairClickListener, CurrencyPairAdapter.UserInteractions, DateTimePickerFragment.DateTimeSetter {
     private lateinit var binding: FragmentDashboardBinding
     private val dashboardViewModel: DashboardViewModel by viewModel()
-    private lateinit var popularPairsAdapter: PopularPairsAdapter
+    private lateinit var popularPairsPagingAdapter: PopularPairsPagingAdapter
     override var indx: Int = 0
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         myDrawerController.setDashboardFragment(this)
         myDrawerController.setTitle(getString(R.string.app_name))
-        popularPairsAdapter = PopularPairsAdapter(context)
+        popularPairsPagingAdapter = PopularPairsPagingAdapter(context)
     }
 
     override fun onCreateView(
@@ -110,21 +110,21 @@ class DashboardFragment : BaseFragment(), PopularPairsAdapter.AddPairClickListen
         rvPorpularCp.apply {
             rvPorpularCp?.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             setHasFixedSize(true)
-            adapter = popularPairsAdapter.withLoadStateFooter(
-                footer =  PPLoadStateAdapter(popularPairsAdapter)
+            adapter = popularPairsPagingAdapter.withLoadStateFooter(
+                footer =  PPLoadStateAdapter(popularPairsPagingAdapter)
             )
         }
 
-        popularPairsAdapter.addPairClickListener(this)
+        popularPairsPagingAdapter.addPairClickListener(this)
 
         lifecycleScope.launch {
             dashboardViewModel.popularCurrencyPairs.collectLatest {
-                popularPairsAdapter.submitData(it)
+                popularPairsPagingAdapter.submitData(it)
             }
         }
 
         lifecycleScope.launch {
-            popularPairsAdapter.loadStateFlow.collectLatest { loadState ->
+            popularPairsPagingAdapter.loadStateFlow.collectLatest { loadState ->
                 when (loadState.refresh) {
                     is LoadState.Error -> {
                         val error = when {
@@ -172,24 +172,21 @@ class DashboardFragment : BaseFragment(), PopularPairsAdapter.AddPairClickListen
     }
 
     private fun showError(errorMessage: String){
-        flLoader.visibility = View.INVISIBLE
         showErrorDialog(requireContext(), getString(R.string.error), errorMessage, getString(R.string.close))
+        myDrawerController.hideLoading()
     }
 
     private fun showLoading(){
-        myDrawerController.hideToolbar()
-        flLoader.visibility = View.VISIBLE
+        myDrawerController.showLoading()
     }
 
     fun showPairSelector(){
-        flLoader.visibility = View.INVISIBLE
         clPairSelector.visibility = View.VISIBLE
         clPairSeriesInfo.visibility = View.INVISIBLE
         myDrawerController.showSelectionMode()
     }
 
     fun showPairSeriesInfo() {
-        flLoader.visibility = View.INVISIBLE
         clPairSelector.visibility = View.INVISIBLE
         clPairSeriesInfo.visibility = View.VISIBLE
         myDrawerController.showContent()

@@ -1,6 +1,7 @@
 package com.platform45.fx45.repositories
 
 import com.platform45.fx45.models.Currencies
+import com.platform45.fx45.models.Series
 import com.platform45.fx45.networking.retrofit.RetrofitHelper
 import com.platform45.fx45.persistance.room.FX45Db
 import com.platform45.weather45.models.Conversion
@@ -25,5 +26,12 @@ class FXRepository(private val retrofitHelper: RetrofitHelper, private val datab
         }
     }
 
-
+    suspend fun getSeries(apiKey: String, startDate: String, endDate: String, currency: String, format: String) : Series?{
+        return try {
+            retrofitHelper.series(apiKey, startDate, endDate, currency, format)
+        }
+        catch (ex: Exception){
+            null
+        }
+    }
 }

@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.platform45.fx45.R
 import com.platform45.fx45.persistance.room.tables.popularPair.PopularPairTable
 
-class PopularPairsAdapter(var context: Context) : PagingDataAdapter<PopularPairTable, PopularPairsAdapter.PopularViewHolder>(PairComparator)  {
+class PopularPairsPagingAdapter(var context: Context) : PagingDataAdapter<PopularPairTable, PopularPairsPagingAdapter.PopularViewHolder>(PairComparator)  {
 
     private var pairClickListener: AddPairClickListener? = null
 

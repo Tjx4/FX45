@@ -11,7 +11,7 @@ import com.platform45.fx45.R
 import com.wang.avi.AVLoadingIndicatorView
 
 class PPLoadStateAdapter(
-    private val adapter: PopularPairsAdapter
+    private val pagingAdapter: PopularPairsPagingAdapter
 ) : LoadStateAdapter<PPLoadStateAdapter.NetworkStateItemViewHolder>() {
 
     override fun onBindViewHolder(holder: NetworkStateItemViewHolder, loadState: LoadState) {
@@ -22,7 +22,7 @@ class PPLoadStateAdapter(
         parent: ViewGroup,
         loadState: LoadState
     ): NetworkStateItemViewHolder {
-        return NetworkStateItemViewHolder(parent) { adapter.retry() }
+        return NetworkStateItemViewHolder(parent) { pagingAdapter.retry() }
     }
 
     inner class NetworkStateItemViewHolder internal constructor(parent: ViewGroup, private val retryCallback: () -> Unit) : RecyclerView.ViewHolder(
