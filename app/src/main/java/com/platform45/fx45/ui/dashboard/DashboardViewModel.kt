@@ -92,7 +92,7 @@ class DashboardViewModel(val app: Application, private val fXRepository: FXRepos
     }
 
     fun setStartDate(startDate: String) {
-        _endDate.value = "$startDate"
+        _startDate.value = "$startDate"
     }
 
     fun setEndDate(endDate: String) {
