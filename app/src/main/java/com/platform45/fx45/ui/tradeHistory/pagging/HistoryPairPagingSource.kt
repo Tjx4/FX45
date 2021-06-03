@@ -24,9 +24,9 @@ class HistoryPairPagingSource(private val startDate: String, private val endDate
             "ohlc"
         )
 
-        if (result?.price == null) {
-            val error = result as ResponseError
-            LoadResult.Error(NullPointerException(error.info))
+        if (result?.error != null) {
+            val error = result?.error
+            LoadResult.Error(NullPointerException(error?.info))
         }
         else{
             val response = ArrayList<PairHistoryTable>()

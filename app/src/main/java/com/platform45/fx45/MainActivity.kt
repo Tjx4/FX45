@@ -33,6 +33,11 @@ class MainActivity : AppCompatActivity(), MyDrawerController{
         setupWithNavController(toolbar, navController)
     }
 
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = findNavController(R.id.navControllerFragment)
+        return navController.navigateUp() || super.onSupportNavigateUp()
+    }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.history_menu, menu)
         convertMenuItem = menu.findItem(R.id.action_convert)

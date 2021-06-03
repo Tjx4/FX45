@@ -13,8 +13,8 @@
             app:destination="@id/conversionFragment"
             app:enterAnim="@anim/slide_right"
             app:exitAnim="@anim/no_transition"
-            app:popEnterAnim="@anim/slide_left"
-            app:popExitAnim="@anim/no_transition"  />
+            app:popEnterAnim="@anim/no_transition"
+            app:popExitAnim="@anim/slide_left" />
         <action
             android:id="@+id/dashboard_to_trade_history"
             app:destination="@id/tradeHistoryFragment"
