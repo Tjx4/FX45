@@ -41,7 +41,7 @@ class DashboardFragment : BaseFragment(), PopularPairsPagingAdapter.AddPairClick
     override fun onAttach(context: Context) {
         super.onAttach(context)
         myDrawerController.setDashboardFragment(this)
-        myDrawerController.setTitle(getString(R.string.app_name))
+        myDrawerController.setTitle(getString(R.string.forty_five))
         popularPairsPagingAdapter = PopularPairsPagingAdapter(context)
     }
 
@@ -59,7 +59,7 @@ class DashboardFragment : BaseFragment(), PopularPairsPagingAdapter.AddPairClick
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Navigation.findNavController(view).currentDestination?.label = getString(R.string.app_name)
+        Navigation.findNavController(view).currentDestination?.label = getString(R.string.forty_five)
 
         dashboardViewModel.checkState()
         addObservers()
@@ -105,6 +105,7 @@ class DashboardFragment : BaseFragment(), PopularPairsPagingAdapter.AddPairClick
             val startDate = dashboardViewModel.startDate.value ?: ""
             val endDate = dashboardViewModel.endDate.value ?: ""
             val currencyPairs = dashboardViewModel.getCurrencyPairsString()
+            myDrawerController.hideActionBarIcon()
             val action = DashboardFragmentDirections.dashboardToTradeHistory(startDate, endDate, currencyPairs)
             findNavController().navigate(action)
         }
@@ -165,6 +166,7 @@ class DashboardFragment : BaseFragment(), PopularPairsPagingAdapter.AddPairClick
         val fromCurrency = pair.splitInTwo()[0]
         val toCurrency = pair.splitInTwo()[1]
         val action = DashboardFragmentDirections.dashboardToConversion(fromCurrency, toCurrency)
+        myDrawerController.hideActionBarIcon()
         findNavController().navigate(action)
     }
 

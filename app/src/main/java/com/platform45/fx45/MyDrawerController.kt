@@ -10,6 +10,8 @@ interface MyDrawerController {
     fun setTitle(title: String)
     fun showMenu()
     fun hideMenu()
+    fun showActionBarIcon()
+    fun hideActionBarIcon()
     fun setDashboardFragment(dashboardFragment: DashboardFragment)
     fun showContent()
     fun showSelectionMode()

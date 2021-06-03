@@ -36,6 +36,11 @@ class TradeHistoryFragment : BaseFragment() {
         historyPagingAdapter = HistoryPagingAdapter(context)
     }
 
+    override fun onDetach() {
+        super.onDetach()
+        myDrawerController.showActionBarIcon()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

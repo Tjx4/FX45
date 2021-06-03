@@ -7,7 +7,7 @@
     <fragment
         android:id="@+id/dashboardFragment"
         android:name="com.platform45.fx45.ui.dashboard.DashboardFragment"
-        android:label="DashboardFragment" >
+        android:label="@string/forty_five">
         <action
             android:id="@+id/dashboard_to_conversion"
             app:destination="@id/conversionFragment"
@@ -26,7 +26,7 @@
     <fragment
         android:id="@+id/conversionFragment"
         android:name="com.platform45.fx45.ui.convert.ConversionFragment"
-        android:label="ConversionFragment" >
+        android:label="@string/convert_currencies">
         <argument
             android:name="toCurrency"
             app:argType="string"

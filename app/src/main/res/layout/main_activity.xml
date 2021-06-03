@@ -11,7 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:elevation="0dp"
+        app:logo="@drawable/logo_small"
         app:popupTheme="@style/AppTheme.PopupOverlay"
+        app:title="@string/forty_five"
         style="@style/ToolbarStyle"
         app:layout_constraintTop_toTopOf="parent"/>
 

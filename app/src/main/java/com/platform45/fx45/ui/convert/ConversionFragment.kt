@@ -26,6 +26,11 @@ class ConversionFragment : BaseFragment() {
         myDrawerController.setTitle(getString(R.string.convert_currencies))
     }
 
+    override fun onDetach() {
+        super.onDetach()
+        myDrawerController.showActionBarIcon()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

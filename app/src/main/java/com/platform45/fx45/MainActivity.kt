@@ -1,5 +1,6 @@
 package com.platform45.fx45
 
+import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -50,6 +51,7 @@ class MainActivity : AppCompatActivity(), MyDrawerController{
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_convert -> {
+                hideActionBarIcon()
                 val action = DashboardFragmentDirections.dashboardToConversion(null, null)
                 navController.navigate(action)
             }
@@ -99,7 +101,15 @@ class MainActivity : AppCompatActivity(), MyDrawerController{
     }
 
     override fun hideMenu() {
-        toolbarMenu?.clear()
+         toolbarMenu?.clear()
+    }
+
+    override fun showActionBarIcon() {
+        toolbar?.setLogo(R.drawable.logo_small)
+    }
+
+    override fun hideActionBarIcon() {
+        toolbar?.logo = ColorDrawable(resources.getColor(android.R.color.transparent))
     }
 
     override fun onBackPressed() {
