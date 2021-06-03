@@ -14,9 +14,10 @@ class PopularPairPagingSource(private val fXRepository: FXRepository) : PagingSo
         val result = fXRepository.getPopularCurrencyPairs(
             `apiKey` = API_KEY
         )
-        if (result?.error != null) {
+
+        if (result == null || result?.error != null) {
             val error = result?.error
-            LoadResult.Error(NullPointerException(error?.info))
+            LoadResult.Error(NullPointerException(error?.info ?: "Unknown error"))
         }
         else {
             val response = ArrayList<PopularPairTable>()
