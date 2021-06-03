@@ -55,7 +55,7 @@ xmlns:tools="http://schemas.android.com/tools">
             android:inputType="number"
             android:hint="Amount"
             android:textColorHint="@color/greyText"
-            android:text="@={``+conversionViewModel.amount}"
+            android:text="@={conversionViewModel.amount}"
             android:layout_marginTop="@dimen/xsmall_margin"
             android:layout_marginHorizontal="@dimen/xsmall_margin"
             app:layout_constraintTop_toBottomOf="@+id/tvFrom"
