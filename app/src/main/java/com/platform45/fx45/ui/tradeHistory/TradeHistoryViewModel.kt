@@ -18,6 +18,10 @@ class TradeHistoryViewModel(val app: Application, private val fXRepository: FXRe
     val showLoading: MutableLiveData<Boolean>
         get() = _showLoading
 
+    private val _pairsList: MutableLiveData<List<String>> = MutableLiveData()
+    val pairsList: MutableLiveData<List<String>>
+        get() = _pairsList
+
     var startDate: String = ""
     var endDate: String = ""
     var currencyPairs: String = ""
@@ -30,6 +34,10 @@ class TradeHistoryViewModel(val app: Application, private val fXRepository: FXRe
         this.startDate = startDate
         this.endDate = endDate
         this.currencyPairs  = currencyPairs
+    }
+
+    fun setPairsList(currencyPairs: String){
+        pairsList.value = currencyPairs.split(",")
     }
 
 }

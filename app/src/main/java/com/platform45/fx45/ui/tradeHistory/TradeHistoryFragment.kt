@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
@@ -12,6 +13,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.tabs.TabLayout
 import com.platform45.fx45.R
 import com.platform45.fx45.adapters.HistoryLoadStateAdapter
 import com.platform45.fx45.adapters.HistoryPagingAdapter
@@ -57,6 +59,7 @@ class TradeHistoryFragment : BaseFragment() {
         Navigation.findNavController(view).currentDestination?.label = getString(R.string.trade_history)
 
         tradeHistoryViewModel.setParams(args.startDate, args.endDate, args.currencyPairs)
+        tradeHistoryViewModel.setPairsList(args.currencyPairs)
         addObservers()
         initRecyclerView()
     }
@@ -100,10 +103,26 @@ class TradeHistoryFragment : BaseFragment() {
 
     private fun addObservers() {
         tradeHistoryViewModel.showLoading.observe(viewLifecycleOwner, Observer { onShowLoading(it) })
+        tradeHistoryViewModel.pairsList.observe(viewLifecycleOwner, Observer { onPairsListSet(it) })
     }
 
     private fun onShowLoading(showLoading: Boolean){
         myDrawerController.showLoading()
+    }
+
+    private fun onPairsListSet(pairs: List<String>){
+        for((indx, pair) in pairs.withIndex()){
+            tbCategories.addTab(tbCategories.newTab().setTag(indx).setText(pair))
+        }
+        tbCategories.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                val indx = tab.tag.toString().toInt()
+                rvtrades.scrollToPosition(indx)
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab) {}
+            override fun onTabReselected(tab: TabLayout.Tab) {}
+        })
     }
 
     fun showError(errorMessage: String){
