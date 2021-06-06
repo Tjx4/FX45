@@ -117,7 +117,7 @@ class DashboardFragment : BaseFragment(), PopularPairsPagingAdapter.AddPairClick
             rvPorpularCp?.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             setHasFixedSize(true)
             adapter = popularPairsPagingAdapter.withLoadStateFooter(
-                footer =  PPLoadStateAdapter(popularPairsPagingAdapter)
+                footer = PPLoadStateAdapter(popularPairsPagingAdapter)
             )
         }
 

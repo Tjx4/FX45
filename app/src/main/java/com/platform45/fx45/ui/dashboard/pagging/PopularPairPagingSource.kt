@@ -27,15 +27,21 @@ class PopularPairPagingSource(private val fXRepository: FXRepository) : PagingSo
             }
 
             val pages = response.size / PP_PAGE_SIZE
+            val currentPage = getCurrentPage(response, loadPage)
 
             LoadResult.Page(
-                data = response,
+                data = currentPage,
                 prevKey = null,
                 nextKey = if (loadPage < pages) loadPage + 1 else null
             )
         }
     } catch (e: Exception) {
         LoadResult.Error(e)
+    }
+
+    fun getCurrentPage(response: List<PopularPairTable>, loadPage: Int): List<PopularPairTable>{
+        val pageData = response.withIndex().groupBy { it.index / PP_PAGE_SIZE }.values.map { pp -> pp.map { it.value } }
+        return pageData[loadPage]
     }
 
 }
