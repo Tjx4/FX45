@@ -10,9 +10,8 @@ import com.platform45.fx45.base.viewmodel.BaseVieModel
 import com.platform45.fx45.constants.PP_PAGE_SIZE
 import com.platform45.fx45.helpers.getCurrentDate
 import com.platform45.fx45.helpers.getDaysAgo
-import com.platform45.fx45.models.CurrencyPair
 import com.platform45.fx45.repositories.FXRepository
-import com.platform45.fx45.ui.dashboard.pagging.PopularPairPagingSource
+import com.platform45.fx45.ui.dashboard.paging.PopularPairPagingSource
 import java.util.*
 import kotlin.collections.ArrayList
 

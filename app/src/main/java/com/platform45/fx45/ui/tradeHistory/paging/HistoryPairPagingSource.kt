@@ -1,9 +1,8 @@
-package com.platform45.fx45.ui.tradeHistory.pagging
+package com.platform45.fx45.ui.tradeHistory.paging
 
 import androidx.paging.PagingSource
 import com.platform45.fx45.constants.API_KEY
 import com.platform45.fx45.constants.H_PAGE_SIZE
-import com.platform45.fx45.constants.PP_PAGE_SIZE
 import com.platform45.fx45.helpers.getPairHistoryList
 import com.platform45.fx45.helpers.toDbTable
 import com.platform45.fx45.helpers.toPricseLinkedTreeMap

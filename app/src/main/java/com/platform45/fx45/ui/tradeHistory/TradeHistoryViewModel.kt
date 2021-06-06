@@ -8,9 +8,8 @@ import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import com.platform45.fx45.base.viewmodel.BaseVieModel
 import com.platform45.fx45.constants.H_PAGE_SIZE
-import com.platform45.fx45.constants.PP_PAGE_SIZE
 import com.platform45.fx45.repositories.FXRepository
-import com.platform45.fx45.ui.tradeHistory.pagging.HistoryPairPagingSource
+import com.platform45.fx45.ui.tradeHistory.paging.HistoryPairPagingSource
 
 class TradeHistoryViewModel(val app: Application, private val fXRepository: FXRepository) : BaseVieModel(app) {
 

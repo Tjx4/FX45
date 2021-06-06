@@ -1,4 +1,4 @@
-package com.platform45.fx45.ui.dashboard.pagging
+package com.platform45.fx45.ui.dashboard.paging
 
 import androidx.paging.PagingSource
 import com.platform45.fx45.constants.API_KEY
