@@ -28,11 +28,11 @@
         android:name="com.platform45.fx45.ui.convert.ConversionFragment"
         android:label="@string/convert_currencies">
         <argument
-            android:name="toCurrency"
+            android:name="fromCurrency"
             app:argType="string"
             app:nullable="true" />
         <argument
-            android:name="fromCurrency"
+            android:name="toCurrency"
             app:argType="string"
             app:nullable="true" />
     </fragment>
