@@ -7,7 +7,6 @@ import com.platform45.fx45.constants.PP_PAGE_SIZE
 import com.platform45.fx45.helpers.getPairHistoryList
 import com.platform45.fx45.helpers.toDbTable
 import com.platform45.fx45.helpers.toPricseLinkedTreeMap
-import com.platform45.fx45.models.ResponseError
 import com.platform45.fx45.persistance.room.tables.pairHistory.PairHistoryTable
 import com.platform45.fx45.repositories.FXRepository
 import java.lang.NullPointerException
@@ -38,15 +37,21 @@ class HistoryPairPagingSource(private val startDate: String, private val endDate
             }
 
             val pages = response.size / H_PAGE_SIZE
+            val currentPage = getCurrentPage(response, loadPage, H_PAGE_SIZE)
 
             LoadResult.Page(
-                data = response,
+                data = currentPage,
                 prevKey = null,
                 nextKey = if (loadPage < pages) loadPage + 1 else null
             )
         }
     } catch (e: Exception) {
         LoadResult.Error(e)
+    }
+
+    private fun getCurrentPage(response: List<PairHistoryTable>, pageIndex: Int, pageSize: Int): List<PairHistoryTable>{
+        val pageData = response.withIndex().groupBy { it.index / pageSize }.values.map { ph -> ph.map { it.value } }
+        return pageData[pageIndex]
     }
 
 }
