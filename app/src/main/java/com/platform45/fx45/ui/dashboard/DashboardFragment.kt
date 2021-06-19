@@ -140,7 +140,8 @@ class DashboardFragment : BaseFragment(), PopularPairsPagingAdapter.AddPairClick
                             else -> null
                         }
                         error?.let {
-                            val message = if(it.error.message.isNullOrEmpty()) getString(R.string.no_popular_currency_pairs) else it.error.message!!
+                            val message =
+                                if (it.error.message.isNullOrEmpty()) getString(R.string.no_popular_currency_pairs) else it.error.message!!
                             showError(message)
                         }
                     }
@@ -153,9 +154,9 @@ class DashboardFragment : BaseFragment(), PopularPairsPagingAdapter.AddPairClick
     }
 
     private fun addObservers() {
-        dashboardViewModel.isPairsUpdated.observe(viewLifecycleOwner, Observer { onPairsListUpdated(it)})
-        dashboardViewModel.canProceed.observe(viewLifecycleOwner, Observer { canProceed(it)})
-        dashboardViewModel.currencyPairs.observe(viewLifecycleOwner, Observer { onCurrencyPairsSet(it)})
+        dashboardViewModel.isPairsUpdated.observe(viewLifecycleOwner, { onPairsListUpdated(it)})
+        dashboardViewModel.canProceed.observe(viewLifecycleOwner, { canProceed(it)})
+        dashboardViewModel.currencyPairs.observe(viewLifecycleOwner, { onCurrencyPairsSet(it)})
     }
 
     override fun onPairClicked(position: Int, pair: String) {
@@ -181,6 +182,12 @@ class DashboardFragment : BaseFragment(), PopularPairsPagingAdapter.AddPairClick
     private fun showError(errorMessage: String){
         showErrorDialog(requireContext(), getString(R.string.error), errorMessage, getString(R.string.close))
         myDrawerController.hideLoading()
+    }
+
+    fun refresh() {
+        lifecycleScope.launch {
+            popularPairsPagingAdapter.refresh()
+        }
     }
 
     fun showPairSelector(){
