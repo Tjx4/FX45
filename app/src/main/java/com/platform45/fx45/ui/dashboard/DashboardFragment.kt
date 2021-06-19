@@ -9,7 +9,6 @@ import android.widget.AdapterView
 import android.widget.Button
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -36,7 +35,7 @@ class DashboardFragment : BaseFragment(), PopularPairsPagingAdapter.AddPairClick
     private lateinit var binding: FragmentDashboardBinding
     private val dashboardViewModel: DashboardViewModel by viewModel()
     private lateinit var popularPairsPagingAdapter: PopularPairsPagingAdapter
-    override var indx: Int = 0
+    override var dtIndex: Int = 0
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -88,12 +87,12 @@ class DashboardFragment : BaseFragment(), PopularPairsPagingAdapter.AddPairClick
         }
 
         btnFrom.setOnClickListener {
-            indx = 0
+            dtIndex = 0
             showDateTimeDialogFragment(this, (it as Button).text.toString())
         }
 
         btnTo.setOnClickListener {
-            indx = 1
+            dtIndex = 1
             showDateTimeDialogFragment(this, (it as Button).text.toString())
         }
 
@@ -188,7 +187,7 @@ class DashboardFragment : BaseFragment(), PopularPairsPagingAdapter.AddPairClick
         popularPairsPagingAdapter.refresh()
     }
 
-    fun showPairSelector(){
+    private fun showPairSelector(){
         clPairSelector.visibility = View.VISIBLE
         clPairSeriesInfo.visibility = View.INVISIBLE
         myDrawerController.showSelectionMode()
@@ -208,14 +207,14 @@ class DashboardFragment : BaseFragment(), PopularPairsPagingAdapter.AddPairClick
     }
 
     override fun setDate(year: Int, month: Int, day: Int) {
-        when (indx) {
+        when (dtIndex) {
             0 -> dashboardViewModel.setStartDate("$year-$month-$day")
             1 -> dashboardViewModel.setEndDate("$year-$month-$day")
         }
     }
 
     override fun setTime(scheduledTime: String) {
-        when (indx) {
+        when (dtIndex) {
             0 -> dashboardViewModel.setStartTime("$scheduledTime")
             1 -> dashboardViewModel.setEndTime("$scheduledTime")
         }
@@ -230,7 +229,7 @@ class DashboardFragment : BaseFragment(), PopularPairsPagingAdapter.AddPairClick
         rvRequestingPairs?.layoutManager = requestingPairsManager
     }
 
-    fun onPairsListUpdated(isUpdated: Boolean){
+    private fun onPairsListUpdated(isUpdated: Boolean){
         rvPorpularCp?.adapter?.notifyDataSetChanged()
         rvRequestingPairs?.adapter?.notifyDataSetChanged()
     }

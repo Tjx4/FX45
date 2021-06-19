@@ -106,7 +106,7 @@ class DateTimePickerFragment : BaseDialogFragment(){
     }
 
     interface DateTimeSetter{
-        var indx: Int
+        var dtIndex: Int
         fun setDate(year: Int, month: Int, day: Int)
         fun setTime(scheduledTime: String)
     }
