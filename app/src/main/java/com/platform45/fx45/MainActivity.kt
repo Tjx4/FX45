@@ -6,11 +6,8 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
-import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.platform45.fx45.ui.dashboard.DashboardFragment
@@ -42,7 +39,7 @@ class MainActivity : AppCompatActivity(), MyDrawerController{
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.history_menu, menu)
         convertMenuItem = menu.findItem(R.id.action_convert)
-        findMenuItem = menu.findItem(R.id.action_tweak)
+        findMenuItem = menu.findItem(R.id.action_refresh)
         closeMenuItem = menu.findItem(R.id.action_close_selection)
         toolbarMenu = menu
         return true
@@ -55,7 +52,7 @@ class MainActivity : AppCompatActivity(), MyDrawerController{
                 val action = DashboardFragmentDirections.dashboardToConversion(null, null)
                 navController.navigate(action)
             }
-            R.id.action_tweak -> dbFragment?.showPairSelector()
+            R.id.action_refresh -> dbFragment?.refresh()
             R.id.action_close_selection -> dbFragment?.showPairSeriesInfo()
         }
         return NavigationUI.onNavDestinationSelected(item, navController) || super.onOptionsItemSelected(item)
@@ -95,7 +92,7 @@ class MainActivity : AppCompatActivity(), MyDrawerController{
         toolbarMenu?.let {
             menuInflater.inflate(R.menu.history_menu, it)
             convertMenuItem = it.findItem(R.id.action_convert)
-            findMenuItem = it.findItem(R.id.action_tweak)
+            findMenuItem = it.findItem(R.id.action_refresh)
             closeMenuItem = it.findItem(R.id.action_close_selection)
         }
     }

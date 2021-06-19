@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_tweak"
+        android:id="@+id/action_refresh"
         android:title="@string/select"
-        android:icon="@drawable/ic_tweak"
+        android:icon="@drawable/ic_refresh"
         app:showAsAction="always"/>
 
     <item
