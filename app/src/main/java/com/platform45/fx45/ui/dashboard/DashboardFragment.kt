@@ -185,9 +185,7 @@ class DashboardFragment : BaseFragment(), PopularPairsPagingAdapter.AddPairClick
     }
 
     fun refresh() {
-        lifecycleScope.launch {
-            popularPairsPagingAdapter.refresh()
-        }
+        popularPairsPagingAdapter.refresh()
     }
 
     fun showPairSelector(){
