@@ -20,7 +20,7 @@ fun showConfirmDialog(context: Context, title: String, message: String, yesButto
         { }, noCallbackFun, context
     )
     ab.setIcon(R.drawable.ic_confirm)
-    ab.setCancelable(false)
+    ab.setCancelable(true)
     showAlertMessage(ab, context)
 }
 
@@ -28,7 +28,7 @@ fun showErrorDialog(context: Context, title: String, message: String, buttonText
     R.string.ok), callbackFun: () -> Unit = {}){
     val ab = setupBasicMessage(title, message, buttonText, "", "", callbackFun, {}, {}, context)
     ab.setIcon(R.drawable.ic_error)
-    ab.setCancelable(false)
+    ab.setCancelable(true)
     showAlertMessage(ab, context)
 }
 

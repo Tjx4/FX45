@@ -15,7 +15,7 @@ import com.platform45.fx45.ui.dashboard.paging.PopularPairPagingSource
 import java.util.*
 import kotlin.collections.ArrayList
 
-class DashboardViewModel(val app: Application, private val fXRepository: FXRepository) : BaseVieModel(app) {
+class DashboardViewModel(application: Application, private val fXRepository: FXRepository) : BaseVieModel(application) {
     val availableCurrencies: MutableLiveData<List<String>> = MutableLiveData()
 
     private val _showLoading: MutableLiveData<Boolean> = MutableLiveData()

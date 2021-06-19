@@ -74,6 +74,20 @@ xmlns:tools="http://schemas.android.com/tools">
 
         <TextView
             android:visibility="invisible"
+            style="@style/MediumTextView"
+            android:id="@+id/tvError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="error"
+            android:text="@={conversionViewModel.error}"
+            android:textColor="@color/red_2"
+            android:layout_marginTop="@dimen/medium_margin"
+            app:layout_constraintTop_toBottomOf="@+id/btnConvert"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+        <TextView
+            android:visibility="invisible"
             style="@style/LargeTextView"
             android:id="@+id/tvTotal"
             android:layout_width="wrap_content"

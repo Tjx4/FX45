@@ -56,16 +56,26 @@ class ConversionFragment : BaseFragment() {
     }
 
     private fun addObservers() {
-        conversionViewModel.convert.observe(viewLifecycleOwner, Observer { onConversion(it) })
-        conversionViewModel.showLoading.observe(viewLifecycleOwner, Observer { onShowLoading(it)})
+        conversionViewModel.convert.observe(viewLifecycleOwner, { onConversion(it) })
+        conversionViewModel.showLoading.observe(viewLifecycleOwner, { onShowLoading(it) })
+        conversionViewModel.error.observe(viewLifecycleOwner, { onError(it) })
     }
 
     private fun onConversion(conversion: Conversion?){
-        cnvLoader.visibility = View.GONE
+        cnvLoader.visibility = View.INVISIBLE
         tvTotal.visibility = View.VISIBLE
+        tvError.visibility = View.INVISIBLE
     }
 
     private fun onShowLoading(showLoading: Boolean){
         cnvLoader.visibility = View.VISIBLE
+        tvTotal.visibility = View.INVISIBLE
+        tvError.visibility = View.INVISIBLE
+    }
+
+    private fun onError(error: String){
+        cnvLoader.visibility = View.INVISIBLE
+        tvTotal.visibility = View.INVISIBLE
+        tvError.visibility = View.VISIBLE
     }
 }

@@ -11,7 +11,7 @@ import com.platform45.fx45.constants.H_PAGE_SIZE
 import com.platform45.fx45.repositories.FXRepository
 import com.platform45.fx45.ui.tradeHistory.paging.HistoryPairPagingSource
 
-class TradeHistoryViewModel(val app: Application, private val fXRepository: FXRepository) : BaseVieModel(app) {
+class TradeHistoryViewModel(application: Application, private val fXRepository: FXRepository) : BaseVieModel(application) {
 
     private val _showLoading: MutableLiveData<Boolean> = MutableLiveData()
     val showLoading: MutableLiveData<Boolean>
