@@ -18,10 +18,6 @@ import kotlin.collections.ArrayList
 class DashboardViewModel(application: Application, private val fXRepository: FXRepository) : BaseVieModel(application) {
     val availableCurrencies: MutableLiveData<List<String>> = MutableLiveData()
 
-    private val _showLoading: MutableLiveData<Boolean> = MutableLiveData()
-    val showLoading: MutableLiveData<Boolean>
-        get() = _showLoading
-
     private val _canProceed: MutableLiveData<Boolean> = MutableLiveData()
     val canProceed: MutableLiveData<Boolean>
         get() = _canProceed
