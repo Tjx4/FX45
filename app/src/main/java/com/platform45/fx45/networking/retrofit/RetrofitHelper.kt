@@ -2,7 +2,7 @@ package com.platform45.fx45.networking.retrofit
 
 import com.platform45.fx45.models.Currencies
 import com.platform45.fx45.models.Series
-import com.platform45.weather45.models.Conversion
+import com.platform45.fx45.models.Conversion
 import retrofit2.http.*
 
 interface RetrofitHelper {

@@ -1,4 +1,4 @@
-package com.platform45.weather45.models
+package com.platform45.fx45.models
 
 import com.google.gson.annotations.SerializedName
 

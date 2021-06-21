@@ -4,7 +4,7 @@ import com.platform45.fx45.models.Currencies
 import com.platform45.fx45.models.Series
 import com.platform45.fx45.networking.retrofit.RetrofitHelper
 import com.platform45.fx45.persistance.room.FX45Db
-import com.platform45.weather45.models.Conversion
+import com.platform45.fx45.models.Conversion
 
 class FXRepository(private val retrofitHelper: RetrofitHelper, private val database: FX45Db) {
 

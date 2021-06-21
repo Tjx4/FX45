@@ -6,13 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import com.platform45.fx45.R
 import com.platform45.fx45.base.fragments.BaseFragment
 import com.platform45.fx45.databinding.FragmentConversionBinding
-import com.platform45.weather45.models.Conversion
+import com.platform45.fx45.models.Conversion
 import kotlinx.android.synthetic.main.fragment_conversion.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

@@ -7,7 +7,7 @@ import com.platform45.fx45.R
 import com.platform45.fx45.base.viewmodel.BaseVieModel
 import com.platform45.fx45.constants.API_KEY
 import com.platform45.fx45.repositories.FXRepository
-import com.platform45.weather45.models.Conversion
+import com.platform45.fx45.models.Conversion
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
