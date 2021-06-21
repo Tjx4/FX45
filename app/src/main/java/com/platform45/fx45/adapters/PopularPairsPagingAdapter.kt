@@ -51,13 +51,13 @@ class PopularPairsPagingAdapter(var context: Context) : PagingDataAdapter<Popula
         }
 
         override fun onClick(view: View) {
-            val currencyPair = getItem(adapterPosition)
+            val currencyPair = getItem(absoluteAdapterPosition)
             currencyPair?.let { handleViewClick(it) }
         }
 
         private fun handleViewClick(currencyPair: PopularPairTable) {
             val isSelectedItem = isSelected(currencyPair?.pair ?: "")
-            pairClickListener?.onPairClicked(adapterPosition, currencyPair?.pair ?: "")
+            pairClickListener?.onPairClicked(absoluteAdapterPosition, currencyPair?.pair ?: "")
             selIndicatorV.background = getStateIndicator(currencyPair.pair ?: "")
             if(!isSelectedItem) Toast.makeText(context, "${currencyPair.pair} selected", Toast.LENGTH_SHORT).show()
         }
