@@ -8,6 +8,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import com.platform45.fx45.base.viewmodel.BaseVieModel
 import com.platform45.fx45.constants.PP_PAGE_SIZE
+import com.platform45.fx45.helpers.getClosestWeekDay
 import com.platform45.fx45.helpers.getCurrentDate
 import com.platform45.fx45.helpers.getDaysAgo
 import com.platform45.fx45.repositories.FXRepository
@@ -57,7 +58,7 @@ class DashboardViewModel(application: Application, private val fXRepository: FXR
     }
 
     private fun initStartAndEndDate() {
-        _startDate.value = getDaysAgo(30)
+        _startDate.value = getClosestWeekDay(30)
         _endDate.value = getCurrentDate()
     }
 
