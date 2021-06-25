@@ -20,9 +20,9 @@ fun getClosestWeekDay(daysAgo: Int): String{
     calendar.add(Calendar.DAY_OF_YEAR, -daysAgo)
     var dayOfWeek: Int = calendar.get(Calendar.DAY_OF_WEEK)
 
-    when {
-        dayOfWeek == 1 -> calendar.add(Calendar.DAY_OF_YEAR, +1)
-        dayOfWeek == 7 -> calendar.add(Calendar.DAY_OF_YEAR, -1)
+    when (dayOfWeek) {
+        1 -> calendar.add(Calendar.DAY_OF_YEAR, +1)
+        7 -> calendar.add(Calendar.DAY_OF_YEAR, -1)
         else -> calendar.add(Calendar.DAY_OF_YEAR, -daysAgo)
     }
 

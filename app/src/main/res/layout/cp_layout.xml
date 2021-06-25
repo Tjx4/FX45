@@ -41,7 +41,7 @@
             android:layout_height="40dp"
             android:src="@drawable/ic_check_pair"
             android:scaleType="fitCenter"
-            android:tint="@color/red_2"
+            app:tint="@color/red_2"
             android:layout_marginRight="@dimen/small_margin"
             android:background="@android:color/transparent"
             app:layout_constraintTop_toTopOf="parent"
