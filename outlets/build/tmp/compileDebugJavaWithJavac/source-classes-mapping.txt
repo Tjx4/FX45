@@ -1,0 +1,2 @@
+com/entersekt/outlets/BuildConfig.java
+ com.entersekt.outlets.BuildConfig
