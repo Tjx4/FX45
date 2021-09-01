@@ -8,9 +8,10 @@ import com.platform45.fx45.helpers.toDbTable
 import com.platform45.fx45.helpers.toPricseLinkedTreeMap
 import com.platform45.fx45.persistance.room.tables.pairHistory.PairHistoryTable
 import com.platform45.fx45.repositories.FXRepository
+import com.platform45.fx45.repositories.IFXRepository
 import java.lang.NullPointerException
 
-class HistoryPairPagingSource(private val startDate: String, private val endDate: String, private val currency: String, private val fXRepository: FXRepository) : PagingSource<Int, PairHistoryTable>() {
+class HistoryPairPagingSource(private val startDate: String, private val endDate: String, private val currency: String, private val fXRepository: IFXRepository) : PagingSource<Int, PairHistoryTable>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, PairHistoryTable> = try {
         val loadPage = params.key ?: 0
 

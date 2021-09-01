@@ -12,11 +12,12 @@ import com.platform45.fx45.helpers.getClosestWeekDay
 import com.platform45.fx45.helpers.getCurrentDate
 import com.platform45.fx45.helpers.getDaysAgo
 import com.platform45.fx45.repositories.FXRepository
+import com.platform45.fx45.repositories.IFXRepository
 import com.platform45.fx45.ui.dashboard.paging.PopularPairPagingSource
 import java.util.*
 import kotlin.collections.ArrayList
 
-class DashboardViewModel(application: Application, private val fXRepository: FXRepository) : BaseVieModel(application) {
+class DashboardViewModel(application: Application, private val fXRepository: IFXRepository) : BaseVieModel(application) {
     val availableCurrencies: MutableLiveData<List<String>> = MutableLiveData()
 
     private val _canProceed: MutableLiveData<Boolean> = MutableLiveData()

@@ -5,9 +5,10 @@ import com.platform45.fx45.constants.API_KEY
 import com.platform45.fx45.constants.PP_PAGE_SIZE
 import com.platform45.fx45.persistance.room.tables.popularPair.PopularPairTable
 import com.platform45.fx45.repositories.FXRepository
+import com.platform45.fx45.repositories.IFXRepository
 import java.lang.NullPointerException
 
-class PopularPairPagingSource(private val fXRepository: FXRepository) : PagingSource<Int, PopularPairTable>() {
+class PopularPairPagingSource(private val fXRepository: IFXRepository) : PagingSource<Int, PopularPairTable>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, PopularPairTable> = try {
         val loadPage = params.key ?: 0
 

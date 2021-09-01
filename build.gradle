@@ -7,6 +7,7 @@ buildscript {
     ext.gms_version = "17.0.0"
     ext.room_version = "2.2.5"
     ext.nav_version = "2.3.2"
+    ext.mockito = "3.4.6"
 
     repositories {
         google()

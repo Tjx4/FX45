@@ -8,11 +8,12 @@ import com.platform45.fx45.base.viewmodel.BaseVieModel
 import com.platform45.fx45.constants.API_KEY
 import com.platform45.fx45.repositories.FXRepository
 import com.platform45.fx45.models.Conversion
+import com.platform45.fx45.repositories.IFXRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class ConversionViewModel(application: Application, private val fXRepository: FXRepository) : BaseVieModel(application) {
+class ConversionViewModel(application: Application, val fXRepository: IFXRepository) : BaseVieModel(application) {
 
     private val _showLoading: MutableLiveData<Boolean> = MutableLiveData()
     val showLoading: MutableLiveData<Boolean>
