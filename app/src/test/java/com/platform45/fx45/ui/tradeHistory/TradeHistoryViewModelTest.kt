@@ -13,6 +13,7 @@ import org.junit.Test
 import org.junit.rules.TestRule
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
+import org.mockito.MockitoAnnotations.initMocks
 
 class TradeHistoryViewModelTest {
     private lateinit var tradeHistoryViewModel: TradeHistoryViewModel
@@ -26,12 +27,13 @@ class TradeHistoryViewModelTest {
     @Mock
     lateinit var database: FX45Db
 
+
     @get:Rule
     var rule: TestRule = InstantTaskExecutorRule()
 
     @Before
     fun setUp() {
-        MockitoAnnotations.initMocks(this)
+        initMocks(this)
         tradeHistoryViewModel = TradeHistoryViewModel(mockApplication, fxRepository)
     }
 
