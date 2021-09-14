@@ -24,17 +24,17 @@ class SharedPrefs(private val application: Application) {
             editor.commit()
         }
 
-        var user: UserModel?
-            get() {
-                val json = sharedPreferences.getString(USER, "")
-                return Gson().fromJson(json, UserModel::class.java)
-            }
-            set(userModel) {
-                val editor = sharedPreferences.edit()
-                val connectionsJSONString = Gson().toJson(userModel)
-                editor.putString(USER, connectionsJSONString)
-                editor.commit()
-            }
+    var user: UserModel?
+        get() {
+            val json = sharedPreferences.getString(USER, "")
+            return Gson().fromJson(json, UserModel::class.java)
+        }
+        set(userModel) {
+            val editor = sharedPreferences.edit()
+            val connectionsJSONString = Gson().toJson(userModel)
+            editor.putString(USER, connectionsJSONString)
+            editor.commit()
+        }
 
     companion object{
         fun getInstance(application: Application): SharedPrefs {
