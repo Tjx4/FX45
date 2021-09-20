@@ -8,4 +8,4 @@ data class Conversion(
     @SerializedName("total") var total: Double? = null,
     @SerializedName("from") var from: String? = null,
     @SerializedName("to") var to: String? = null,
-) : ResponseError()
+)
