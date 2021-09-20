@@ -43,12 +43,13 @@ class ConversionViewModel(application: Application, val fXRepository: IFXReposit
         _amount.value = "1"
     }
 
-    fun checkAndConvert(){
+    //Todo refactor
+    fun showLoaderAndConvert(){
         _showLoading.value = true
-        val from = _from.value
-        val to = _to.value
-        val amount = _amount.value
+        checkAndConvert(_from.value ?: "", _to.value ?: "", _amount.value ?: "")
+    }
 
+    fun checkAndConvert(from: String, to: String, amount: String){
         when{
             from.isNullOrEmpty() -> _error.value = app.getString(R.string.from_convert_error)
             to.isNullOrEmpty() -> _error.value = app.getString(R.string.to_convert_error)

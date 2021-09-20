@@ -50,7 +50,7 @@ class ConversionFragment : BaseFragment() {
         addObservers()
 
         btnConvert.setOnClickListener {
-            conversionViewModel.checkAndConvert()
+            conversionViewModel.showLoaderAndConvert()
         }
     }
 
