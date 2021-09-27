@@ -49,6 +49,11 @@ class ConversionViewModel(application: Application, val fXRepository: IFXReposit
         checkAndConvert(_from.value ?: "", _to.value ?: "", _amount.value ?: "")
     }
 
+    fun presetCurrencies(from: String?, to: String?) {
+        from.let { _from.value = it }
+        to.let { _to.value = it }
+    }
+
     fun checkAndConvert(from: String, to: String, amount: String){
         when{
             from.isNullOrEmpty() -> _error.value = app.getString(R.string.from_convert_error)
@@ -56,11 +61,6 @@ class ConversionViewModel(application: Application, val fXRepository: IFXReposit
             amount.isNullOrEmpty() -> _error.value = app.getString(R.string.amount_convert_error)
             else -> viewModelScope.launch(Dispatchers.IO) { convertCurrency(from, to, amount)}
         }
-    }
-
-    fun presetCurrencies(from: String?, to: String?) {
-        from.let { _from.value = it }
-        to.let { _to.value = it }
     }
 
    suspend fun convertCurrency(from: String, to: String, amount: String) {

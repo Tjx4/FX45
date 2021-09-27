@@ -19,8 +19,9 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestRule
 import org.mockito.Mock
-import org.mockito.Mockito.`when`
+import org.mockito.Mockito.*
 import org.mockito.MockitoAnnotations.initMocks
+import org.mockito.MockitoAnnotations.openMocks
 
 class ConversionViewModelTest {
 
@@ -38,7 +39,7 @@ class ConversionViewModelTest {
     @Before
     fun setUp() {
         Dispatchers.setMain(dispatcher)
-        initMocks(this)
+        openMocks(this)
         conversionViewModel = ConversionViewModel(mockApplication, fxRepository)
     }
 
@@ -70,6 +71,18 @@ class ConversionViewModelTest {
         conversionViewModel.checkAndConvert(from, to, amount)
 
         assertEquals(conversionViewModel.error.value, errorMessage)
+    }
+
+    @Test
+    fun `check if to convert is called`() = runBlocking {
+        val errorMessage = "Add currency to convert from"
+        val from = "USD"
+        val to = "ZAR"
+        val amount = "1"
+
+        conversionViewModel.checkAndConvert(from, to, amount)
+
+        verify(conversionViewModel, times(1)).convertCurrency(from, to, amount)
     }
 
     @Test
