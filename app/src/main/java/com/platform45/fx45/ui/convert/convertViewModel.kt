@@ -19,6 +19,10 @@ class ConversionViewModel(application: Application, val fXRepository: IFXReposit
     val showLoading: MutableLiveData<Boolean>
         get() = _showLoading
 
+    private val _isValidInput: MutableLiveData<Boolean> = MutableLiveData()
+    val isValidInput: MutableLiveData<Boolean>
+        get() = _isValidInput
+
     private val _from: MutableLiveData<String> = MutableLiveData()
     val from: MutableLiveData<String>
         get() = _from
@@ -63,19 +67,17 @@ class ConversionViewModel(application: Application, val fXRepository: IFXReposit
             from.isNullOrEmpty() -> _error.value = app.getString(R.string.from_convert_error)
             to.isNullOrEmpty() -> _error.value = app.getString(R.string.to_convert_error)
             amount.isNullOrEmpty() -> _error.value = app.getString(R.string.amount_convert_error)
-            else -> viewModelScope.launch(Dispatchers.IO) { convertCurrency(from, to, amount)}
+            else -> _isValidInput.value = true
         }
     }
 
-   suspend fun convertCurrency(from: String, to: String, amount: String) {
+    suspend fun convertCurrency(from: String, to: String, amount: String) {
         val conversion = fXRepository.getConversion(API_KEY, from, to, amount)
 
         withContext(Dispatchers.Main) {
-            if (conversion == null) {
-                _dialogErrorMessage.value = app.getString(R.string.convert_response_error)
-            }
-            else{
-                _convert.value = conversion
+            when (conversion) {
+                null -> _dialogErrorMessage.value = app.getString(R.string.convert_response_error)
+                else -> _convert.value = conversion
             }
         }
     }

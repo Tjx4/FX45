@@ -49,7 +49,7 @@ class ConversionViewModelTest {
     }
 
     @Test
-    fun `check if right message displayed when From currency not set`() {
+    fun `check if right message is displayed when the currenct converting from is not set`() {
         val errorMessage = "Add currency to convert from"
         val from = ""
         val to = "ZAR"
@@ -62,19 +62,20 @@ class ConversionViewModelTest {
     }
 
     @Test
-    fun `check if to currency not set`() {
+    fun `check if right message is displayed when the currenct converting to is not set`() {
         val errorMessage = "Add currency to convert from"
         val from = "USD"
         val to = ""
         val amount = "1"
 
+        `when`(mockApplication.getString(R.string.to_convert_error)).thenReturn(errorMessage)
         conversionViewModel.checkAndConvert(from, to, amount)
 
         assertEquals(conversionViewModel.error.value, errorMessage)
     }
 
     @Test
-    fun `check if to convert is called`() = runBlocking {
+    fun `check if to convert method is called`() = runBlocking {
         val errorMessage = "Add currency to convert from"
         val from = "USD"
         val to = "ZAR"
@@ -82,7 +83,7 @@ class ConversionViewModelTest {
 
         conversionViewModel.checkAndConvert(from, to, amount)
 
-        verify(conversionViewModel, times(1)).convertCurrency(from, to, amount)
+        assert(conversionViewModel.isValidInput.value == true)
     }
 
     @Test
@@ -120,16 +121,17 @@ class ConversionViewModelTest {
 
 
     @Test
-    fun `check if amount is converted to error`() = runBlockingTest {
+    fun `check if error response handled`() = runBlockingTest {
         val from = "USD"
         val to = "ZAR"
         val amount = "1"
-        val conversion = Conversion(16.0, 1, 20.0, from, to)
+        val errorMessage = "Sorry an error occurred"
 
-        `when`(conversionViewModel.fXRepository.getConversion(API_KEY, from, to, amount)).thenReturn(conversion)
+        `when`(conversionViewModel.fXRepository.getConversion(API_KEY, from, to, amount)).thenReturn(null)
+        `when`(mockApplication.getString(R.string.convert_response_error)).thenReturn(errorMessage)
         conversionViewModel.convertCurrency(from, to, amount)
 
-        assertEquals(conversionViewModel.dialogErrorMessage.value, conversion)
+        assertEquals(conversionViewModel.dialogErrorMessage.value, errorMessage)
     }
 
 }
