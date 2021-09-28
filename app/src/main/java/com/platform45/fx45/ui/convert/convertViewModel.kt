@@ -72,7 +72,7 @@ class ConversionViewModel(application: Application, val fXRepository: IFXReposit
 
         withContext(Dispatchers.Main) {
             if (conversion == null) {
-
+                _dialogErrorMessage.value = app.getString(R.string.convert_response_error)
             }
             else{
                 _convert.value = conversion
