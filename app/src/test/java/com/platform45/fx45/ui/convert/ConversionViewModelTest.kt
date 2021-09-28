@@ -13,6 +13,8 @@ import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runBlockingTest
 import kotlinx.coroutines.test.setMain
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.ResponseBody.Companion.toResponseBody
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -111,12 +113,32 @@ class ConversionViewModelTest {
         val to = "ZAR"
         val amount = "1"
         val conversion = Conversion(16.0, 1, 20.0, from, to)
-        //val response = Response("", conversion, null)
+        val successResponse: Response<Conversion?> = Response.success(conversion)
 
-        //`when`(conversionViewModel.fXRepository.getConversion(API_KEY, from, to, amount)).thenReturn(response)
+        `when`(conversionViewModel.fXRepository.getConversion(API_KEY, from, to, amount)).thenReturn(successResponse)
         conversionViewModel.convertCurrency(from, to, amount)
 
         assertEquals(conversionViewModel.convert.value, conversion)
     }
 
+ /*
+    @Test
+    fun `check if amount is convertion error`() = runBlockingTest {
+        val from = "USD"
+        val to = "ZAR"
+        val amount = "1"
+        val conversion = Conversion(16.0, 1, 20.0, from, to)
+        val errorResponse = "{\n " +
+                "\"type\": \"error\", \n " +
+                "\"message\": \"Some error message.\" \n" +
+                "}"
+        val responseBody = errorResponse.toResponseBody("application/json".toMediaTypeOrNull())
+        val errorResponseBody = Response.error<Conversion>(400, responseBody)
+
+        `when`(conversionViewModel.fXRepository.getConversion(API_KEY, from, to, amount)).thenReturn(errorResponseBody)
+        conversionViewModel.convertCurrency(from, to, amount)
+
+        assertEquals(conversionViewModel.dialogErrorMessage.value , errorResponseBody.errorBody().string())
+    }
+*/
 }
