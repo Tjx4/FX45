@@ -20,8 +20,8 @@ import org.junit.Test
 import org.junit.rules.TestRule
 import org.mockito.Mock
 import org.mockito.Mockito.*
-import org.mockito.MockitoAnnotations.initMocks
 import org.mockito.MockitoAnnotations.openMocks
+import retrofit2.Response
 
 class ConversionViewModelTest {
 
@@ -58,7 +58,7 @@ class ConversionViewModelTest {
         `when`(mockApplication.getString(R.string.from_convert_error)).thenReturn(errorMessage)
         conversionViewModel.checkAndConvert(from, to, amount)
 
-        assertEquals(conversionViewModel.error.value, errorMessage)
+        assertEquals(conversionViewModel.errorMessage.value, errorMessage)
     }
 
     @Test
@@ -70,7 +70,7 @@ class ConversionViewModelTest {
 
         conversionViewModel.checkAndConvert(from, to, amount)
 
-        assertEquals(conversionViewModel.error.value, errorMessage)
+        assertEquals(conversionViewModel.errorMessage.value, errorMessage)
     }
 
     @Test
@@ -111,8 +111,9 @@ class ConversionViewModelTest {
         val to = "ZAR"
         val amount = "1"
         val conversion = Conversion(16.0, 1, 20.0, from, to)
+        //val response = Response("", conversion, null)
 
-        `when`(conversionViewModel.fXRepository.getConversion(API_KEY, from, to, amount)).thenReturn(conversion)
+        //`when`(conversionViewModel.fXRepository.getConversion(API_KEY, from, to, amount)).thenReturn(response)
         conversionViewModel.convertCurrency(from, to, amount)
 
         assertEquals(conversionViewModel.convert.value, conversion)

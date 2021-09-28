@@ -2,9 +2,8 @@ package com.platform45.fx45.ui.tradeHistory
 
 import android.app.Application
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.platform45.fx45.networking.retrofit.RetrofitHelper
+import com.platform45.fx45.networking.retrofit.Services
 import com.platform45.fx45.persistance.room.FX45Db
-import com.platform45.fx45.repositories.FXRepository
 import com.platform45.fx45.repositories.IFXRepository
 import org.junit.Assert
 import org.junit.Before
@@ -12,7 +11,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestRule
 import org.mockito.Mock
-import org.mockito.MockitoAnnotations
 import org.mockito.MockitoAnnotations.initMocks
 
 class TradeHistoryViewModelTest {
@@ -23,10 +21,9 @@ class TradeHistoryViewModelTest {
     private lateinit var fxRepository: IFXRepository
 
     @Mock
-    lateinit var retrofitHelper: RetrofitHelper
+    lateinit var services: Services
     @Mock
     lateinit var database: FX45Db
-
 
     @get:Rule
     var rule: TestRule = InstantTaskExecutorRule()

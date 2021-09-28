@@ -4,7 +4,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object API {
-    var retrofit: RetrofitHelper
+    var retrofit: Services
 
     init {
         val builder = Retrofit.Builder()
@@ -12,6 +12,6 @@ object API {
             .addConverterFactory(GsonConverterFactory.create())
         val retrofit = builder.build()
 
-        API.retrofit = retrofit.create(RetrofitHelper::class.java)
+        API.retrofit = retrofit.create(Services::class.java)
     }
 }

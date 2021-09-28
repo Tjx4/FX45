@@ -6,7 +6,6 @@ import androidx.lifecycle.viewModelScope
 import com.platform45.fx45.R
 import com.platform45.fx45.base.viewmodel.BaseVieModel
 import com.platform45.fx45.constants.API_KEY
-import com.platform45.fx45.repositories.FXRepository
 import com.platform45.fx45.models.Conversion
 import com.platform45.fx45.repositories.IFXRepository
 import kotlinx.coroutines.Dispatchers
@@ -35,9 +34,13 @@ class ConversionViewModel(application: Application, val fXRepository: IFXReposit
     val convert: MutableLiveData<Conversion?>
         get() = _convert
 
-    private val _error: MutableLiveData<String> = MutableLiveData()
-    val error: MutableLiveData<String>
-        get() = _error
+    private val _errorMessage: MutableLiveData<String> = MutableLiveData()
+    val errorMessage: MutableLiveData<String>
+        get() = _errorMessage
+
+    private val _dialogErrorMessage: MutableLiveData<String> = MutableLiveData()
+    val dialogErrorMessage: MutableLiveData<String>
+        get() = _dialogErrorMessage
 
     init {
         _amount.value = "1"
@@ -56,19 +59,22 @@ class ConversionViewModel(application: Application, val fXRepository: IFXReposit
 
     fun checkAndConvert(from: String, to: String, amount: String){
         when{
-            from.isNullOrEmpty() -> _error.value = app.getString(R.string.from_convert_error)
-            to.isNullOrEmpty() -> _error.value = app.getString(R.string.to_convert_error)
-            amount.isNullOrEmpty() -> _error.value = app.getString(R.string.amount_convert_error)
+            from.isNullOrEmpty() -> _errorMessage.value = app.getString(R.string.from_convert_error)
+            to.isNullOrEmpty() -> _errorMessage.value = app.getString(R.string.to_convert_error)
+            amount.isNullOrEmpty() -> _errorMessage.value = app.getString(R.string.amount_convert_error)
             else -> viewModelScope.launch(Dispatchers.IO) { convertCurrency(from, to, amount)}
         }
     }
 
    suspend fun convertCurrency(from: String, to: String, amount: String) {
-        val conversion = fXRepository.getConversion(API_KEY, from, to, amount)
+        val response = fXRepository.getConversion("API_KEY", from, to, amount)
 
         withContext(Dispatchers.Main) {
-            if (conversion != null) {
-                _convert.value = conversion
+            if (response.isSuccessful && response.body() != null) {
+                _convert.value = response.body() as Conversion
+            }
+            else{
+                _dialogErrorMessage.value = response.errorBody()?.string()
             }
         }
     }

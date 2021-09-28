@@ -11,6 +11,7 @@ import androidx.navigation.fragment.navArgs
 import com.platform45.fx45.R
 import com.platform45.fx45.base.fragments.BaseFragment
 import com.platform45.fx45.databinding.FragmentConversionBinding
+import com.platform45.fx45.helpers.showErrorDialog
 import com.platform45.fx45.models.Conversion
 import kotlinx.android.synthetic.main.fragment_conversion.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -49,6 +50,7 @@ class ConversionFragment : BaseFragment() {
         conversionViewModel.presetCurrencies(args.fromCurrency, args.toCurrency)
         addObservers()
 
+        //Todo bind in viewmodel
         btnConvert.setOnClickListener {
             conversionViewModel.showLoaderAndConvert()
         }
@@ -57,7 +59,8 @@ class ConversionFragment : BaseFragment() {
     private fun addObservers() {
         conversionViewModel.convert.observe(viewLifecycleOwner, { onConversion(it) })
         conversionViewModel.showLoading.observe(viewLifecycleOwner, { onShowLoading(it) })
-        conversionViewModel.error.observe(viewLifecycleOwner, { onError(it) })
+        conversionViewModel.errorMessage.observe(viewLifecycleOwner, { onError(it) })
+        conversionViewModel.dialogErrorMessage.observe(viewLifecycleOwner, { onDialogError(it) })
     }
 
     private fun onConversion(conversion: Conversion?){
@@ -72,9 +75,16 @@ class ConversionFragment : BaseFragment() {
         tvError.visibility = View.INVISIBLE
     }
 
-    private fun onError(error: String){
+    private fun onError(errorMessage: String){
         cnvLoader.visibility = View.INVISIBLE
         tvTotal.visibility = View.INVISIBLE
         tvError.visibility = View.VISIBLE
+    }
+
+    private fun onDialogError(errorMessage: String){
+        cnvLoader.visibility = View.INVISIBLE
+        tvTotal.visibility = View.INVISIBLE
+        tvError.visibility = View.VISIBLE
+        showErrorDialog(requireContext(), getString(R.string.error), errorMessage, getString(R.string.close))
     }
 }
