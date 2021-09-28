@@ -10,7 +10,7 @@ class FXRepository(private val retrofitHelper: RetrofitHelper, private val datab
 
     override suspend fun getConversion(api_key: String, from: String, to: String, amount: String): Conversion?{
         return try {
-            retrofitHelper.convert(api_key, from, to, amount).errorBody() as Conversion
+            retrofitHelper.convert(api_key, from, to, amount)
         }
         catch (ex: Exception){
             null

@@ -118,4 +118,18 @@ class ConversionViewModelTest {
         assertEquals(conversionViewModel.convert.value, conversion)
     }
 
+
+    @Test
+    fun `check if amount is converted to error`() = runBlockingTest {
+        val from = "USD"
+        val to = "ZAR"
+        val amount = "1"
+        val conversion = Conversion(16.0, 1, 20.0, from, to)
+
+        `when`(conversionViewModel.fXRepository.getConversion(API_KEY, from, to, amount)).thenReturn(conversion)
+        conversionViewModel.convertCurrency(from, to, amount)
+
+        assertEquals(conversionViewModel.dialogErrorMessage.value, conversion)
+    }
+
 }
