@@ -96,7 +96,7 @@ class ConversionViewModelTest {
     }
 
     @Test
-    fun `check if the to amount is preset correctly`() = runBlocking {
+    fun `check if the to amount is preset correctly`() {
         val from = "USD"
         val to = "ZAR"
 

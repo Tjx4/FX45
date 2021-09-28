@@ -67,7 +67,10 @@ class ConversionViewModel(application: Application, val fXRepository: IFXReposit
         val conversion = fXRepository.getConversion(API_KEY, from, to, amount)
 
         withContext(Dispatchers.Main) {
-            if (conversion != null) {
+            if (conversion == null) {
+
+            }
+            else{
                 _convert.value = conversion
             }
         }
