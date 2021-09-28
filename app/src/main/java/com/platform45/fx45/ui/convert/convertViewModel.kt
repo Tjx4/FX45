@@ -39,6 +39,10 @@ class ConversionViewModel(application: Application, val fXRepository: IFXReposit
     val error: MutableLiveData<String>
         get() = _error
 
+    private val _dialogErrorMessage: MutableLiveData<String> = MutableLiveData()
+    val dialogErrorMessage: MutableLiveData<String>
+        get() = _dialogErrorMessage
+
     init {
         _amount.value = "1"
     }

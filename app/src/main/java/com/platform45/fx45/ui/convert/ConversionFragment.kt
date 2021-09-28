@@ -6,11 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import com.platform45.fx45.R
 import com.platform45.fx45.base.fragments.BaseFragment
 import com.platform45.fx45.databinding.FragmentConversionBinding
+import com.platform45.fx45.helpers.showErrorDialog
 import com.platform45.fx45.models.Conversion
 import kotlinx.android.synthetic.main.fragment_conversion.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -58,6 +60,7 @@ class ConversionFragment : BaseFragment() {
         conversionViewModel.convert.observe(viewLifecycleOwner, { onConversion(it) })
         conversionViewModel.showLoading.observe(viewLifecycleOwner, { onShowLoading(it) })
         conversionViewModel.error.observe(viewLifecycleOwner, { onError(it) })
+        conversionViewModel.dialogErrorMessage.observe(viewLifecycleOwner, { onDialogError(it) })
     }
 
     private fun onConversion(conversion: Conversion?){
@@ -76,5 +79,12 @@ class ConversionFragment : BaseFragment() {
         cnvLoader.visibility = View.INVISIBLE
         tvTotal.visibility = View.INVISIBLE
         tvError.visibility = View.VISIBLE
+    }
+
+    private fun onDialogError(errorMessage: String){
+        cnvLoader.visibility = View.INVISIBLE
+        tvTotal.visibility = View.INVISIBLE
+        tvError.visibility = View.VISIBLE
+        showErrorDialog(requireContext(), getString(R.string.error), errorMessage, getString(R.string.close))
     }
 }
