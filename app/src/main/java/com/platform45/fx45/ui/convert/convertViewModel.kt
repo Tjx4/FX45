@@ -2,15 +2,12 @@ package com.platform45.fx45.ui.convert
 
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
 import com.platform45.fx45.R
 import com.platform45.fx45.base.viewmodel.BaseVieModel
 import com.platform45.fx45.constants.API_KEY
-import com.platform45.fx45.repositories.FXRepository
 import com.platform45.fx45.models.Conversion
 import com.platform45.fx45.repositories.IFXRepository
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class ConversionViewModel(application: Application, val fXRepository: IFXRepository) : BaseVieModel(application) {
@@ -31,7 +28,7 @@ class ConversionViewModel(application: Application, val fXRepository: IFXReposit
     val to: MutableLiveData<String>
         get() = _to
 
-    private val _amount: MutableLiveData<String> = MutableLiveData()
+    private val _amount: MutableLiveData<String> = MutableLiveData<String>("1")
     val amount: MutableLiveData<String>
         get() = _amount
 
@@ -47,11 +44,6 @@ class ConversionViewModel(application: Application, val fXRepository: IFXReposit
     val dialogErrorMessage: MutableLiveData<String>
         get() = _dialogErrorMessage
 
-    init {
-        _amount.value = "1"
-    }
-
-    //Todo refactor
     fun showLoaderAndConvert(){
         _showLoading.value = true
         checkAndConvert(_from.value ?: "", _to.value ?: "", _amount.value ?: "")

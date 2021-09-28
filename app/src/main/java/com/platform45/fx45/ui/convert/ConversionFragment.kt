@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
@@ -50,13 +49,8 @@ class ConversionFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Navigation.findNavController(view).currentDestination?.label = getString(R.string.convert_currencies)
-
         conversionViewModel.presetCurrencies(args.fromCurrency, args.toCurrency)
         addObservers()
-
-        btnConvert.setOnClickListener {
-            conversionViewModel.showLoaderAndConvert()
-        }
     }
 
     private fun addObservers() {
