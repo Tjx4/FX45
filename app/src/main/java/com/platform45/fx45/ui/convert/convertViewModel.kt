@@ -44,7 +44,7 @@ class ConversionViewModel(application: Application, val fXRepository: IFXReposit
     val dialogErrorMessage: MutableLiveData<String>
         get() = _dialogErrorMessage
 
-    fun showLoaderAndConvert(){
+    fun showLoaderAndConvert() {
         _showLoading.value = true
         checkAndConvert(_from.value ?: "", _to.value ?: "", _amount.value ?: "")
     }
@@ -54,7 +54,7 @@ class ConversionViewModel(application: Application, val fXRepository: IFXReposit
         to.let { _to.value = it }
     }
 
-    fun checkAndConvert(from: String, to: String, amount: String){
+    fun checkAndConvert(from: String, to: String, amount: String) {
         when{
             from.isNullOrEmpty() -> _error.value = app.getString(R.string.from_convert_error)
             to.isNullOrEmpty() -> _error.value = app.getString(R.string.to_convert_error)
@@ -67,8 +67,9 @@ class ConversionViewModel(application: Application, val fXRepository: IFXReposit
         val conversion = fXRepository.getConversion(API_KEY, from, to, amount)
 
         withContext(Dispatchers.Main) {
-            when (conversion) {
-                null -> _dialogErrorMessage.value = app.getString(R.string.convert_response_error)
+            when {
+                conversion == null -> _dialogErrorMessage.value = app.getString(R.string.convert_response_error)
+                conversion?.error != null -> _dialogErrorMessage.value = conversion?.error?.info
                 else -> _convert.value = conversion
             }
         }

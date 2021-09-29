@@ -5,6 +5,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.platform45.fx45.R
 import com.platform45.fx45.constants.API_KEY
 import com.platform45.fx45.models.Conversion
+import com.platform45.fx45.models.ResponseError
 import com.platform45.fx45.repositories.IFXRepository
 import junit.framework.Assert.assertEquals
 import kotlinx.coroutines.Dispatchers
@@ -106,19 +107,6 @@ class ConversionViewModelTest {
         assertEquals(conversionViewModel.to.value, to)
     }
 
-    @Test
-    fun `check if amount is converted to the correct amount`() = runBlockingTest {
-        val from = "USD"
-        val to = "ZAR"
-        val amount = "1"
-        val conversion = Conversion(16.0, 1, 20.0, from, to)
-
-        `when`(conversionViewModel.fXRepository.getConversion(API_KEY, from, to, amount)).thenReturn(conversion)
-        conversionViewModel.convertCurrency(from, to, amount)
-
-        assertEquals(conversionViewModel.convert.value, conversion)
-    }
-
 
     @Test
     fun `check if error response handled`() = runBlockingTest {
@@ -132,6 +120,33 @@ class ConversionViewModelTest {
         conversionViewModel.convertCurrency(from, to, amount)
 
         assertEquals(conversionViewModel.dialogErrorMessage.value, errorMessage)
+    }
+
+    @Test
+    fun `check error handled`() = runBlockingTest {
+        val from = "USD"
+        val to = "ZAR"
+        val amount = "1"
+        val error = ResponseError("202", "error message")
+        val conversion = Conversion(0.0, 0, 0.0, from, to, error)
+
+        `when`(conversionViewModel.fXRepository.getConversion(API_KEY, from, to, amount)).thenReturn(conversion)
+        conversionViewModel.convertCurrency(from, to, amount)
+
+        assertEquals(conversionViewModel.dialogErrorMessage.value, error.info)
+    }
+
+    @Test
+    fun `check if amount is converted to the correct amount`() = runBlockingTest {
+        val from = "USD"
+        val to = "ZAR"
+        val amount = "1"
+        val conversion = Conversion(16.0, 1, 20.0, from, to)
+
+        `when`(conversionViewModel.fXRepository.getConversion(API_KEY, from, to, amount)).thenReturn(conversion)
+        conversionViewModel.convertCurrency(from, to, amount)
+
+        assertEquals(conversionViewModel.convert.value, conversion)
     }
 
 }
