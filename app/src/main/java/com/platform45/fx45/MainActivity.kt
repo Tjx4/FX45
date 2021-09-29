@@ -10,6 +10,8 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.NavigationUI.setupWithNavController
+import com.google.firebase.FirebaseApp
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.platform45.fx45.ui.dashboard.DashboardFragment
 import com.platform45.fx45.ui.dashboard.DashboardFragmentDirections
 import kotlinx.android.synthetic.main.fragment_dashboard.*
@@ -25,6 +27,8 @@ class MainActivity : AppCompatActivity(), MyDrawerController{
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        FirebaseApp.initializeApp(this);
+        FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(true);
         setContentView(R.layout.main_activity)
         setSupportActionBar(toolbar)
         navController = this.findNavController(R.id.navControllerFragment)
