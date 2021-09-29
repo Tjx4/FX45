@@ -11,7 +11,8 @@ class FXRepository(private val retrofitHelper: RetrofitHelper, private val datab
 
     override suspend fun getConversion(api_key: String, from: String, to: String, amount: String): Conversion?{
         return try {
-            retrofitHelper.convert(api_key, from, to, amount)
+            val result = retrofitHelper.convert(api_key, from, to, amount).g
+            result
         }
         catch (ex: Exception){
             firebaseCrashlytics.recordException(ex)
