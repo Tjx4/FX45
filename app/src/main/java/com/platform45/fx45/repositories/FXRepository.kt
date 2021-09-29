@@ -24,6 +24,7 @@ class FXRepository(private val retrofitHelper: RetrofitHelper, private val datab
             retrofitHelper.currencies(apiKey)
         }
         catch (ex: Exception) {
+            firebaseCrashlytics.recordException(ex)
             null
         }
     }
@@ -33,6 +34,7 @@ class FXRepository(private val retrofitHelper: RetrofitHelper, private val datab
             retrofitHelper.series(apiKey, startDate, endDate, currency, format)
         }
         catch (ex: Exception){
+            firebaseCrashlytics.recordException(ex)
             null
         }
     }

@@ -64,7 +64,7 @@ class ConversionViewModel(application: Application, val fXRepository: IFXReposit
     }
 
     suspend fun convertCurrency(from: String, to: String, amount: String) {
-        val conversion = fXRepository.getConversion("API_KEY", from, to, amount)
+        val conversion = fXRepository.getConversion(API_KEY, from, to, amount)
 
         withContext(Dispatchers.Main) {
             when (conversion) {
