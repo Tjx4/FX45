@@ -29,13 +29,12 @@ import com.platform45.fx45.extensions.getScreenCols
 import com.platform45.fx45.extensions.splitInTwo
 import com.platform45.fx45.helpers.showDateTimeDialogFragment
 import com.platform45.fx45.helpers.showErrorDialog
-import com.platform45.fx45.ui.dashboard.datetime.DateTimePickerFragment
 
-class DashboardFragment : BaseFragment(), PopularPairsPagingAdapter.AddPairClickListener, CurrencyPairAdapter.UserInteractions, DateTimePickerFragment.DateTimeSetter {
+class DashboardFragment : BaseFragment(), PopularPairsPagingAdapter.AddPairClickListener, CurrencyPairAdapter.UserInteractions {
     private lateinit var binding: FragmentDashboardBinding
     private val dashboardViewModel: DashboardViewModel by viewModel()
     private lateinit var popularPairsPagingAdapter: PopularPairsPagingAdapter
-    override var dtIndex: Int = 0
+
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -83,16 +82,6 @@ class DashboardFragment : BaseFragment(), PopularPairsPagingAdapter.AddPairClick
 
         btnAddCurrencyPair.setOnClickListener {
             dashboardViewModel.addCreatedPairToList()
-        }
-
-        btnFrom.setOnClickListener {
-            dtIndex = 0
-            showDateTimeDialogFragment(this, (it as Button).text.toString())
-        }
-
-        btnTo.setOnClickListener {
-            dtIndex = 1
-            showDateTimeDialogFragment(this, (it as Button).text.toString())
         }
 
         btnRequestHistory.setOnClickListener {
@@ -205,19 +194,7 @@ class DashboardFragment : BaseFragment(), PopularPairsPagingAdapter.AddPairClick
         btnRequestHistory.visibility = if(proceed) View.VISIBLE else View.INVISIBLE
     }
 
-    override fun setDate(year: Int, month: Int, day: Int) {
-        when (dtIndex) {
-            0 -> dashboardViewModel.setStartDate("$year-$month-$day")
-            1 -> dashboardViewModel.setEndDate("$year-$month-$day")
-        }
-    }
 
-    override fun setTime(scheduledTime: String) {
-        when (dtIndex) {
-            0 -> dashboardViewModel.setStartTime("$scheduledTime")
-            1 -> dashboardViewModel.setEndTime("$scheduledTime")
-        }
-    }
 
     private fun onCurrencyPairsSet(pairs: List<String>) {
         val pairsAdapter = CurrencyPairAdapter(requireContext(), pairs)

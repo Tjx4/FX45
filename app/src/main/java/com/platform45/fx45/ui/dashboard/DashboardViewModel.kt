@@ -22,14 +22,6 @@ class DashboardViewModel(application: Application, private val fXRepository: IFX
     val canProceed: MutableLiveData<Boolean>
         get() = _canProceed
 
-    private val _startDate: MutableLiveData<String> = MutableLiveData()
-    val startDate: MutableLiveData<String>
-        get() = _startDate
-
-    private val _endDate: MutableLiveData<String> = MutableLiveData()
-    val endDate: MutableLiveData<String>
-        get() = _endDate
-
     private val _userSelectedPair: MutableLiveData<String> = MutableLiveData()
     val userSelectedPair: MutableLiveData<String>
         get() = _userSelectedPair
@@ -51,23 +43,9 @@ class DashboardViewModel(application: Application, private val fXRepository: IFX
     }.flow.cachedIn(viewModelScope)
 
     init {
-        initCurrencies()
         _currencyPairs.value = ArrayList()
-        initStartAndEndDate()
     }
 
-    fun initCurrencies() {
-        val tmpList = ArrayList<String>()
-        for (currency in Currency.getAvailableCurrencies()) {
-            tmpList.add(currency.currencyCode)
-        }
-        availableCurrencies.value = tmpList?.sortedBy { it }
-    }
-
-    fun initStartAndEndDate() {
-        _startDate.value = getClosestWeekDay(30)
-        _endDate.value = getCurrentDate()
-    }
 
     fun checkState() {
         _canProceed.value = !_currencyPairs.value.isNullOrEmpty()
@@ -79,22 +57,6 @@ class DashboardViewModel(application: Application, private val fXRepository: IFX
 
     fun addCreatedPairToList() {
         _userSelectedPair.value?.let { addCurrencyPairToList(it) }
-    }
-
-    fun setStartDate(startDate: String?) {
-        _startDate.value = "$startDate"
-    }
-
-    fun setEndDate(endDate: String?) {
-        _endDate.value = "$endDate"
-    }
-
-    fun setStartTime(startTime: String?) {
-        startTime?.let { _startDate.value = "${_startDate.value}-$it" }
-    }
-
-    fun setEndTime(endTime: String?) {
-        endTime.let { _endDate.value = "${_endDate.value}-$it"}
     }
 
     fun togglePopularPairFromList(currencyPair: String) {
