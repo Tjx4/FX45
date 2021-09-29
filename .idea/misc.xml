@@ -5,6 +5,7 @@
       <map>
         <entry key="app/src/main/res/layout/cp_layout.xml" value="0.12545289855072464" />
         <entry key="app/src/main/res/layout/currency_pair_layout.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_confim.xml" value="0.1578125" />
         <entry key="app/src/main/res/layout/fragment_conversion.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fx_layout.xml" value="0.335" />

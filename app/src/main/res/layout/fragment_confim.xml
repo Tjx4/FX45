@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="conFirmViewModel"
+            type="com.platform45.fx45.ui.confirm.ConFirmViewModel"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        style="@style/ParentView"
+        android:animateLayoutChanges="true"
+        tools:context=".features.ui.confirm.ConfirmFragment">
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

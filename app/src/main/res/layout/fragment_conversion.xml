@@ -11,7 +11,7 @@ xmlns:tools="http://schemas.android.com/tools">
     <androidx.constraintlayout.widget.ConstraintLayout
         style="@style/ParentView"
         android:animateLayoutChanges="true"
-        tools:context=".features.convertion.ConversionFragment">
+        tools:context=".ui.convert.ConversionFragment">
 
         <ImageView
             android:layout_width="match_parent"
