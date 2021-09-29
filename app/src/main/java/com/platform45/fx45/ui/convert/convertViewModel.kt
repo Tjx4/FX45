@@ -55,7 +55,7 @@ class ConversionViewModel(application: Application, val fXRepository: IFXReposit
     }
 
     fun checkAndConvert(from: String, to: String, amount: String) {
-        when{
+        when {
             from.isNullOrEmpty() -> _error.value = app.getString(R.string.from_convert_error)
             to.isNullOrEmpty() -> _error.value = app.getString(R.string.to_convert_error)
             amount.isNullOrEmpty() -> _error.value = app.getString(R.string.amount_convert_error)
