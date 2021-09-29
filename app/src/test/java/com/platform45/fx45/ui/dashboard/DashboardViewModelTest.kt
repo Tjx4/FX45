@@ -2,7 +2,6 @@ package com.platform45.fx45.ui.dashboard
 
 import android.app.Application
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.platform45.fx45.R
 import com.platform45.fx45.helpers.getClosestWeekDay
 import com.platform45.fx45.repositories.IFXRepository
 import junit.framework.Assert.assertEquals
@@ -17,7 +16,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestRule
 import org.mockito.Mock
-import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 
 class DashboardViewModelTest {
