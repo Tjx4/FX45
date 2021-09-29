@@ -59,7 +59,6 @@ class DashboardFragment : BaseFragment(), PopularPairsPagingAdapter.AddPairClick
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Navigation.findNavController(view).currentDestination?.label = getString(R.string.forty_five)
-
         dashboardViewModel.checkState()
         addObservers()
         initRecyclerView()

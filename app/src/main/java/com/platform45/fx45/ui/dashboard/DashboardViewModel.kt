@@ -10,8 +10,6 @@ import com.platform45.fx45.base.viewmodel.BaseVieModel
 import com.platform45.fx45.constants.PP_PAGE_SIZE
 import com.platform45.fx45.helpers.getClosestWeekDay
 import com.platform45.fx45.helpers.getCurrentDate
-import com.platform45.fx45.helpers.getDaysAgo
-import com.platform45.fx45.repositories.FXRepository
 import com.platform45.fx45.repositories.IFXRepository
 import com.platform45.fx45.ui.dashboard.paging.PopularPairPagingSource
 import java.util.*
@@ -54,21 +52,8 @@ class DashboardViewModel(application: Application, private val fXRepository: IFX
 
     init {
         initCurrencies()
-        initCurrencyPairs()
-        initStartAndEndDate()
-    }
-
-    private fun initStartAndEndDate() {
-        _startDate.value = getClosestWeekDay(30)
-        _endDate.value = getCurrentDate()
-    }
-
-    fun checkState() {
-        _canProceed.value = !_currencyPairs.value.isNullOrEmpty()
-    }
-
-    private fun initCurrencyPairs() {
         _currencyPairs.value = ArrayList()
+        initStartAndEndDate()
     }
 
     fun initCurrencies() {
@@ -79,9 +64,17 @@ class DashboardViewModel(application: Application, private val fXRepository: IFX
         availableCurrencies.value = tmpList?.sortedBy { it }
     }
 
+    fun initStartAndEndDate() {
+        _startDate.value = getClosestWeekDay(30)
+        _endDate.value = getCurrentDate()
+    }
 
-    fun setCurrencyPair(frmIndx: Int, ToIndx: Int) {
-        _userSelectedPair.value = "${availableCurrencies.value?.get(frmIndx) ?: ""}${availableCurrencies.value?.get(ToIndx)}"
+    fun checkState() {
+        _canProceed.value = !_currencyPairs.value.isNullOrEmpty()
+    }
+
+    fun setCurrencyPair(frmIndx: Int, toIndx: Int) {
+        _userSelectedPair.value = "${availableCurrencies.value?.get(frmIndx) ?: ""}${availableCurrencies.value?.get(toIndx)}"
     }
 
     fun addCreatedPairToList() {

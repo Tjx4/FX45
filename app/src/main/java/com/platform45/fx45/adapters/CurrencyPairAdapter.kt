@@ -14,7 +14,7 @@ class CurrencyPairAdapter(private val context: Context, private val addSlides: L
     private var userInteractions: UserInteractions? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = layoutInflater.inflate(R.layout.pair_layout, parent, false)
+        val view = layoutInflater.inflate(R.layout.selected_currency_pair_layout, parent, false)
         return ViewHolder(view)
     }
 

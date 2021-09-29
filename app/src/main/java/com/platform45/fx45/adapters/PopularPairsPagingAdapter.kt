@@ -20,7 +20,7 @@ class PopularPairsPagingAdapter(var context: Context) : PagingDataAdapter<Popula
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PopularViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(
-            R.layout.cp_layout,
+            R.layout.currency_pair_layout,
             parent,
             false
         )
