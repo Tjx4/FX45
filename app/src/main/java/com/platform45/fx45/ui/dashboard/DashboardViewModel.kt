@@ -16,7 +16,6 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class DashboardViewModel(application: Application, private val fXRepository: IFXRepository) : BaseVieModel(application) {
-    val availableCurrencies: MutableLiveData<List<String>> = MutableLiveData()
 
     private val _canProceed: MutableLiveData<Boolean> = MutableLiveData()
     val canProceed: MutableLiveData<Boolean>
@@ -49,10 +48,6 @@ class DashboardViewModel(application: Application, private val fXRepository: IFX
 
     fun checkState() {
         _canProceed.value = !_currencyPairs.value.isNullOrEmpty()
-    }
-
-    fun setCurrencyPair(frmIndx: Int, toIndx: Int) {
-        _userSelectedPair.value = "${availableCurrencies.value?.get(frmIndx) ?: ""}${availableCurrencies.value?.get(toIndx)}"
     }
 
     fun addCreatedPairToList() {

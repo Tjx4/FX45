@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.Button
 import androidx.databinding.DataBindingUtil
 import com.platform45.fx45.R
@@ -11,6 +12,7 @@ import com.platform45.fx45.base.fragments.BaseDialogFragment
 import com.platform45.fx45.databinding.FragmentConfimBinding
 import com.platform45.fx45.helpers.showDateTimeDialogFragment
 import com.platform45.fx45.ui.dashboard.datetime.DateTimePickerFragment
+import kotlinx.android.synthetic.main.fragment_confim.*
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -33,6 +35,24 @@ class ConfirmFragment: BaseDialogFragment(), DateTimePickerFragment.DateTimeSett
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+        spnFrmCurrency.onItemSelectedListener  = object : AdapterView.OnItemSelectedListener{
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                conFirmViewModel.setCurrencyPair(position, spnToCurrency.selectedItemPosition)
+            }
+        }
+
+        spnToCurrency.onItemSelectedListener  = object : AdapterView.OnItemSelectedListener{
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                conFirmViewModel.setCurrencyPair(spnFrmCurrency.selectedItemPosition, position)
+            }
+        }
 
         btnFrom.setOnClickListener {
             dtIndex = 0

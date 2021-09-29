@@ -62,23 +62,6 @@ class DashboardFragment : BaseFragment(), PopularPairsPagingAdapter.AddPairClick
         addObservers()
         initRecyclerView()
 
-        spnFrmCurrency.onItemSelectedListener  = object : AdapterView.OnItemSelectedListener{
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-            }
-
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                dashboardViewModel.setCurrencyPair(position, spnToCurrency.selectedItemPosition)
-            }
-        }
-
-        spnToCurrency.onItemSelectedListener  = object : AdapterView.OnItemSelectedListener{
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-            }
-
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                dashboardViewModel.setCurrencyPair(spnFrmCurrency.selectedItemPosition, position)
-            }
-        }
 
         btnAddCurrencyPair.setOnClickListener {
             dashboardViewModel.addCreatedPairToList()

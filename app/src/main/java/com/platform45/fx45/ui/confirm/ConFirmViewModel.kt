@@ -23,6 +23,10 @@ class ConFirmViewModel(application: Application, val fXRepository: IFXRepository
     val endDate: MutableLiveData<String>
         get() = _endDate
 
+    private val _availableCurrencies: MutableLiveData<List<String>> = MutableLiveData()
+    val availableCurrencies: MutableLiveData<List<String>>
+        get() = _availableCurrencies
+
     init {
         initStartAndEndDate()
         initCurrencies()
@@ -57,4 +61,10 @@ class ConFirmViewModel(application: Application, val fXRepository: IFXRepository
     fun setEndTime(endTime: String?) {
         endTime.let { _endDate.value = "${_endDate.value}-$it"}
     }
+
+
+    fun setCurrencyPair(frmIndx: Int, toIndx: Int) {
+        _userSelectedPair.value = "${_availableCurrencies.value?.get(frmIndx) ?: ""}${_availableCurrencies.value?.get(toIndx)}"
+    }
+
 }
