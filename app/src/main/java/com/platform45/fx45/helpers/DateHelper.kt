@@ -16,15 +16,17 @@ fun getDaysAgo(daysAgo: Int) : String {
 }
 
 fun getClosestWeekDay(daysAgo: Int): String {
+    //Todo fix
     val calendar = Calendar.getInstance()
-    calendar.add(Calendar.DAY_OF_YEAR, -daysAgo)
-    var dayOfWeek: Int = calendar.get(Calendar.DAY_OF_WEEK)
+    var dayOfWeek = Calendar.DAY_OF_WEEK
+    var requiredDays = daysAgo
 
     when (dayOfWeek) {
-        1 -> calendar.add(Calendar.DAY_OF_YEAR, +1)
-        7 -> calendar.add(Calendar.DAY_OF_YEAR, -1)
-        else -> calendar.add(Calendar.DAY_OF_YEAR, -daysAgo)
+        1 -> requiredDays = daysAgo + 1
+        7 -> requiredDays = daysAgo - 2
     }
+
+    calendar.add(Calendar.DAY_OF_YEAR, -requiredDays)
 
     val sdf = SimpleDateFormat("yyyy-MM-dd")
     return sdf.format(calendar.time)
