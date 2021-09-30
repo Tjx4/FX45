@@ -57,6 +57,7 @@ class DashboardViewModel(application: Application, private val fXRepository: IFX
     private fun addCurrencyPairToList(pair: String) {
         _selectedPairs.value?.let {
             (it as ArrayList).add(pair)
+            _isPairsUpdated.value = true
         }
     }
 

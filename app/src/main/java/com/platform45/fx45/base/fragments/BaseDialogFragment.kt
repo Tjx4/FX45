@@ -29,7 +29,7 @@ abstract class BaseDialogFragment : DialogFragment() {
         dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog?.window?.attributes?.windowAnimations = R.style.DialogTheme
         //dialog?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
-        dialog?.window?.setDimAmount(0.9f)
+        dialog?.window?.setDimAmount(1f)
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 

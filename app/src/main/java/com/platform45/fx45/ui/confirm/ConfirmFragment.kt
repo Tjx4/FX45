@@ -9,6 +9,7 @@ import android.widget.AdapterView
 import android.widget.Button
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
@@ -99,6 +100,7 @@ class ConfirmFragment: BaseDialogFragment(), DateTimePickerFragment.DateTimeSett
 
     private fun addObservers() {
         conFirmViewModel.selectedPairs.observe(viewLifecycleOwner, { onCurrencyPairsSet(it)})
+        conFirmViewModel.isPairsUpdated.observe(viewLifecycleOwner, { onPairsListUpdated(it)})
     }
 
 
@@ -122,6 +124,11 @@ class ConfirmFragment: BaseDialogFragment(), DateTimePickerFragment.DateTimeSett
     override fun onDeleteClicked(pair: String, position: Int) {
         conFirmViewModel.removePairFromList(pair)
         Toast.makeText(context, "$pair deleted", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun onPairsListUpdated(isUpdated: Boolean){
+        rvPorpularCp?.adapter?.notifyDataSetChanged()
+        rvRequestingPairs?.adapter?.notifyDataSetChanged()
     }
 
     private fun onCurrencyPairsSet(pairs: List<String>) {

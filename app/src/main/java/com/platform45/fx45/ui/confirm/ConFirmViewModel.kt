@@ -58,22 +58,4 @@ class ConFirmViewModel(application: Application, val fXRepository: IFXRepository
         _userSelectedPair.value = "${_selectedPairs.value?.get(frmIndx) ?: ""}${_selectedPairs.value?.get(toIndx)}"
     }
 
-
-/*
-    fun togglePopularPairFromList() {
-        _availableCurrencies.value?.let {
-            when {
-                it.(currencyPair) -> {
-                    _pairsMessage.value = "You selected ${it.size} pair${if (it.size == 1) "" else "s"}"
-                }
-                else -> {
-                    _pairsMessage.value = "You selected ${it.size} currency pair${if (it.size == 1) "" else "s"}"
-                }
-            }
-        }
-    }
-
-
-
-*/
 }

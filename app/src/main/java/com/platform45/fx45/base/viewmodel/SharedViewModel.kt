@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.MutableLiveData
 
 abstract class SharedViewModel(application: Application) : BaseVieModel(application) {
+
     protected val _showLoading: MutableLiveData<Boolean> = MutableLiveData()
     val showLoading: MutableLiveData<Boolean>
         get() = _showLoading
@@ -15,6 +16,10 @@ abstract class SharedViewModel(application: Application) : BaseVieModel(applicat
     protected val _endDate: MutableLiveData<String> = MutableLiveData("")
     val endDate: MutableLiveData<String>
         get() = _endDate
+
+    protected val _isPairsUpdated: MutableLiveData<Boolean> = MutableLiveData()
+    val isPairsUpdated: MutableLiveData<Boolean>
+        get() = _isPairsUpdated
 
     protected val _selectedPairs: MutableLiveData<List<String>> = MutableLiveData(ArrayList())
     val selectedPairs: MutableLiveData<List<String>>
@@ -37,6 +42,7 @@ abstract class SharedViewModel(application: Application) : BaseVieModel(applicat
     fun removePairFromList(pair: String) {
         _selectedPairs.value?.let {
             (it as ArrayList).remove(pair)
+            _isPairsUpdated.value = true
         }
     }
 
