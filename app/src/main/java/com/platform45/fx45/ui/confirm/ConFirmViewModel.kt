@@ -27,6 +27,14 @@ class ConFirmViewModel(application: Application, val fXRepository: IFXRepository
     val availableCurrencies: MutableLiveData<List<String>>
         get() = _availableCurrencies
 
+    private val _pairsMessage: MutableLiveData<String> = MutableLiveData()
+    val pairsMessage: MutableLiveData<String>
+        get() = _pairsMessage
+
+    private val _userSelectedPair: MutableLiveData<String> = MutableLiveData()
+    val userSelectedPair: MutableLiveData<String>
+        get() = _userSelectedPair
+
     init {
         initStartAndEndDate()
         initCurrencies()

@@ -6,17 +6,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.Button
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.fragment.findNavController
 import com.platform45.fx45.R
+import com.platform45.fx45.adapters.CurrencyPairAdapter
 import com.platform45.fx45.base.fragments.BaseDialogFragment
 import com.platform45.fx45.databinding.FragmentConfimBinding
 import com.platform45.fx45.helpers.showDateTimeDialogFragment
+import com.platform45.fx45.ui.dashboard.DashboardFragmentDirections
 import com.platform45.fx45.ui.dashboard.datetime.DateTimePickerFragment
 import kotlinx.android.synthetic.main.fragment_confim.*
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class ConfirmFragment: BaseDialogFragment(), DateTimePickerFragment.DateTimeSetter  {
+class ConfirmFragment: BaseDialogFragment(), DateTimePickerFragment.DateTimeSetter, CurrencyPairAdapter.UserInteractions  {
     private lateinit var binding: FragmentConfimBinding
     private val conFirmViewModel: ConFirmViewModel by viewModel()
     override var dtIndex: Int = 0
@@ -35,6 +39,20 @@ class ConfirmFragment: BaseDialogFragment(), DateTimePickerFragment.DateTimeSett
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+        btnAddCurrencyPair.setOnClickListener {
+          //  conFirmViewModel.addCreatedPairToList()
+        }
+
+
+        btnGetHistory.setOnClickListener {
+            val startDate = conFirmViewModel.startDate.value ?: ""
+            val endDate = conFirmViewModel.endDate.value ?: ""
+           // val currencyPairs = conFirmViewModel.getCurrencyPairsString()
+           // myDrawerController.hideActionBarIcon()
+           // val action = DashboardFragmentDirections.dashboardToTradeHistory(startDate, endDate, currencyPairs)
+            //findNavController().navigate(action)
+        }
 
         spnFrmCurrency.onItemSelectedListener  = object : AdapterView.OnItemSelectedListener{
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -79,6 +97,15 @@ class ConfirmFragment: BaseDialogFragment(), DateTimePickerFragment.DateTimeSett
         }
     }
 
+
+    override fun onPairClicked(view: View, position: Int) {
+    }
+
+    override fun onDeleteClicked(pair: String, position: Int) {
+       // conFirmViewModel.removePairFromList(position)
+        Toast.makeText(context, "$pair deleted", Toast.LENGTH_SHORT).show()
+    }
+
     companion object {
         fun newInstance(): BaseDialogFragment {
             val bundle = Bundle()
@@ -88,4 +115,13 @@ class ConfirmFragment: BaseDialogFragment(), DateTimePickerFragment.DateTimeSett
         }
     }
 
+    /*
+        private fun canProceed(proceed: Boolean){
+        btnGetHistory.isEnabled = proceed
+        btnGetHistory.background = resources.getDrawable( if(proceed) R.drawable.fx_button_background  else R.drawable.fx_disabled_button_background)
+        tvRequestingPairs.visibility = if(proceed) View.VISIBLE else View.INVISIBLE
+
+        btnRequestHistory.visibility = View.INVISIBLE
+    }
+    */
 }

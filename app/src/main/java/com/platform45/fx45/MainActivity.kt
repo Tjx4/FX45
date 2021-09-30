@@ -114,12 +114,15 @@ class MainActivity : AppCompatActivity(), MyDrawerController{
     }
 
     override fun onBackPressed() {
+        super.onBackPressed()
+        /*
         if(dbFragment?.clPairSeriesInfo?.visibility == View.INVISIBLE){
             dbFragment?.showPairSeriesInfo()
         }
         else{
             super.onBackPressed()
         }
+        */
     }
 
 }

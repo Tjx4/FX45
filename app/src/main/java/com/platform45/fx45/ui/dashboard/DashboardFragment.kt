@@ -5,8 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.Button
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
@@ -23,18 +21,13 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
-import com.platform45.fx45.adapters.CurrencyPairAdapter
-import com.platform45.fx45.extensions.getScreenCols
 import com.platform45.fx45.extensions.splitInTwo
-import com.platform45.fx45.helpers.showDateTimeDialogFragment
 import com.platform45.fx45.helpers.showErrorDialog
 
-class DashboardFragment : BaseFragment(), PopularPairsPagingAdapter.AddPairClickListener, CurrencyPairAdapter.UserInteractions {
+class DashboardFragment : BaseFragment(), PopularPairsPagingAdapter.AddPairClickListener {
     private lateinit var binding: FragmentDashboardBinding
     private val dashboardViewModel: DashboardViewModel by viewModel()
     private lateinit var popularPairsPagingAdapter: PopularPairsPagingAdapter
-
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -58,27 +51,18 @@ class DashboardFragment : BaseFragment(), PopularPairsPagingAdapter.AddPairClick
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Navigation.findNavController(view).currentDestination?.label = getString(R.string.forty_five)
-        dashboardViewModel.checkState()
         addObservers()
         initRecyclerView()
-
-
-        btnAddCurrencyPair.setOnClickListener {
-            dashboardViewModel.addCreatedPairToList()
-        }
-
-        btnRequestHistory.setOnClickListener {
-            showPairSelector()
-        }
-
-        btnGetHistory.setOnClickListener {
-            val startDate = dashboardViewModel.startDate.value ?: ""
-            val endDate = dashboardViewModel.endDate.value ?: ""
-            val currencyPairs = dashboardViewModel.getCurrencyPairsString()
-            myDrawerController.hideActionBarIcon()
-            val action = DashboardFragmentDirections.dashboardToTradeHistory(startDate, endDate, currencyPairs)
-            findNavController().navigate(action)
-        }
+        btnRequestHistory.setOnClickListener { onRequestHistoryButtonClicked(it) }
+    }
+    private fun addObservers() {
+        dashboardViewModel.canProceed.observe(viewLifecycleOwner, {
+            btnRequestHistory.visibility = View.VISIBLE
+        })
+        dashboardViewModel.hideProceed.observe(viewLifecycleOwner, {
+            btnRequestHistory.visibility = View.INVISIBLE
+        })
+        //dashboardViewModel.currencyPairs.observe(viewLifecycleOwner, { onCurrencyPairsSet(it)})
     }
 
     fun initRecyclerView(){
@@ -110,8 +94,7 @@ class DashboardFragment : BaseFragment(), PopularPairsPagingAdapter.AddPairClick
                             else -> null
                         }
                         error?.let {
-                            val message =
-                                if (it.error.message.isNullOrEmpty()) getString(R.string.no_popular_currency_pairs) else it.error.message!!
+                            val message = if (it.error.message.isNullOrEmpty()) getString(R.string.no_popular_currency_pairs) else it.error.message!!
                             showError(message)
                         }
                     }
@@ -123,30 +106,17 @@ class DashboardFragment : BaseFragment(), PopularPairsPagingAdapter.AddPairClick
 
     }
 
-    private fun addObservers() {
-        dashboardViewModel.isPairsUpdated.observe(viewLifecycleOwner, { onPairsListUpdated(it)})
-        dashboardViewModel.canProceed.observe(viewLifecycleOwner, { canProceed(it)})
-        dashboardViewModel.currencyPairs.observe(viewLifecycleOwner, { onCurrencyPairsSet(it)})
+    override fun onConvertClicked(pair: String) {
+        val fromCurrency = pair.splitInTwo()[0]
+        val toCurrency = pair.splitInTwo()[1]
+        myDrawerController.hideActionBarIcon()
+        val action = DashboardFragmentDirections.dashboardToConversion(fromCurrency, toCurrency)
+        findNavController().navigate(action)
     }
 
     override fun onPairClicked(position: Int, pair: String) {
         dashboardViewModel.togglePopularPairFromList(pair)
-    }
-
-    override fun onConvertClicked(pair: String) {
-        val fromCurrency = pair.splitInTwo()[0]
-        val toCurrency = pair.splitInTwo()[1]
-        val action = DashboardFragmentDirections.dashboardToConversion(fromCurrency, toCurrency)
-        myDrawerController.hideActionBarIcon()
-        findNavController().navigate(action)
-    }
-
-    override fun onPairClicked(view: View, position: Int) {
-    }
-
-    override fun onDeleteClicked(pair: String, position: Int) {
-        dashboardViewModel.removePairFromList(position)
-        Toast.makeText(context, "$pair deleted", Toast.LENGTH_SHORT).show()
+        dashboardViewModel.toggleStatus()
     }
 
     private fun showError(errorMessage: String){
@@ -158,23 +128,23 @@ class DashboardFragment : BaseFragment(), PopularPairsPagingAdapter.AddPairClick
         popularPairsPagingAdapter.refresh()
     }
 
+    fun showPairSeriesInfo() {
+        myDrawerController.showContent()
+    }
+
+    fun onRequestHistoryButtonClicked(view: View){
+       // val action = DashboardFragmentDirections.dashboardToConversion(fromCurrency, toCurrency)
+        ///findNavController().navigate(action)
+        Toast.makeText(context, "onRequestHistoryButtonClicked", Toast.LENGTH_SHORT).show()
+    }
+
+/*
+
+
     private fun showPairSelector(){
         clPairSelector.visibility = View.VISIBLE
         clPairSeriesInfo.visibility = View.INVISIBLE
         myDrawerController.showSelectionMode()
-    }
-
-    fun showPairSeriesInfo() {
-        clPairSelector.visibility = View.INVISIBLE
-        clPairSeriesInfo.visibility = View.VISIBLE
-        myDrawerController.showContent()
-    }
-
-    private fun canProceed(proceed: Boolean){
-        btnGetHistory.isEnabled = proceed
-        btnGetHistory.background = resources.getDrawable( if(proceed) R.drawable.fx_button_background  else R.drawable.fx_disabled_button_background)
-        tvRequestingPairs.visibility = if(proceed) View.VISIBLE else View.INVISIBLE
-        btnRequestHistory.visibility = if(proceed) View.VISIBLE else View.INVISIBLE
     }
 
 
@@ -188,8 +158,5 @@ class DashboardFragment : BaseFragment(), PopularPairsPagingAdapter.AddPairClick
         rvRequestingPairs?.layoutManager = requestingPairsManager
     }
 
-    private fun onPairsListUpdated(isUpdated: Boolean){
-        rvPorpularCp?.adapter?.notifyDataSetChanged()
-        rvRequestingPairs?.adapter?.notifyDataSetChanged()
-    }
+ */
 }

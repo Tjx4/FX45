@@ -142,7 +142,6 @@
                     app:layout_constraintRight_toRightOf="parent"/>
 
                 <TextView
-                    android:visibility="gone"
                     style="@style/MediumTextView"
                     android:id="@+id/tvRequestingPairs"
                     android:layout_width="match_parent"
