@@ -46,6 +46,7 @@ class TradeHistoryFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        super.onCreateView(inflater, container, savedInstanceState)
         myDrawerController.hideMenu()
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_trade_history, container, false)
         binding.lifecycleOwner = this

@@ -27,10 +27,8 @@ class DateTimePickerFragment : BaseDialogFragment(){
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog?.window?.attributes?.windowAnimations = R.style.DialogTheme
-        dialog?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
-        dialog?.window?.setDimAmount(2f)
+        super.onCreateView(inflater, container, savedInstanceState)
+        dialog?.window?.setDimAmount(1f)
 
         val layout = arguments?.getInt(LAYOUT)
 

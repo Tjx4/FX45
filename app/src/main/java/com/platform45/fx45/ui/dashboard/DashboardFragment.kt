@@ -112,7 +112,6 @@ class DashboardFragment : BaseFragment(), PopularPairsPagingAdapter.AddPairClick
     }
 
     private fun goToConfirmScreen(){
-        myDrawerController.hideActionBarIcon()
         val currencyPairs = dashboardViewModel.getCurrencyPairsString()
         val action = DashboardFragmentDirections.dashboardToConfirm(currencyPairs)
         findNavController().navigate(action)
@@ -137,7 +136,7 @@ class DashboardFragment : BaseFragment(), PopularPairsPagingAdapter.AddPairClick
     }
 
     private fun onPairSelected(message: String){
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+        //Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 
 }

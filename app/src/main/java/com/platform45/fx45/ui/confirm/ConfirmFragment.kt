@@ -32,11 +32,17 @@ class ConfirmFragment: BaseDialogFragment(), DateTimePickerFragment.DateTimeSett
     private val args: ConfirmFragmentArgs by navArgs()
     override var dtIndex: Int = 0
 
+    override fun onDetach() {
+        super.onDetach()
+        //myDrawerController.showActionBarIcon()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
+        //myDrawerController.showSelectionMode()
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_confim, container, false)
         binding.lifecycleOwner = this
         binding.conFirmViewModel = conFirmViewModel
@@ -48,6 +54,10 @@ class ConfirmFragment: BaseDialogFragment(), DateTimePickerFragment.DateTimeSett
 
         addObservers()
         conFirmViewModel.setPairsList(args.currencyPairs)
+
+        btnCloseDialog.setOnClickListener {
+            dismiss()
+        }
 
         btnGetHistory.setOnClickListener {
             myDrawerController.hideActionBarIcon()

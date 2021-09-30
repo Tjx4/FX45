@@ -10,7 +10,6 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         style="@style/ParentView"
-        android:animateLayoutChanges="true"
         tools:context=".features.ui.confirm.ConfirmFragment">
 
         <ImageView
@@ -20,10 +19,21 @@
             android:scaleType="fitXY"
             android:src="@drawable/bg_image"/>
 
+        <ImageButton
+            android:id="@+id/btnCloseDialog"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_close"
+            android:padding="5dp"
+            android:layout_margin="@dimen/xsmall_margin"
+            android:background="@android:color/transparent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnCloseDialog"
             app:layout_constraintBottom_toBottomOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout

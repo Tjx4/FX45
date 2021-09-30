@@ -37,7 +37,7 @@ abstract class BaseDialogFragment : DialogFragment() {
         super.onResume()
         dialog?.window?.attributes?.let {
             it.width = WindowManager.LayoutParams.MATCH_PARENT
-            it.height = WindowManager.LayoutParams.WRAP_CONTENT
+            it.height = WindowManager.LayoutParams.MATCH_PARENT
             dialog?.window?.attributes = it
         }
     }
