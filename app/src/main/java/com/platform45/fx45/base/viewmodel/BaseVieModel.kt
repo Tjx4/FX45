@@ -7,5 +7,5 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 
-abstract class BaseVieModel(val app: Application) : AndroidViewModel(app){
+abstract class BaseVieModel(protected val app: Application) : AndroidViewModel(app){
 }

@@ -38,6 +38,7 @@ class PopularPairsPagingAdapter(var context: Context) : PagingDataAdapter<Popula
     private fun isSelected(currentPair: String): Boolean {
         return dashboardViewModel?.currencyPairs?.value?.contains(currentPair) == true
     }
+    
     private fun getStateIndicator(currentPair: String) = context.resources.getDrawable(if(isSelected(currentPair)) R.drawable.selected_background else R.drawable.fx_disabled_button_background)
 
     inner class PopularViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
@@ -56,10 +57,8 @@ class PopularPairsPagingAdapter(var context: Context) : PagingDataAdapter<Popula
         }
 
         private fun handleViewClick(currencyPair: PopularPairTable) {
-            val isSelectedItem = isSelected(currencyPair?.pair ?: "")
             pairClickListener?.onPairClicked(absoluteAdapterPosition, currencyPair?.pair ?: "")
             selIndicatorV.background = getStateIndicator(currencyPair.pair ?: "")
-            if(!isSelectedItem) Toast.makeText(context, "${currencyPair.pair} selected", Toast.LENGTH_SHORT).show()
         }
     }
 

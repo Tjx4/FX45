@@ -56,13 +56,9 @@ class DashboardFragment : BaseFragment(), PopularPairsPagingAdapter.AddPairClick
         btnRequestHistory.setOnClickListener { onRequestHistoryButtonClicked(it) }
     }
     private fun addObservers() {
-        dashboardViewModel.canProceed.observe(viewLifecycleOwner, {
-            btnRequestHistory.visibility = View.VISIBLE
-        })
-        dashboardViewModel.hideProceed.observe(viewLifecycleOwner, {
-            btnRequestHistory.visibility = View.INVISIBLE
-        })
-        //dashboardViewModel.currencyPairs.observe(viewLifecycleOwner, { onCurrencyPairsSet(it)})
+        dashboardViewModel.canProceed.observe(viewLifecycleOwner, { btnRequestHistory.visibility = View.VISIBLE })
+        dashboardViewModel.hideProceed.observe(viewLifecycleOwner, { btnRequestHistory.visibility = View.INVISIBLE })
+        dashboardViewModel.selectedPairMessage.observe(viewLifecycleOwner, { onPairSelected(it)})
     }
 
     fun initRecyclerView(){
@@ -136,6 +132,10 @@ class DashboardFragment : BaseFragment(), PopularPairsPagingAdapter.AddPairClick
        // val action = DashboardFragmentDirections.dashboardToConversion(fromCurrency, toCurrency)
         ///findNavController().navigate(action)
         Toast.makeText(context, "onRequestHistoryButtonClicked", Toast.LENGTH_SHORT).show()
+    }
+
+    fun onPairSelected(message: String){
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 
 /*

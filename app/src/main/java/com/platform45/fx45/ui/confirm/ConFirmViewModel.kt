@@ -74,5 +74,29 @@ class ConFirmViewModel(application: Application, val fXRepository: IFXRepository
     fun setCurrencyPair(frmIndx: Int, toIndx: Int) {
         _userSelectedPair.value = "${_availableCurrencies.value?.get(frmIndx) ?: ""}${_availableCurrencies.value?.get(toIndx)}"
     }
+/*
+    fun togglePopularPairFromList() {
+        _availableCurrencies.value?.let {
+            when {
+                it.(currencyPair) -> {
+                    _pairsMessage.value = "You selected ${it.size} pair${if (it.size == 1) "" else "s"}"
+                }
+                else -> {
+                    _pairsMessage.value = "You selected ${it.size} currency pair${if (it.size == 1) "" else "s"}"
+                }
+            }
+        }
+    }
 
+
+    fun getCurrencyPairsString(): String{
+        var currency = ""
+        _currencyPairs.value?.let {
+            for((index, pair) in it.withIndex()) {
+                currency += if (index > 0) ",$pair" else "$pair"
+            }
+        }
+        return currency
+    }
+*/
 }

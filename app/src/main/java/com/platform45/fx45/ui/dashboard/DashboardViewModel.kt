@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
+import com.platform45.fx45.R
 import com.platform45.fx45.base.viewmodel.BaseVieModel
 import com.platform45.fx45.constants.PP_PAGE_SIZE
 import com.platform45.fx45.repositories.IFXRepository
@@ -22,17 +23,13 @@ class DashboardViewModel(application: Application, private val fXRepository: IFX
     val hideProceed: MutableLiveData<Boolean>
         get() = _hideProceed
 
-    private val _userSelectedPair: MutableLiveData<String> = MutableLiveData()
-    val userSelectedPair: MutableLiveData<String>
-        get() = _userSelectedPair
-
     private val _selectedCurrencyPairs: MutableLiveData<List<String>> = MutableLiveData(ArrayList())
     val currencyPairs: MutableLiveData<List<String>>
         get() = _selectedCurrencyPairs
 
-    private val _pairsMessage: MutableLiveData<String> = MutableLiveData()
-    val pairsMessage: MutableLiveData<String>
-        get() = _pairsMessage
+    private val _selectedPairMessage: MutableLiveData<String> = MutableLiveData()
+    val selectedPairMessage: MutableLiveData<String>
+        get() = _selectedPairMessage
 
     val popularCurrencyPairs = Pager(config = PagingConfig(pageSize = PP_PAGE_SIZE)) {
         PopularPairPagingSource(fXRepository)
@@ -40,12 +37,14 @@ class DashboardViewModel(application: Application, private val fXRepository: IFX
 
     fun togglePopularPairFromList(currencyPair: String) {
         _selectedCurrencyPairs.value?.let {
-            if(it.contains(currencyPair)) {
-                removePairFromList(currencyPair)
-                _pairsMessage.value = "You selected ${it.size} pair${if(it.size == 1) "" else "s"}"
-            }else {
-                addCurrencyPairToList(currencyPair)
-                _pairsMessage.value = "You selected ${it.size} currency pair${if(it.size == 1) "" else "s"}"
+            when {
+                it.contains(currencyPair) -> {
+                    removePairFromList(currencyPair)
+                }
+                else -> {
+                    addCurrencyPairToList(currencyPair)
+                    _selectedPairMessage.value = app.getString(R.string.added_pair, currencyPair)
+                }
             }
         }
     }
@@ -70,30 +69,5 @@ class DashboardViewModel(application: Application, private val fXRepository: IFX
             (it as ArrayList).remove(pair)
         }
     }
-
-/*
-
-    fun checkState() {
-        _canProceed.value = !_currencyPairs.value.isNullOrEmpty()
-    }
-
-    fun addCreatedPairToList() {
-        _userSelectedPair.value?.let { addCurrencyPairToList(it) }
-    }
-
-
-
-
-    fun getCurrencyPairsString(): String{
-        var currency = ""
-        _currencyPairs.value?.let {
-            for((index, pair) in it.withIndex()) {
-                currency += if (index > 0) ",$pair" else "$pair"
-            }
-        }
-        return currency
-    }
-
-*/
 
 }
