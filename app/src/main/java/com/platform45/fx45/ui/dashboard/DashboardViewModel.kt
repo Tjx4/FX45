@@ -24,7 +24,7 @@ class DashboardViewModel(application: Application, private val fXRepository: IFX
         get() = _hideProceed
 
     private val _selectedCurrencyPairs: MutableLiveData<List<String>> = MutableLiveData(ArrayList())
-    val currencyPairs: MutableLiveData<List<String>>
+    val selectedCurrencyPairs: MutableLiveData<List<String>>
         get() = _selectedCurrencyPairs
 
     private val _selectedPairMessage: MutableLiveData<String> = MutableLiveData()

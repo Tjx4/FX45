@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
-import android.widget.Toast
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -36,9 +35,9 @@ class PopularPairsPagingAdapter(var context: Context) : PagingDataAdapter<Popula
     }
 
     private fun isSelected(currentPair: String): Boolean {
-        return dashboardViewModel?.currencyPairs?.value?.contains(currentPair) == true
+        return dashboardViewModel?.selectedCurrencyPairs?.value?.contains(currentPair) == true
     }
-    
+
     private fun getStateIndicator(currentPair: String) = context.resources.getDrawable(if(isSelected(currentPair)) R.drawable.selected_background else R.drawable.fx_disabled_button_background)
 
     inner class PopularViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {

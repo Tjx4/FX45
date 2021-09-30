@@ -16,12 +16,12 @@
             app:popEnterAnim="@anim/no_transition"
             app:popExitAnim="@anim/slide_left" />
         <action
-            android:id="@+id/dashboard_to_trade_history"
-            app:destination="@id/tradeHistoryFragment"
+            android:id="@+id/dashboard_to_confirm"
+            app:destination="@id/confirmFragment"
             app:enterAnim="@anim/slide_right"
             app:exitAnim="@anim/no_transition"
             app:popEnterAnim="@anim/no_transition"
-            app:popExitAnim="@anim/slide_left" />
+            app:popExitAnim="@anim/slide_left"  />
     </fragment>
     <fragment
         android:id="@+id/conversionFragment"
@@ -48,4 +48,21 @@
         <argument android:name="currencyPairs"
             app:argType="string" />
     </fragment>
+    <dialog
+        android:id="@+id/confirmFragment"
+        android:name="com.platform45.fx45.ui.confirm.ConfirmFragment"
+        android:label="ConfirmFragment">
+        <argument
+            android:name="currencyPairs"
+            app:argType="string"
+            app:nullable="true" />
+
+        <action
+            android:id="@+id/action_confirmFragment_to_tradeHistoryFragment"
+            app:destination="@id/tradeHistoryFragment"
+            app:enterAnim="@anim/fade_out"
+            app:exitAnim="@anim/no_transition"
+            app:popEnterAnim="@anim/no_transition"
+            app:popExitAnim="@anim/fade_in"  />
+    </dialog>
 </navigation>

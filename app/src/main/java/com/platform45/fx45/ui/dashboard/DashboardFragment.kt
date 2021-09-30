@@ -53,7 +53,7 @@ class DashboardFragment : BaseFragment(), PopularPairsPagingAdapter.AddPairClick
         Navigation.findNavController(view).currentDestination?.label = getString(R.string.forty_five)
         addObservers()
         initRecyclerView()
-        btnRequestHistory.setOnClickListener { onRequestHistoryButtonClicked(it) }
+        btnRequestHistory.setOnClickListener { goToConfirmScreen(it) }
     }
     private fun addObservers() {
         dashboardViewModel.canProceed.observe(viewLifecycleOwner, { btnRequestHistory.visibility = View.VISIBLE })
@@ -99,7 +99,6 @@ class DashboardFragment : BaseFragment(), PopularPairsPagingAdapter.AddPairClick
                 }
             }
         }
-
     }
 
     override fun onConvertClicked(pair: String) {
@@ -128,35 +127,13 @@ class DashboardFragment : BaseFragment(), PopularPairsPagingAdapter.AddPairClick
         myDrawerController.showContent()
     }
 
-    fun onRequestHistoryButtonClicked(view: View){
-       // val action = DashboardFragmentDirections.dashboardToConversion(fromCurrency, toCurrency)
-        ///findNavController().navigate(action)
-        Toast.makeText(context, "onRequestHistoryButtonClicked", Toast.LENGTH_SHORT).show()
+    fun goToConfirmScreen(pairs: List<String>){
+        val action = DashboardFragmentDirections.dashboardToConfirm(dashboardViewModel.selectedCurrencyPairs.value)
+        findNavController().navigate(action)
     }
 
     fun onPairSelected(message: String){
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 
-/*
-
-
-    private fun showPairSelector(){
-        clPairSelector.visibility = View.VISIBLE
-        clPairSeriesInfo.visibility = View.INVISIBLE
-        myDrawerController.showSelectionMode()
-    }
-
-
-
-    private fun onCurrencyPairsSet(pairs: List<String>) {
-        val pairsAdapter = CurrencyPairAdapter(requireContext(), pairs)
-        pairsAdapter.setPairClickListener(this)
-        val cols = requireActivity().getScreenCols(125f)
-        val requestingPairsManager = GridLayoutManager(context, cols)
-        rvRequestingPairs?.adapter = pairsAdapter
-        rvRequestingPairs?.layoutManager = requestingPairsManager
-    }
-
- */
 }

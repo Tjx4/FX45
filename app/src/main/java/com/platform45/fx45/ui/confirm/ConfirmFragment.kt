@@ -9,10 +9,12 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import com.platform45.fx45.R
 import com.platform45.fx45.adapters.CurrencyPairAdapter
 import com.platform45.fx45.base.fragments.BaseDialogFragment
 import com.platform45.fx45.databinding.FragmentConfimBinding
+import com.platform45.fx45.extensions.getScreenCols
 import com.platform45.fx45.helpers.showDateTimeDialogFragment
 import com.platform45.fx45.ui.dashboard.DashboardFragmentDirections
 import com.platform45.fx45.ui.dashboard.datetime.DateTimePickerFragment
@@ -113,6 +115,16 @@ class ConfirmFragment: BaseDialogFragment(), DateTimePickerFragment.DateTimeSett
             confirmFragment.arguments = bundle
             return confirmFragment
         }
+    }
+
+
+    private fun onCurrencyPairsSet(pairs: List<String>) {
+        val pairsAdapter = CurrencyPairAdapter(requireContext(), pairs)
+        pairsAdapter.setPairClickListener(this)
+        val cols = requireActivity().getScreenCols(125f)
+        val requestingPairsManager = GridLayoutManager(context, cols)
+        rvRequestingPairs?.adapter = pairsAdapter
+        rvRequestingPairs?.layoutManager = requestingPairsManager
     }
 
     /*
