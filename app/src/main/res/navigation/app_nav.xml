@@ -61,9 +61,9 @@
         <action
             android:id="@+id/confirm_to_tradeHistory"
             app:destination="@id/tradeHistoryFragment"
-            app:enterAnim="@anim/slide_right"
+            app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/no_transition"
             app:popEnterAnim="@anim/no_transition"
-            app:popExitAnim="@anim/slide_left" />
+            app:popExitAnim="@anim/fade_out" />
     </dialog>
 </navigation>

@@ -61,7 +61,7 @@ class ConfirmFragment: BaseDialogFragment(), DateTimePickerFragment.DateTimeSett
         }
 
         btnGetHistory.setOnClickListener {
-            myDrawerController.hideActionBarIcon()
+            //myDrawerController.hideActionBarIcon()
             val startDate = conFirmViewModel.startDate.value ?: ""
             val endDate = conFirmViewModel.endDate.value ?: ""
             val currencyPairs = conFirmViewModel.getCurrencyPairsString()

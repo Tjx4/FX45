@@ -82,7 +82,7 @@ class ConversionFragment : BaseFragment() {
     private fun onDialogError(errorMessage: String){
         cnvLoader.visibility = View.INVISIBLE
         tvTotal.visibility = View.INVISIBLE
-        tvError.visibility = View.VISIBLE
+        tvError.visibility = View.INVISIBLE
         showErrorDialog(requireContext(), getString(R.string.error), errorMessage, getString(R.string.close))
     }
 
