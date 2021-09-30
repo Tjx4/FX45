@@ -44,6 +44,7 @@ class ConfirmFragment: BaseDialogFragment(), DateTimePickerFragment.DateTimeSett
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        addObservers()
         conFirmViewModel.setPairsList(args.currencyPairs)
 
         btnGetHistory.setOnClickListener {
@@ -84,6 +85,11 @@ class ConfirmFragment: BaseDialogFragment(), DateTimePickerFragment.DateTimeSett
         }
     }
 
+    private fun addObservers() {
+        conFirmViewModel.selectedPairs.observe(viewLifecycleOwner, { onCurrencyPairsSet(it)})
+    }
+
+
     override fun setDate(year: Int, month: Int, day: Int) {
         when (dtIndex) {
             0 -> conFirmViewModel.setStartDate("$year-$month-$day")
@@ -114,7 +120,6 @@ class ConfirmFragment: BaseDialogFragment(), DateTimePickerFragment.DateTimeSett
         rvRequestingPairs?.adapter = pairsAdapter
         rvRequestingPairs?.layoutManager = requestingPairsManager
     }
-
 
     companion object {
         fun newInstance(): BaseDialogFragment {
