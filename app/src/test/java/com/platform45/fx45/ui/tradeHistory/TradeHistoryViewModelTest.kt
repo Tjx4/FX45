@@ -45,7 +45,7 @@ class TradeHistoryViewModelTest {
 
         tradeHistoryViewModel.setPairsList(pair)
 
-        Assert.assertEquals(tradeHistoryViewModel.pairsList.value, pair.split(","))
+        Assert.assertEquals(tradeHistoryViewModel.selectedPairs.value, pair.split(","))
     }
 
 }

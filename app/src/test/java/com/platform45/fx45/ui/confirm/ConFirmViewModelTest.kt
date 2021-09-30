@@ -4,8 +4,6 @@ import android.app.Application
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.platform45.fx45.helpers.getClosestWeekDay
 import com.platform45.fx45.repositories.IFXRepository
-import com.platform45.fx45.ui.conFirm.DashboardViewModel
-import junit.framework.Assert
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.resetMain
@@ -43,21 +41,21 @@ class ConFirmViewModelTest{
     fun tearDown() {
         Dispatchers.resetMain()
     }
-
+/*
     @Test
     fun `check if currencies are set`() = runBlockingTest {
         conFirmViewModel.initCurrencies()
 
         assert(!conFirmViewModel.availableCurrencies.value.isNullOrEmpty())
     }
-
+*/
     @Test
     fun `start date should be initialized`() = runBlockingTest {
-        val wd = getClosestWeekDay(30)
+        val weekday = getClosestWeekDay(30)
 
         conFirmViewModel.initStartAndEndDate()
 
-        Assert.assertEquals(conFirmViewModel.startDate.value, wd)
+        assertEquals(conFirmViewModel.startDate.value, weekday)
     }
 
     @Test
@@ -71,6 +69,7 @@ class ConFirmViewModelTest{
         conFirmViewModel.setCurrencyPair(frmIndx, toIndx)
         val actualPair = conFirmViewModel.userSelectedPair.value
 
-        Assert.assertEquals(actualPair, expectedPair)
+        assertEquals(actualPair, expectedPair)
     }
+
 }

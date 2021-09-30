@@ -42,10 +42,6 @@ class DashboardViewModelTest {
         Dispatchers.resetMain()
     }
 
-    @Test
-    fun `check if currencies are set`() = runBlockingTest {
-
-    }
 
 
 }
