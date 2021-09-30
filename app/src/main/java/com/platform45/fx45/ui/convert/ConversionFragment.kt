@@ -32,6 +32,7 @@ class ConversionFragment : BaseFragment() {
     override fun onDetach() {
         super.onDetach()
         myDrawerController.showActionBarIcon()
+        myDrawerController.showMenu()
     }
 
     override fun onCreateView(

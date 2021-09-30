@@ -40,6 +40,7 @@ class TradeHistoryFragment : BaseFragment() {
     override fun onDetach() {
         super.onDetach()
         myDrawerController.showActionBarIcon()
+        myDrawerController.showMenu()
     }
 
     override fun onCreateView(
@@ -47,7 +48,7 @@ class TradeHistoryFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        //myDrawerController.hideMenu()
+        myDrawerController.hideMenu()
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_trade_history, container, false)
         binding.lifecycleOwner = this
         binding.tradeHistoryViewModel = tradeHistoryViewModel

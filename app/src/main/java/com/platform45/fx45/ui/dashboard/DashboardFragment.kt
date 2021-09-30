@@ -41,7 +41,6 @@ class DashboardFragment : BaseFragment(), PopularPairsPagingAdapter.AddPairClick
         savedInstanceState: Bundle?
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        myDrawerController.showMenu()
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_dashboard, container, false)
         binding.lifecycleOwner = this
         binding.dashboardViewModel = dashboardViewModel
