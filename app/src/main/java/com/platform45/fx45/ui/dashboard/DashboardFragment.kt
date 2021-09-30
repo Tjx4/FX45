@@ -112,6 +112,7 @@ class DashboardFragment : BaseFragment(), PopularPairsPagingAdapter.AddPairClick
     }
 
     private fun goToConfirmScreen(){
+        myDrawerController.hideActionBarIcon()
         val currencyPairs = dashboardViewModel.getCurrencyPairsString()
         val action = DashboardFragmentDirections.dashboardToConfirm(currencyPairs)
         findNavController().navigate(action)

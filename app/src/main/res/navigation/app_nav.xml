@@ -18,10 +18,8 @@
         <action
             android:id="@+id/dashboard_to_confirm"
             app:destination="@id/confirmFragment"
-            app:enterAnim="@anim/slide_right"
-            app:exitAnim="@anim/no_transition"
-            app:popEnterAnim="@anim/no_transition"
-            app:popExitAnim="@anim/slide_left"  />
+            app:launchSingleTop="true"
+            app:popUpTo="@id/dashboardFragment" />
     </fragment>
     <fragment
         android:id="@+id/conversionFragment"
@@ -54,7 +52,7 @@
     <dialog
         android:id="@+id/confirmFragment"
         android:name="com.platform45.fx45.ui.confirm.ConfirmFragment"
-        android:label="ConfirmFragment">
+        android:label="@string/confirm_fragment_tittle">
         <argument
             android:name="currencyPairs"
             app:argType="string"
@@ -63,9 +61,9 @@
         <action
             android:id="@+id/confirm_to_tradeHistory"
             app:destination="@id/tradeHistoryFragment"
-            app:enterAnim="@anim/fade_out"
+            app:enterAnim="@anim/slide_right"
             app:exitAnim="@anim/no_transition"
             app:popEnterAnim="@anim/no_transition"
-            app:popExitAnim="@anim/fade_in"  />
+            app:popExitAnim="@anim/slide_left" />
     </dialog>
 </navigation>

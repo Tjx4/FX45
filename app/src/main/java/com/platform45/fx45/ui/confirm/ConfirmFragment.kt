@@ -1,5 +1,6 @@
 package com.platform45.fx45.ui.confirm
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.platform45.fx45.R
 import com.platform45.fx45.adapters.CurrencyPairAdapter
 import com.platform45.fx45.base.fragments.BaseDialogFragment
+import com.platform45.fx45.base.fragments.BaseFragment
 import com.platform45.fx45.databinding.FragmentConfimBinding
 import com.platform45.fx45.extensions.getScreenCols
 import com.platform45.fx45.helpers.showDateTimeDialogFragment
@@ -48,10 +50,10 @@ class ConfirmFragment: BaseDialogFragment(), DateTimePickerFragment.DateTimeSett
         conFirmViewModel.setPairsList(args.currencyPairs)
 
         btnGetHistory.setOnClickListener {
+            myDrawerController.hideActionBarIcon()
             val startDate = conFirmViewModel.startDate.value ?: ""
             val endDate = conFirmViewModel.endDate.value ?: ""
             val currencyPairs = conFirmViewModel.getCurrencyPairsString()
-            myDrawerController.hideActionBarIcon()
             val action = ConfirmFragmentDirections.confirmToTradeHistory(startDate, endDate, currencyPairs)
             findNavController().navigate(action)
         }
@@ -122,7 +124,7 @@ class ConfirmFragment: BaseDialogFragment(), DateTimePickerFragment.DateTimeSett
     }
 
     companion object {
-        fun newInstance(): BaseDialogFragment {
+        fun newInstance(): ConfirmFragment {
             val bundle = Bundle()
             val confirmFragment = ConfirmFragment()
             confirmFragment.arguments = bundle

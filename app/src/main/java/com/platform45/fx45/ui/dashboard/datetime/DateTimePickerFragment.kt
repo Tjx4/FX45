@@ -1,15 +1,14 @@
 package com.platform45.fx45.ui.dashboard.datetime
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Button
 import android.widget.DatePicker
 import android.widget.TimePicker
 import com.platform45.fx45.R
 import com.platform45.fx45.base.fragments.BaseDialogFragment
 import com.platform45.fx45.constants.DATETIME
+import com.platform45.fx45.constants.LAYOUT
 import kotlinx.android.synthetic.main.fragment_date_time_picker.*
 import java.sql.Time
 import java.text.Format
@@ -21,6 +20,27 @@ class DateTimePickerFragment : BaseDialogFragment(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         dateTimeContext = parentFragment as DateTimeSetter
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog?.window?.attributes?.windowAnimations = R.style.DialogTheme
+        dialog?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+        dialog?.window?.setDimAmount(2f)
+
+        val layout = arguments?.getInt(LAYOUT)
+
+        if(layout == null){
+            return null
+        }
+        else{
+            return inflater.inflate(layout, container, false)
+        }
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

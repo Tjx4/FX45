@@ -51,4 +51,5 @@
     <string name="set_time">Set time</string>
     <string name="no_content_found_for_your_current_search">No content found for your current search</string>
     <string name="added_pair">%1$s added</string>
+    <string name="confirm_fragment_tittle">Confirm</string>
 </resources>

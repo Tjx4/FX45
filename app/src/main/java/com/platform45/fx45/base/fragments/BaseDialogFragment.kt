@@ -28,27 +28,18 @@ abstract class BaseDialogFragment : DialogFragment() {
     ): View? {
         dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog?.window?.attributes?.windowAnimations = R.style.DialogTheme
-        dialog?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
-        dialog?.window?.setDimAmount(2f)
-
-        val layout = arguments?.getInt(LAYOUT)
-/*
-        if(layout == null){
-            return null
-        }
-        else{
-            return inflater.inflate(layout, container, false)
-        }
-*/
+        //dialog?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+        dialog?.window?.setDimAmount(0.9f)
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     override fun onResume() {
         super.onResume()
-        val params: ViewGroup.LayoutParams = dialog?.window!!.attributes
-        params.width = WindowManager.LayoutParams.MATCH_PARENT
-        params.height = WindowManager.LayoutParams.WRAP_CONTENT
-        dialog?.window?.attributes = params as WindowManager.LayoutParams
+        dialog?.window?.attributes?.let {
+            it.width = WindowManager.LayoutParams.MATCH_PARENT
+            it.height = WindowManager.LayoutParams.WRAP_CONTENT
+            dialog?.window?.attributes = it
+        }
     }
 
     protected fun setViewClickEvents(views: Array<View>) {
