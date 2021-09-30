@@ -35,7 +35,7 @@ class PopularPairsPagingAdapter(var context: Context) : PagingDataAdapter<Popula
     }
 
     private fun isSelected(currentPair: String): Boolean {
-        return dashboardViewModel?.selectedCurrencyPairs?.value?.contains(currentPair) == true
+        return dashboardViewModel?.selectedPairs?.value?.contains(currentPair) == true
     }
 
     private fun getStateIndicator(currentPair: String) = context.resources.getDrawable(if(isSelected(currentPair)) R.drawable.selected_background else R.drawable.fx_disabled_button_background)

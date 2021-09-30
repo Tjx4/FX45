@@ -60,10 +60,4 @@ class DashboardViewModel(application: Application, private val fXRepository: IFX
         }
     }
 
-    fun removePairFromList(pair: String) {
-        _selectedPairs.value?.let {
-            (it as ArrayList).remove(pair)
-        }
-    }
-
 }

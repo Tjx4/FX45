@@ -32,13 +32,15 @@ abstract class BaseDialogFragment : DialogFragment() {
         dialog?.window?.setDimAmount(2f)
 
         val layout = arguments?.getInt(LAYOUT)
-
+/*
         if(layout == null){
             return null
         }
         else{
             return inflater.inflate(layout, container, false)
         }
+*/
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     override fun onResume() {

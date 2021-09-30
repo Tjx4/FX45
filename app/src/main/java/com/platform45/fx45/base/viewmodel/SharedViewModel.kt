@@ -16,7 +16,7 @@ abstract class SharedViewModel(application: Application) : BaseVieModel(applicat
     val endDate: MutableLiveData<String>
         get() = _endDate
 
-    protected val _selectedPairs: MutableLiveData<List<String>> = MutableLiveData()
+    protected val _selectedPairs: MutableLiveData<List<String>> = MutableLiveData(ArrayList())
     val selectedPairs: MutableLiveData<List<String>>
         get() = _selectedPairs
 
@@ -32,6 +32,12 @@ abstract class SharedViewModel(application: Application) : BaseVieModel(applicat
 
     fun setPairsList(currencyPairs: String){
         _selectedPairs.value = currencyPairs.split(",")
+    }
+
+    fun removePairFromList(pair: String) {
+        _selectedPairs.value?.let {
+            (it as ArrayList).remove(pair)
+        }
     }
 
 }

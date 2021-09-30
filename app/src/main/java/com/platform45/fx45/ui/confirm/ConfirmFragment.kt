@@ -102,7 +102,7 @@ class ConfirmFragment: BaseDialogFragment(), DateTimePickerFragment.DateTimeSett
     }
 
     override fun onDeleteClicked(pair: String, position: Int) {
-        conFirmViewModel.removePairFromList(position)
+        conFirmViewModel.removePairFromList(pair)
         Toast.makeText(context, "$pair deleted", Toast.LENGTH_SHORT).show()
     }
 

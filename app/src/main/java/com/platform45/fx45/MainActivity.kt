@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity(), MyDrawerController{
         when (item.itemId) {
             R.id.action_convert -> {
                 hideActionBarIcon()
-                val action = DashboardFragmentDirections.dashboardToConversion(null, null)
+                val action = DashboardFragmentDirections.dashboardToConversion("", "")
                 navController.navigate(action)
             }
             R.id.action_refresh -> dbFragment?.refresh()
