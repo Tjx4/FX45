@@ -44,31 +44,8 @@ class DashboardViewModelTest {
 
     @Test
     fun `check if currencies are set`() = runBlockingTest {
-        dashboardViewModel.initCurrencies()
 
-        assert(!dashboardViewModel.availableCurrencies.value.isNullOrEmpty())
     }
 
-    @Test
-    fun `start date should be initialized`() = runBlockingTest {
-       val wd = getClosestWeekDay(30)
 
-        dashboardViewModel.initStartAndEndDate()
-
-        assertEquals(dashboardViewModel.startDate.value, wd)
-    }
-
-    @Test
-    fun `currency pairs should be set`() = runBlockingTest {
-        val frmIndx = 1
-        val toIndx = 2
-        val currencyPais = arrayListOf("ZAR", "USD", "EUR")
-        val expectedPair = "${currencyPais[frmIndx]}${currencyPais[toIndx]}"
-
-        dashboardViewModel.initCurrencies()
-        dashboardViewModel.setCurrencyPair(frmIndx, toIndx)
-        val actualPair = dashboardViewModel.userSelectedPair.value
-
-        assertEquals(actualPair, expectedPair)
-    }
 }
