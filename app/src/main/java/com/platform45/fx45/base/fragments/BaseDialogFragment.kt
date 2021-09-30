@@ -6,12 +6,20 @@ import android.view.*
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
+import com.platform45.fx45.MyDrawerController
 import com.platform45.fx45.R
 import com.platform45.fx45.constants.LAYOUT
 
 abstract class BaseDialogFragment : DialogFragment() {
+    protected lateinit var myDrawerController: MyDrawerController
     protected var clickedView: View? = null
     protected var activity: AppCompatActivity? = null
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        activity = context as AppCompatActivity?
+        myDrawerController = activity as MyDrawerController
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,10 +62,6 @@ abstract class BaseDialogFragment : DialogFragment() {
 
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        activity = context as AppCompatActivity?
-    }
 
     protected fun setListviewClickEvents(listView: ListView) {
         listView.setOnItemClickListener { parent, view, position, id ->

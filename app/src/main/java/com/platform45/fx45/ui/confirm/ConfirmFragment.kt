@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.platform45.fx45.R
 import com.platform45.fx45.adapters.CurrencyPairAdapter
@@ -16,6 +17,7 @@ import com.platform45.fx45.base.fragments.BaseDialogFragment
 import com.platform45.fx45.databinding.FragmentConfimBinding
 import com.platform45.fx45.extensions.getScreenCols
 import com.platform45.fx45.helpers.showDateTimeDialogFragment
+import com.platform45.fx45.ui.convert.ConversionFragmentArgs
 import com.platform45.fx45.ui.dashboard.DashboardFragmentDirections
 import com.platform45.fx45.ui.dashboard.datetime.DateTimePickerFragment
 import kotlinx.android.synthetic.main.fragment_confim.*
@@ -25,6 +27,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class ConfirmFragment: BaseDialogFragment(), DateTimePickerFragment.DateTimeSetter, CurrencyPairAdapter.UserInteractions  {
     private lateinit var binding: FragmentConfimBinding
     private val conFirmViewModel: ConFirmViewModel by viewModel()
+    private val args: ConfirmFragmentArgs by navArgs()
     override var dtIndex: Int = 0
 
     override fun onCreateView(
@@ -41,19 +44,15 @@ class ConfirmFragment: BaseDialogFragment(), DateTimePickerFragment.DateTimeSett
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-        btnAddCurrencyPair.setOnClickListener {
-          //  conFirmViewModel.addCreatedPairToList()
-        }
-
+        conFirmViewModel.setPairsList(args.currencyPairs)
 
         btnGetHistory.setOnClickListener {
             val startDate = conFirmViewModel.startDate.value ?: ""
             val endDate = conFirmViewModel.endDate.value ?: ""
-           // val currencyPairs = conFirmViewModel.getCurrencyPairsString()
-           // myDrawerController.hideActionBarIcon()
-           // val action = DashboardFragmentDirections.dashboardToTradeHistory(startDate, endDate, currencyPairs)
-            //findNavController().navigate(action)
+            val currencyPairs = conFirmViewModel.getCurrencyPairsString()
+            myDrawerController.hideActionBarIcon()
+            val action = ConfirmFragmentDirections.confirmToTradeHistory(startDate, endDate, currencyPairs)
+            findNavController().navigate(action)
         }
 
         spnFrmCurrency.onItemSelectedListener  = object : AdapterView.OnItemSelectedListener{
@@ -99,24 +98,13 @@ class ConfirmFragment: BaseDialogFragment(), DateTimePickerFragment.DateTimeSett
         }
     }
 
-
     override fun onPairClicked(view: View, position: Int) {
     }
 
     override fun onDeleteClicked(pair: String, position: Int) {
-       // conFirmViewModel.removePairFromList(position)
+        conFirmViewModel.removePairFromList(position)
         Toast.makeText(context, "$pair deleted", Toast.LENGTH_SHORT).show()
     }
-
-    companion object {
-        fun newInstance(): BaseDialogFragment {
-            val bundle = Bundle()
-            val confirmFragment = ConfirmFragment()
-            confirmFragment.arguments = bundle
-            return confirmFragment
-        }
-    }
-
 
     private fun onCurrencyPairsSet(pairs: List<String>) {
         val pairsAdapter = CurrencyPairAdapter(requireContext(), pairs)
@@ -127,13 +115,14 @@ class ConfirmFragment: BaseDialogFragment(), DateTimePickerFragment.DateTimeSett
         rvRequestingPairs?.layoutManager = requestingPairsManager
     }
 
-    /*
-        private fun canProceed(proceed: Boolean){
-        btnGetHistory.isEnabled = proceed
-        btnGetHistory.background = resources.getDrawable( if(proceed) R.drawable.fx_button_background  else R.drawable.fx_disabled_button_background)
-        tvRequestingPairs.visibility = if(proceed) View.VISIBLE else View.INVISIBLE
 
-        btnRequestHistory.visibility = View.INVISIBLE
+    companion object {
+        fun newInstance(): BaseDialogFragment {
+            val bundle = Bundle()
+            val confirmFragment = ConfirmFragment()
+            confirmFragment.arguments = bundle
+            return confirmFragment
+        }
     }
-    */
+
 }

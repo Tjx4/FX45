@@ -7,41 +7,26 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import com.platform45.fx45.base.viewmodel.BaseVieModel
+import com.platform45.fx45.base.viewmodel.SharedViewModel
 import com.platform45.fx45.constants.H_PAGE_SIZE
 import com.platform45.fx45.repositories.FXRepository
 import com.platform45.fx45.repositories.IFXRepository
 import com.platform45.fx45.ui.tradeHistory.paging.HistoryPairPagingSource
 
-class TradeHistoryViewModel(application: Application, private val fXRepository: IFXRepository) : BaseVieModel(application) {
+class TradeHistoryViewModel(application: Application, private val fXRepository: IFXRepository) : SharedViewModel(application) {
 
-    private val _showLoading: MutableLiveData<Boolean> = MutableLiveData()
-    val showLoading: MutableLiveData<Boolean>
-        get() = _showLoading
-
-    private val _pairsList: MutableLiveData<List<String>> = MutableLiveData()
-    val pairsList: MutableLiveData<List<String>>
-        get() = _pairsList
-
-    private val _fakePairsList: MutableLiveData<List<String>> = MutableLiveData()
-    val fakePairsList: MutableLiveData<List<String>>
-        get() = _fakePairsList
-
-    var startDate: String = ""
-    var endDate: String = ""
-    var currencyPairs: String = ""
+    private val _currencyPairs: MutableLiveData<String> = MutableLiveData("")
+    val currencyPairs: MutableLiveData<String>
+        get() = _currencyPairs
 
     val popularCurrencyPairs = Pager(config = PagingConfig(pageSize = H_PAGE_SIZE)) {
-        HistoryPairPagingSource(startDate, endDate, currencyPairs, fXRepository)
+        HistoryPairPagingSource(_startDate.value!!, _endDate.value!!, _currencyPairs.value!!, fXRepository)
     }.flow.cachedIn(viewModelScope)
 
     fun setParams(startDate: String, endDate: String, currencyPairs: String){
-        this.startDate = startDate
-        this.endDate = endDate
-        this.currencyPairs  = currencyPairs
-    }
-
-    fun setPairsList(currencyPairs: String){
-        _pairsList.value = currencyPairs.split(",")
+        _startDate.value = startDate
+        _endDate.value = endDate
+        _currencyPairs.value  = currencyPairs
     }
 
 }

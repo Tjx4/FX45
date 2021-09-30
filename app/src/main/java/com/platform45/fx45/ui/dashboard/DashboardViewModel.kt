@@ -7,13 +7,13 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import com.platform45.fx45.R
-import com.platform45.fx45.base.viewmodel.BaseVieModel
+import com.platform45.fx45.base.viewmodel.SharedViewModel
 import com.platform45.fx45.constants.PP_PAGE_SIZE
 import com.platform45.fx45.repositories.IFXRepository
 import com.platform45.fx45.ui.dashboard.paging.PopularPairPagingSource
 import kotlin.collections.ArrayList
 
-class DashboardViewModel(application: Application, private val fXRepository: IFXRepository) : BaseVieModel(application) {
+class DashboardViewModel(application: Application, private val fXRepository: IFXRepository) : SharedViewModel(application) {
 
     private val _canProceed: MutableLiveData<Boolean> = MutableLiveData()
     val canProceed: MutableLiveData<Boolean>
@@ -22,10 +22,6 @@ class DashboardViewModel(application: Application, private val fXRepository: IFX
     private val _hideProceed: MutableLiveData<Boolean> = MutableLiveData()
     val hideProceed: MutableLiveData<Boolean>
         get() = _hideProceed
-
-    private val _selectedCurrencyPairs: MutableLiveData<List<String>> = MutableLiveData(ArrayList())
-    val selectedCurrencyPairs: MutableLiveData<List<String>>
-        get() = _selectedCurrencyPairs
 
     private val _selectedPairMessage: MutableLiveData<String> = MutableLiveData()
     val selectedPairMessage: MutableLiveData<String>
@@ -36,7 +32,7 @@ class DashboardViewModel(application: Application, private val fXRepository: IFX
     }.flow.cachedIn(viewModelScope)
 
     fun togglePopularPairFromList(currencyPair: String) {
-        _selectedCurrencyPairs.value?.let {
+        _selectedPairs.value?.let {
             when {
                 it.contains(currencyPair) -> {
                     removePairFromList(currencyPair)
@@ -50,7 +46,7 @@ class DashboardViewModel(application: Application, private val fXRepository: IFX
     }
 
     fun toggleStatus() {
-        _selectedCurrencyPairs.value?.let {
+        _selectedPairs.value?.let {
             when {
                 it.isNullOrEmpty() -> _hideProceed.value = true
                 else -> _canProceed.value = true
@@ -59,13 +55,13 @@ class DashboardViewModel(application: Application, private val fXRepository: IFX
     }
 
     private fun addCurrencyPairToList(pair: String) {
-        _selectedCurrencyPairs.value?.let {
+        _selectedPairs.value?.let {
             (it as ArrayList).add(pair)
         }
     }
 
     fun removePairFromList(pair: String) {
-        _selectedCurrencyPairs.value?.let {
+        _selectedPairs.value?.let {
             (it as ArrayList).remove(pair)
         }
     }

@@ -30,11 +30,11 @@
         <argument
             android:name="fromCurrency"
             app:argType="string"
-            app:nullable="true" />
+            app:nullable="false" />
         <argument
             android:name="toCurrency"
             app:argType="string"
-            app:nullable="true" />
+            app:nullable="false" />
     </fragment>
     <fragment
         android:id="@+id/tradeHistoryFragment"
@@ -42,11 +42,14 @@
         android:label="@string/trade_history">
         <argument
             android:name="startDate"
-            app:argType="string" />
+            app:argType="string"
+            app:nullable="false" />
         <argument android:name="endDate"
-            app:argType="string" />
+            app:argType="string"
+            app:nullable="false" />
         <argument android:name="currencyPairs"
-            app:argType="string" />
+            app:argType="string"
+            app:nullable="false" />
     </fragment>
     <dialog
         android:id="@+id/confirmFragment"
@@ -55,10 +58,10 @@
         <argument
             android:name="currencyPairs"
             app:argType="string"
-            app:nullable="true" />
+            app:nullable="false" />
 
         <action
-            android:id="@+id/action_confirmFragment_to_tradeHistoryFragment"
+            android:id="@+id/confirm_to_tradeHistory"
             app:destination="@id/tradeHistoryFragment"
             app:enterAnim="@anim/fade_out"
             app:exitAnim="@anim/no_transition"

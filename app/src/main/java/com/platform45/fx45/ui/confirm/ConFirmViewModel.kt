@@ -3,29 +3,14 @@ package com.platform45.fx45.ui.confirm
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import com.platform45.fx45.base.viewmodel.BaseVieModel
+import com.platform45.fx45.base.viewmodel.SharedViewModel
 import com.platform45.fx45.helpers.getClosestWeekDay
 import com.platform45.fx45.helpers.getCurrentDate
 import com.platform45.fx45.repositories.IFXRepository
 import java.util.*
 import kotlin.collections.ArrayList
 
-class ConFirmViewModel(application: Application, val fXRepository: IFXRepository) : BaseVieModel(application) {
-
-    private val _showLoading: MutableLiveData<Boolean> = MutableLiveData()
-    val showLoading: MutableLiveData<Boolean>
-        get() = _showLoading
-
-    private val _startDate: MutableLiveData<String> = MutableLiveData()
-    val startDate: MutableLiveData<String>
-        get() = _startDate
-
-    private val _endDate: MutableLiveData<String> = MutableLiveData()
-    val endDate: MutableLiveData<String>
-        get() = _endDate
-
-    private val _availableCurrencies: MutableLiveData<List<String>> = MutableLiveData()
-    val availableCurrencies: MutableLiveData<List<String>>
-        get() = _availableCurrencies
+class ConFirmViewModel(application: Application, val fXRepository: IFXRepository) : SharedViewModel(application) {
 
     private val _pairsMessage: MutableLiveData<String> = MutableLiveData()
     val pairsMessage: MutableLiveData<String>
@@ -45,13 +30,12 @@ class ConFirmViewModel(application: Application, val fXRepository: IFXRepository
         _endDate.value = getCurrentDate()
     }
 
-
     fun initCurrencies() {
         val tmpList = ArrayList<String>()
         for (currency in Currency.getAvailableCurrencies()) {
             tmpList.add(currency.currencyCode)
         }
-        availableCurrencies.value = tmpList?.sortedBy { it }
+        selectedPairs.value = tmpList?.sortedBy { it }
     }
 
     fun setStartDate(startDate: String?) {
@@ -70,10 +54,11 @@ class ConFirmViewModel(application: Application, val fXRepository: IFXRepository
         endTime.let { _endDate.value = "${_endDate.value}-$it"}
     }
 
-
     fun setCurrencyPair(frmIndx: Int, toIndx: Int) {
-        _userSelectedPair.value = "${_availableCurrencies.value?.get(frmIndx) ?: ""}${_availableCurrencies.value?.get(toIndx)}"
+        _userSelectedPair.value = "${_selectedPairs.value?.get(frmIndx) ?: ""}${_selectedPairs.value?.get(toIndx)}"
     }
+
+
 /*
     fun togglePopularPairFromList() {
         _availableCurrencies.value?.let {
@@ -89,14 +74,6 @@ class ConFirmViewModel(application: Application, val fXRepository: IFXRepository
     }
 
 
-    fun getCurrencyPairsString(): String{
-        var currency = ""
-        _currencyPairs.value?.let {
-            for((index, pair) in it.withIndex()) {
-                currency += if (index > 0) ",$pair" else "$pair"
-            }
-        }
-        return currency
-    }
+
 */
 }

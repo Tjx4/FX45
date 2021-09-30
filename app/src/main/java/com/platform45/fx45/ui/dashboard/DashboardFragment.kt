@@ -51,17 +51,19 @@ class DashboardFragment : BaseFragment(), PopularPairsPagingAdapter.AddPairClick
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Navigation.findNavController(view).currentDestination?.label = getString(R.string.forty_five)
+
         addObservers()
         initRecyclerView()
-        btnRequestHistory.setOnClickListener { goToConfirmScreen(it) }
+        btnRequestHistory.setOnClickListener { goToConfirmScreen() }
     }
+
     private fun addObservers() {
         dashboardViewModel.canProceed.observe(viewLifecycleOwner, { btnRequestHistory.visibility = View.VISIBLE })
         dashboardViewModel.hideProceed.observe(viewLifecycleOwner, { btnRequestHistory.visibility = View.INVISIBLE })
         dashboardViewModel.selectedPairMessage.observe(viewLifecycleOwner, { onPairSelected(it)})
     }
 
-    fun initRecyclerView(){
+    private fun initRecyclerView(){
         popularPairsPagingAdapter.dashboardViewModel = dashboardViewModel
         rvPorpularCp.apply {
             rvPorpularCp?.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
@@ -109,6 +111,12 @@ class DashboardFragment : BaseFragment(), PopularPairsPagingAdapter.AddPairClick
         findNavController().navigate(action)
     }
 
+    private fun goToConfirmScreen(){
+        val currencyPairs = dashboardViewModel.getCurrencyPairsString()
+        val action = DashboardFragmentDirections.dashboardToConfirm(currencyPairs)
+        findNavController().navigate(action)
+    }
+
     override fun onPairClicked(position: Int, pair: String) {
         dashboardViewModel.togglePopularPairFromList(pair)
         dashboardViewModel.toggleStatus()
@@ -127,12 +135,7 @@ class DashboardFragment : BaseFragment(), PopularPairsPagingAdapter.AddPairClick
         myDrawerController.showContent()
     }
 
-    fun goToConfirmScreen(pairs: List<String>){
-        val action = DashboardFragmentDirections.dashboardToConfirm(dashboardViewModel.selectedCurrencyPairs.value)
-        findNavController().navigate(action)
-    }
-
-    fun onPairSelected(message: String){
+    private fun onPairSelected(message: String){
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 

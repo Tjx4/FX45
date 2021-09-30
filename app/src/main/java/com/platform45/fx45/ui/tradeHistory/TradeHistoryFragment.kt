@@ -55,7 +55,7 @@ class TradeHistoryFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Navigation.findNavController(view).currentDestination?.label = getString(R.string.trade_history)
+        //Navigation.findNavController(view).currentDestination?.label = getString(R.string.trade_history)
 
         tradeHistoryViewModel.setParams(args.startDate, args.endDate, args.currencyPairs)
         tradeHistoryViewModel.setPairsList(args.currencyPairs)
@@ -102,7 +102,7 @@ class TradeHistoryFragment : BaseFragment() {
 
     private fun addObservers() {
         tradeHistoryViewModel.showLoading.observe(viewLifecycleOwner, Observer { onShowLoading(it) })
-        tradeHistoryViewModel.pairsList.observe(viewLifecycleOwner, Observer { onPairsListSet(it) })
+        tradeHistoryViewModel.selectedPairs.observe(viewLifecycleOwner, Observer { onPairsListSet(it) })
     }
 
     private fun onShowLoading(showLoading: Boolean){
