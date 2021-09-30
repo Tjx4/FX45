@@ -41,16 +41,9 @@ class ConFirmViewModelTest{
     fun tearDown() {
         Dispatchers.resetMain()
     }
-/*
-    @Test
-    fun `check if currencies are set`() = runBlockingTest {
-        conFirmViewModel.initCurrencies()
 
-        assert(!conFirmViewModel.availableCurrencies.value.isNullOrEmpty())
-    }
-*/
     @Test
-    fun `start date should be initialized`() = runBlockingTest {
+    fun `start date should be initialized`() {
         val weekday = getClosestWeekDay(30)
 
         conFirmViewModel.initStartAndEndDate()
@@ -59,13 +52,19 @@ class ConFirmViewModelTest{
     }
 
     @Test
-    fun `currency pairs should be set`() = runBlockingTest {
+    fun `check if currencies are set`()  {
+        conFirmViewModel.initCurrencies()
+
+        assert(!conFirmViewModel.availableCurrencies.value.isNullOrEmpty())
+    }
+
+    @Test
+    fun `currency pairs should be set`()  {
         val frmIndx = 1
         val toIndx = 2
         val currencyPais = arrayListOf("ZAR", "USD", "EUR")
         val expectedPair = "${currencyPais[frmIndx]}${currencyPais[toIndx]}"
 
-        conFirmViewModel.initCurrencies()
         conFirmViewModel.setCurrencyPair(frmIndx, toIndx)
         val actualPair = conFirmViewModel.userSelectedPair.value
 

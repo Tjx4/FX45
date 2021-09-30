@@ -20,6 +20,10 @@ class ConFirmViewModel(application: Application, val fXRepository: IFXRepository
     val userSelectedPair: MutableLiveData<String>
         get() = _userSelectedPair
 
+    private val _availableCurrencies: MutableLiveData<List<String>> = MutableLiveData()
+    val availableCurrencies: MutableLiveData<List<String>>
+        get() = _availableCurrencies
+
     init {
         initStartAndEndDate()
         initCurrencies()
@@ -35,7 +39,7 @@ class ConFirmViewModel(application: Application, val fXRepository: IFXRepository
         for (currency in Currency.getAvailableCurrencies()) {
             tmpList.add(currency.currencyCode)
         }
-        selectedPairs.value = tmpList?.sortedBy { it }
+        _availableCurrencies.value = tmpList?.sortedBy { it }
     }
 
     fun setStartDate(startDate: String?) {

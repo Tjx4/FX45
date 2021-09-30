@@ -49,7 +49,6 @@ class ConversionFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //Navigation.findNavController(view).currentDestination?.label = getString(R.string.convert_currencies)
         conversionViewModel.presetCurrencies(args.fromCurrency, args.toCurrency)
         addObservers()
     }
