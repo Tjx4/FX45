@@ -15,7 +15,6 @@ import java.io.IOException
 
 @RunWith(AndroidJUnit4::class)
 class MyDatabaseTests{
-
     private lateinit var pairHistoryDAO: PairHistoryDAO
     private lateinit var fx45Db: FX45Db
 
@@ -38,7 +37,7 @@ class MyDatabaseTests{
 
     @Test
     @Throws(Exception::class)
-    fun check_if_pair_history_successfully_added_to_DB(){
+    fun check_if_currency_pair_successfully_added_to_DB(){
         var pairHistoryTable = PairHistoryTable(1, "", "", "", "")
 
         pairHistoryDAO.insert(pairHistoryTable)

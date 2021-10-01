@@ -74,36 +74,6 @@ class ConversionViewModelTest {
         assertEquals(conversionViewModel.error.value, errorMessage)
     }
 
-
-    @Test
-    fun `check if converted to the correct amount`() = runBlockingTest {
-        val from = "USD"
-        val to = "ZAR"
-        val amount = "1"
-        val expectedConversion = Conversion(16.0, 1, 20.0, from, to)
-
-        `when`(conversionViewModel.fXRepository.getConversion(API_KEY, from, to, amount)).thenReturn(expectedConversion)
-        conversionViewModel.convertCurrency(from, to, amount)
-        val actualConversion = conversionViewModel.conversion.value
-
-        assertEquals(actualConversion, expectedConversion)
-    }
-
-
-
-
-
-
-
-
-
-
-    /*
-
-
-
-
-
     @Test
     fun `check if to convert method is called`() = runBlocking {
         val errorMessage = "Add currency to convert from"
@@ -136,9 +106,8 @@ class ConversionViewModelTest {
         assertEquals(conversionViewModel.to.value, to)
     }
 
-
     @Test
-    fun `check if error response handled`() = runBlockingTest {
+    fun `error should handled`() = runBlockingTest {
         val from = "USD"
         val to = "ZAR"
         val amount = "1"
@@ -157,7 +126,7 @@ class ConversionViewModelTest {
         val to = "ZAR"
         val amount = "1"
         val error = ResponseError("202", "error message")
-        val conversion = Conversion(0.0, 0, 0.0, from, to, error)
+        val conversion = Conversion(0.0, 0, 0.0, null, null, error)
 
         `when`(conversionViewModel.fXRepository.getConversion(API_KEY, from, to, amount)).thenReturn(conversion)
         conversionViewModel.convertCurrency(from, to, amount)
@@ -165,6 +134,18 @@ class ConversionViewModelTest {
         assertEquals(conversionViewModel.dialogErrorMessage.value, error.info)
     }
 
-    */
+    @Test
+    fun `conversion should be displayed`() = runBlockingTest {
+        val from = "USD"
+        val to = "ZAR"
+        val amount = "1"
+        val expectedConversion = Conversion(16.0, 1, 20.0, from, to)
+
+        `when`(conversionViewModel.fXRepository.getConversion(API_KEY, from, to, amount)).thenReturn(expectedConversion)
+        conversionViewModel.convertCurrency(from, to, amount)
+        val actualConversion = conversionViewModel.conversion.value
+
+        assertEquals(actualConversion, expectedConversion)
+    }
 
 }
