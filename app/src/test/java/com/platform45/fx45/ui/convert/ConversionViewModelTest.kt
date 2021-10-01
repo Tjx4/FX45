@@ -56,7 +56,7 @@ class ConversionViewModelTest {
         val amount = "1"
 
         `when`(mockApplication.getString(R.string.from_convert_error)).thenReturn(errorMessage)
-        conversionViewModel.checkAndConvert(from, to, amount)
+        conversionViewModel.verifyInput(from, to, amount)
 
         assertEquals(conversionViewModel.error.value, errorMessage)
     }
@@ -69,7 +69,7 @@ class ConversionViewModelTest {
         val amount = "1"
 
         `when`(mockApplication.getString(R.string.to_convert_error)).thenReturn(errorMessage)
-        conversionViewModel.checkAndConvert(from, to, amount)
+        conversionViewModel.verifyInput(from, to, amount)
 
         assertEquals(conversionViewModel.error.value, errorMessage)
     }
@@ -81,7 +81,7 @@ class ConversionViewModelTest {
         val to = "ZAR"
         val amount = "1"
 
-        conversionViewModel.checkAndConvert(from, to, amount)
+        conversionViewModel.verifyInput(from, to, amount)
 
         assert(conversionViewModel.isValidInput.value == true)
     }

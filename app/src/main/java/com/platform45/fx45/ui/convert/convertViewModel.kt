@@ -44,9 +44,9 @@ class ConversionViewModel(application: Application, val fXRepository: IFXReposit
     val dialogErrorMessage: MutableLiveData<String>
         get() = _dialogErrorMessage
 
-    fun verifyDetails() {
+    fun showLoaderAndVeriry() {
         _showLoading.value = true
-        checkAndConvert(_from.value ?: "", _to.value ?: "", _amount.value ?: "")
+        verifyInput(_from.value ?: "", _to.value ?: "", _amount.value ?: "")
     }
 
     fun presetCurrencyPair(from: String, to: String) {
@@ -54,7 +54,7 @@ class ConversionViewModel(application: Application, val fXRepository: IFXReposit
         _to.value = to
     }
 
-    fun checkAndConvert(from: String, to: String, amount: String) {
+    fun verifyInput(from: String, to: String, amount: String) {
         when {
             from.isNullOrEmpty() -> _error.value = app.getString(R.string.from_convert_error)
             to.isNullOrEmpty() -> _error.value = app.getString(R.string.to_convert_error)
