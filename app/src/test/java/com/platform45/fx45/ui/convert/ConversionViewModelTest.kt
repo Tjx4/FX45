@@ -74,6 +74,36 @@ class ConversionViewModelTest {
         assertEquals(conversionViewModel.error.value, errorMessage)
     }
 
+
+    @Test
+    fun `check if converted to the correct amount`() = runBlockingTest {
+        val from = "USD"
+        val to = "ZAR"
+        val amount = "1"
+        val expectedConversion = Conversion(16.0, 1, 20.0, from, to)
+
+        `when`(conversionViewModel.fXRepository.getConversion(API_KEY, from, to, amount)).thenReturn(expectedConversion)
+        conversionViewModel.convertCurrency(from, to, amount)
+        val actualConversion = conversionViewModel.conversion.value
+
+        assertEquals(actualConversion, expectedConversion)
+    }
+
+
+
+
+
+
+
+
+
+
+    /*
+
+
+
+
+
     @Test
     fun `check if to convert method is called`() = runBlocking {
         val errorMessage = "Add currency to convert from"
@@ -122,7 +152,7 @@ class ConversionViewModelTest {
     }
 
     @Test
-    fun `check error handled`() = runBlockingTest {
+    fun `response error should be handled`() = runBlockingTest {
         val from = "USD"
         val to = "ZAR"
         val amount = "1"
@@ -135,18 +165,6 @@ class ConversionViewModelTest {
         assertEquals(conversionViewModel.dialogErrorMessage.value, error.info)
     }
 
-    @Test
-    fun `check if converted to the correct amount`() = runBlockingTest {
-        val from = "USD"
-        val to = "ZAR"
-        val amount = "1"
-        val expectedConversion = Conversion(16.0, 1, 20.0, from, to)
-
-        `when`(conversionViewModel.fXRepository.getConversion(API_KEY, from, to, amount)).thenReturn(expectedConversion)
-        conversionViewModel.convertCurrency(from, to, amount)
-        val actualConversion = conversionViewModel.conversion.value
-
-        assertEquals(actualConversion, expectedConversion)
-    }
+    */
 
 }
