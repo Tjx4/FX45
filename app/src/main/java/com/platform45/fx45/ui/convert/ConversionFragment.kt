@@ -7,13 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import com.platform45.fx45.R
 import com.platform45.fx45.base.fragments.BaseFragment
 import com.platform45.fx45.databinding.FragmentConversionBinding
 import com.platform45.fx45.helpers.showErrorDialog
-import com.platform45.fx45.models.Conversion
 import kotlinx.android.synthetic.main.fragment_conversion.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -49,44 +47,44 @@ class ConversionFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        conversionViewModel.presetCurrencies(args.fromCurrency, args.toCurrency)
+        conversionViewModel.presetCurrencyPair(args.fromCurrency, args.toCurrency)
         addObservers()
     }
 
     private fun addObservers() {
-        conversionViewModel.convert.observe(viewLifecycleOwner, { onConversion(it) })
-        conversionViewModel.showLoading.observe(viewLifecycleOwner, { onShowLoading(it) })
-        conversionViewModel.error.observe(viewLifecycleOwner, { onError(it) })
-        conversionViewModel.dialogErrorMessage.observe(viewLifecycleOwner, { onDialogError(it) })
-        conversionViewModel.isValidInput.observe(viewLifecycleOwner, { onValidInputAdded(it) })
+        conversionViewModel.conversion.observe(viewLifecycleOwner, { onShowConversion() })
+        conversionViewModel.showLoading.observe(viewLifecycleOwner, { onShowLoader() })
+        conversionViewModel.error.observe(viewLifecycleOwner, { onShowErrorMessage() })
+        conversionViewModel.dialogErrorMessage.observe(viewLifecycleOwner, { onShowErrorDialog(it) })
+        conversionViewModel.isValidInput.observe(viewLifecycleOwner, { onValidInputAdded() })
     }
 
-    private fun onConversion(conversion: Conversion?){
+    private fun onShowConversion(){
         cnvLoader.visibility = View.INVISIBLE
         tvTotal.visibility = View.VISIBLE
         tvError.visibility = View.INVISIBLE
     }
 
-    private fun onShowLoading(showLoading: Boolean){
+    private fun onShowLoader(){
         cnvLoader.visibility = View.VISIBLE
         tvTotal.visibility = View.INVISIBLE
         tvError.visibility = View.INVISIBLE
     }
 
-    private fun onError(error: String){
+    private fun onShowErrorMessage(){
         cnvLoader.visibility = View.INVISIBLE
         tvTotal.visibility = View.INVISIBLE
         tvError.visibility = View.VISIBLE
     }
 
-    private fun onDialogError(errorMessage: String){
+    private fun onShowErrorDialog(errorMessage: String){
         cnvLoader.visibility = View.INVISIBLE
         tvTotal.visibility = View.INVISIBLE
         tvError.visibility = View.INVISIBLE
         showErrorDialog(requireContext(), getString(R.string.error), errorMessage, getString(R.string.close))
     }
 
-    private fun onValidInputAdded(isValidInput: Boolean){
+    private fun onValidInputAdded(){
         conversionViewModel.let {
             it.viewModelScope.launch(Dispatchers.IO) {
                 it.convertCurrency(it.from.value ?: "", it.to.value?: "", it.amount.value?: "")

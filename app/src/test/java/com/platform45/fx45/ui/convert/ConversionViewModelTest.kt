@@ -21,7 +21,6 @@ import org.junit.Test
 import org.junit.rules.TestRule
 import org.mockito.Mock
 import org.mockito.Mockito.*
-import org.mockito.MockitoAnnotations.initMocks
 import org.mockito.MockitoAnnotations.openMocks
 
 class ConversionViewModelTest {
@@ -50,7 +49,7 @@ class ConversionViewModelTest {
     }
 
     @Test
-    fun `check if right message is displayed when the currenct converting from is not set`() {
+    fun `error message should be displayed when the currency converting from is not specified`() {
         val errorMessage = "Add currency to convert from"
         val from = ""
         val to = "ZAR"
@@ -63,7 +62,7 @@ class ConversionViewModelTest {
     }
 
     @Test
-    fun `check if right message is displayed when the currenct converting to is not set`() {
+    fun `error message should be displayed when the currency converting to is not specified`() {
         val errorMessage = "Add currency to convert from"
         val from = "USD"
         val to = ""
@@ -92,7 +91,7 @@ class ConversionViewModelTest {
         val from = "USD"
         val to = "ZAR"
 
-        conversionViewModel.presetCurrencies(from, to)
+        conversionViewModel.presetCurrencyPair(from, to)
 
         assertEquals(conversionViewModel.from.value, from)
     }
@@ -102,7 +101,7 @@ class ConversionViewModelTest {
         val from = "USD"
         val to = "ZAR"
 
-        conversionViewModel.presetCurrencies(from, to)
+        conversionViewModel.presetCurrencyPair(from, to)
 
         assertEquals(conversionViewModel.to.value, to)
     }
@@ -145,7 +144,7 @@ class ConversionViewModelTest {
 
         `when`(conversionViewModel.fXRepository.getConversion(API_KEY, from, to, amount)).thenReturn(expectedConversion)
         conversionViewModel.convertCurrency(from, to, amount)
-        val actualConversion = conversionViewModel.convert.value
+        val actualConversion = conversionViewModel.conversion.value
 
         assertEquals(actualConversion, expectedConversion)
     }
