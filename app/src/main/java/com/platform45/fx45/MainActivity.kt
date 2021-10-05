@@ -27,8 +27,8 @@ class MainActivity : AppCompatActivity(), MyDrawerController{
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        FirebaseApp.initializeApp(this);
-        FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(true);
+        FirebaseApp.initializeApp(this)
+        FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(true)
         setContentView(R.layout.main_activity)
         setSupportActionBar(toolbar)
         navController = this.findNavController(R.id.navControllerFragment)
