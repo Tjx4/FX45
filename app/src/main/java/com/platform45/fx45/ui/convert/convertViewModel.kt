@@ -44,7 +44,7 @@ class ConversionViewModel(application: Application, val fXRepository: IFXReposit
     val dialogErrorMessage: MutableLiveData<String>
         get() = _dialogErrorMessage
 
-    fun showLoaderAndVeriry() {
+    fun showLoaderAndVerify() {
         _showLoading.value = true
         verifyInput(_from.value ?: "", _to.value ?: "", _amount.value ?: "")
     }
