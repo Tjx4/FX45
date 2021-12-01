@@ -1,11 +1,12 @@
 package xyz.appic.repositories
 
 import com.google.firebase.crashlytics.FirebaseCrashlytics
-import com.platform45.fx45.models.Currencies
-import com.platform45.fx45.models.Series
-import com.platform45.fx45.networking.retrofit.RetrofitHelper
-import com.platform45.fx45.persistance.room.FX45Db
-import com.platform45.fx45.models.Conversion
+import xyz.appic.common.models.Conversion
+import xyz.appic.common.models.Currencies
+import xyz.appic.common.models.Series
+import xyz.appic.core.networking.retrofit.RetrofitHelper
+import xyz.appic.core.persistance.room.FX45Db
+
 
 class FXRepository(private val retrofitHelper: RetrofitHelper, private val database: FX45Db, private val firebaseCrashlytics: FirebaseCrashlytics) :
     IFXRepository {
