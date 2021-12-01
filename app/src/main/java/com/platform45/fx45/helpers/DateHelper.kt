@@ -1,4 +1,4 @@
-package xyz.appic.core.helpers
+package com.platform45.fx45.helpers
 
 import java.text.SimpleDateFormat
 import java.util.*

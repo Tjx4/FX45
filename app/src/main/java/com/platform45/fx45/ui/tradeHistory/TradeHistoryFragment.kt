@@ -15,7 +15,7 @@ import com.platform45.fx45.adapters.HistoryLoadStateAdapter
 import com.platform45.fx45.adapters.HistoryPagingAdapter
 import com.platform45.fx45.base.fragments.BaseFragment
 import com.platform45.fx45.databinding.FragmentTradeHistoryBinding
-import xyz.appic.core.helpers.showErrorDialog
+import com.platform45.fx45.helpers.showErrorDialog
 import kotlinx.android.synthetic.main.fragment_trade_history.*
 import kotlinx.coroutines.flow.collectLatest
 

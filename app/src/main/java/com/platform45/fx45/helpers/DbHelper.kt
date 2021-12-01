@@ -1,4 +1,4 @@
-package xyz.appic.core.helpers
+package com.platform45.fx45.helpers
 
 import com.google.gson.Gson
 import com.google.gson.internal.LinkedTreeMap

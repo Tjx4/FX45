@@ -9,7 +9,7 @@ import androidx.databinding.DataBindingUtil
 import com.platform45.fx45.R
 import com.platform45.fx45.base.fragments.BaseFragment
 import com.platform45.fx45.databinding.FragmentConversionBinding
-import xyz.appic.core.helpers.showErrorDialog
+import com.platform45.fx45.helpers.showErrorDialog
 import kotlinx.android.synthetic.main.fragment_conversion.*
 import kotlinx.coroutines.Dispatchers
 
