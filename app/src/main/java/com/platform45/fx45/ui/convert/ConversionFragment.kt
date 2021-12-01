@@ -6,16 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.viewModelScope
-import androidx.navigation.fragment.navArgs
 import com.platform45.fx45.R
 import com.platform45.fx45.base.fragments.BaseFragment
 import com.platform45.fx45.databinding.FragmentConversionBinding
-import com.platform45.fx45.helpers.showErrorDialog
+import xyz.appic.common.helpers.showErrorDialog
 import kotlinx.android.synthetic.main.fragment_conversion.*
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ConversionFragment : BaseFragment() {
     private lateinit var binding: FragmentConversionBinding

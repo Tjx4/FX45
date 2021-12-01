@@ -1,11 +1,10 @@
 package com.platform45.fx45.ui.dashboard.paging
 
 import androidx.paging.PagingSource
-import com.platform45.fx45.constants.API_KEY
-import com.platform45.fx45.constants.PP_PAGE_SIZE
-import com.platform45.fx45.persistance.room.tables.popularPair.PopularPairTable
-import com.platform45.fx45.repositories.FXRepository
-import com.platform45.fx45.repositories.IFXRepository
+import xyz.appic.common.constants.API_KEY
+import xyz.appic.common.constants.PP_PAGE_SIZE
+import xyz.appic.core.persistance.room.tables.popularPair.PopularPairTable
+import xyz.appic.repositories.IFXRepository
 import java.lang.NullPointerException
 
 class PopularPairPagingSource(private val fXRepository: IFXRepository) : PagingSource<Int, PopularPairTable>() {

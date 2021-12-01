@@ -7,8 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.navArgs
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.tabs.TabLayout
@@ -17,11 +15,9 @@ import com.platform45.fx45.adapters.HistoryLoadStateAdapter
 import com.platform45.fx45.adapters.HistoryPagingAdapter
 import com.platform45.fx45.base.fragments.BaseFragment
 import com.platform45.fx45.databinding.FragmentTradeHistoryBinding
-import com.platform45.fx45.helpers.showErrorDialog
+import xyz.appic.common.helpers.showErrorDialog
 import kotlinx.android.synthetic.main.fragment_trade_history.*
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class TradeHistoryFragment : BaseFragment() {
     private lateinit var binding: FragmentTradeHistoryBinding

@@ -4,9 +4,9 @@ import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import com.platform45.fx45.R
 import com.platform45.fx45.base.viewmodel.BaseVieModel
-import com.platform45.fx45.constants.API_KEY
-import com.platform45.fx45.models.Conversion
-import com.platform45.fx45.repositories.IFXRepository
+import xyz.appic.common.constants.API_KEY
+import xyz.appic.common.models.Conversion
+import xyz.appic.repositories.IFXRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 

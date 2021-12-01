@@ -3,9 +3,9 @@ package com.platform45.fx45
 import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import com.platform45.fx45.persistance.room.FX45Db
-import com.platform45.fx45.persistance.room.tables.pairHistory.PairHistoryDAO
-import com.platform45.fx45.persistance.room.tables.pairHistory.PairHistoryTable
+import xyz.appic.core.persistance.room.FX45Db
+import xyz.appic.core.persistance.room.tables.pairHistory.PairHistoryDAO
+import xyz.appic.core.persistance.room.tables.pairHistory.PairHistoryTable
 import junit.framework.Assert.assertEquals
 import org.junit.After
 import org.junit.Before

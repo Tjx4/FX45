@@ -10,7 +10,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.platform45.fx45.R
-import com.platform45.fx45.persistance.room.tables.popularPair.PopularPairTable
+import xyz.appic.core.persistance.room.tables.popularPair.PopularPairTable
 import com.platform45.fx45.ui.dashboard.DashboardViewModel
 
 class PopularPairsPagingAdapter(var context: Context) : PagingDataAdapter<PopularPairTable, PopularPairsPagingAdapter.PopularViewHolder>(PairComparator)  {

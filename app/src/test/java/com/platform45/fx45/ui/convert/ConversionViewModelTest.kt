@@ -3,10 +3,10 @@ package com.platform45.fx45.ui.convert
 import android.app.Application
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.platform45.fx45.R
-import com.platform45.fx45.constants.API_KEY
-import com.platform45.fx45.models.Conversion
-import com.platform45.fx45.models.ResponseError
-import com.platform45.fx45.repositories.IFXRepository
+import xyz.appic.common.constants.API_KEY
+import xyz.appic.common.models.Conversion
+import xyz.appic.common.models.ResponseError
+import xyz.appic.repositories.IFXRepository
 import junit.framework.Assert.assertEquals
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking

@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import com.platform45.fx45.MyDrawerController
 import com.platform45.fx45.R
-import com.platform45.fx45.constants.LAYOUT
 
 abstract class BaseDialogFragment : DialogFragment() {
     protected lateinit var myDrawerController: MyDrawerController

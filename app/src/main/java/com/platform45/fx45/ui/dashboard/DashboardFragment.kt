@@ -15,13 +15,9 @@ import com.platform45.fx45.adapters.PopularPairsPagingAdapter
 import com.platform45.fx45.base.fragments.BaseFragment
 import com.platform45.fx45.databinding.FragmentDashboardBinding
 import kotlinx.android.synthetic.main.fragment_dashboard.*
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
-import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
-import com.platform45.fx45.extensions.splitInTwo
-import com.platform45.fx45.helpers.showErrorDialog
+import xyz.appic.common.extensions.splitInTwo
+import xyz.appic.common.helpers.showErrorDialog
 
 class DashboardFragment : BaseFragment(), PopularPairsPagingAdapter.AddPairClickListener {
     private lateinit var binding: FragmentDashboardBinding

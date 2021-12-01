@@ -1,2 +1,5 @@
 rootProject.name = "FX45"
 include ':app'
+include ':repositories'
+include ':common'
+include ':core'

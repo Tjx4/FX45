@@ -2,12 +2,11 @@ package com.platform45.fx45.ui.confirm
 
 import android.app.Application
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.platform45.fx45.helpers.getClosestWeekDay
-import com.platform45.fx45.repositories.IFXRepository
+import xyz.appic.common.helpers.getClosestWeekDay
+import xyz.appic.repositories.IFXRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.resetMain
-import kotlinx.coroutines.test.runBlockingTest
 import kotlinx.coroutines.test.setMain
 import org.junit.After
 import org.junit.Assert.*

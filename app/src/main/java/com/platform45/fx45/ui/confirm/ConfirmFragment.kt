@@ -1,6 +1,5 @@
 package com.platform45.fx45.ui.confirm
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,23 +8,15 @@ import android.widget.AdapterView
 import android.widget.Button
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.MutableLiveData
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.platform45.fx45.R
 import com.platform45.fx45.adapters.CurrencyPairAdapter
 import com.platform45.fx45.base.fragments.BaseDialogFragment
-import com.platform45.fx45.base.fragments.BaseFragment
 import com.platform45.fx45.databinding.FragmentConfimBinding
-import com.platform45.fx45.extensions.getScreenCols
-import com.platform45.fx45.helpers.showDateTimeDialogFragment
-import com.platform45.fx45.ui.convert.ConversionFragmentArgs
-import com.platform45.fx45.ui.dashboard.DashboardFragmentDirections
+import xyz.appic.common.helpers.showDateTimeDialogFragment
 import com.platform45.fx45.ui.dashboard.datetime.DateTimePickerFragment
 import kotlinx.android.synthetic.main.fragment_confim.*
 import kotlinx.android.synthetic.main.fragment_dashboard.*
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ConfirmFragment: BaseDialogFragment(), DateTimePickerFragment.DateTimeSetter, CurrencyPairAdapter.UserInteractions  {
     private lateinit var binding: FragmentConfimBinding

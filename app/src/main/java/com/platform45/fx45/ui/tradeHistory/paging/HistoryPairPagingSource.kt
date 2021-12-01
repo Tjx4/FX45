@@ -1,14 +1,11 @@
 package com.platform45.fx45.ui.tradeHistory.paging
 
 import androidx.paging.PagingSource
-import com.platform45.fx45.constants.API_KEY
-import com.platform45.fx45.constants.H_PAGE_SIZE
-import com.platform45.fx45.helpers.getPairHistoryList
-import com.platform45.fx45.helpers.toDbTable
-import com.platform45.fx45.helpers.toPricseLinkedTreeMap
-import com.platform45.fx45.persistance.room.tables.pairHistory.PairHistoryTable
-import com.platform45.fx45.repositories.FXRepository
-import com.platform45.fx45.repositories.IFXRepository
+import xyz.appic.common.constants.API_KEY
+import xyz.appic.common.constants.H_PAGE_SIZE
+import xyz.appic.common.helpers.getPairHistoryList
+import xyz.appic.core.persistance.room.tables.pairHistory.PairHistoryTable
+import xyz.appic.repositories.IFXRepository
 import java.lang.NullPointerException
 
 class HistoryPairPagingSource(private val startDate: String, private val endDate: String, private val currency: String, private val fXRepository: IFXRepository) : PagingSource<Int, PairHistoryTable>() {

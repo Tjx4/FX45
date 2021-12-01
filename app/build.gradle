@@ -51,7 +51,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation "androidx.multidex:multidex:$multidex_version"
-    //
+
     implementation 'androidx.preference:preference-ktx:1.1.1'
     //Testing
     testImplementation 'junit:junit:4.+'
@@ -92,4 +92,9 @@ dependencies {
     //navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
+    //Modules
+    implementation project(':repositories')
+    implementation project(':common')
+    implementation project(':core')
 }

@@ -2,13 +2,9 @@ package com.platform45.fx45.ui.dashboard.datetime
 
 import android.os.Bundle
 import android.view.*
-import android.widget.Button
-import android.widget.DatePicker
-import android.widget.TimePicker
-import com.platform45.fx45.R
 import com.platform45.fx45.base.fragments.BaseDialogFragment
-import com.platform45.fx45.constants.DATETIME
-import com.platform45.fx45.constants.LAYOUT
+import xyz.appic.common.constants.DATETIME
+import xyz.appic.common.constants.LAYOUT
 import kotlinx.android.synthetic.main.fragment_date_time_picker.*
 import java.sql.Time
 import java.text.Format

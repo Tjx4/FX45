@@ -1,7 +1,7 @@
 package com.platform45.fx45.di
 
-import com.platform45.fx45.repositories.FXRepository
-import com.platform45.fx45.repositories.IFXRepository
+import xyz.appic.repositories.FXRepository
+import xyz.appic.repositories.IFXRepository
 import org.koin.dsl.module
 
 val repositoryModule = module {

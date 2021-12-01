@@ -7,10 +7,10 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import com.platform45.fx45.R
-import com.platform45.fx45.base.viewmodel.SharedViewModel
-import com.platform45.fx45.constants.PP_PAGE_SIZE
-import com.platform45.fx45.repositories.IFXRepository
+import xyz.appic.repositories.IFXRepository
 import com.platform45.fx45.ui.dashboard.paging.PopularPairPagingSource
+import com.platform45.fx45.base.viewmodel.SharedViewModel
+import xyz.appic.common.constants.PP_PAGE_SIZE
 import kotlin.collections.ArrayList
 
 class DashboardViewModel(application: Application, private val fXRepository: IFXRepository) : SharedViewModel(application) {

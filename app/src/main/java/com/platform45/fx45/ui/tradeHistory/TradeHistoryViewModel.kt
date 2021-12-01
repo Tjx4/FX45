@@ -2,15 +2,12 @@ package com.platform45.fx45.ui.tradeHistory
 
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
-import com.platform45.fx45.base.viewmodel.BaseVieModel
 import com.platform45.fx45.base.viewmodel.SharedViewModel
-import com.platform45.fx45.constants.H_PAGE_SIZE
-import com.platform45.fx45.repositories.FXRepository
-import com.platform45.fx45.repositories.IFXRepository
+import xyz.appic.common.constants.H_PAGE_SIZE
+import xyz.appic.repositories.IFXRepository
 import com.platform45.fx45.ui.tradeHistory.paging.HistoryPairPagingSource
 
 class TradeHistoryViewModel(application: Application, private val fXRepository: IFXRepository) : SharedViewModel(application) {
