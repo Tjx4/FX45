@@ -14,6 +14,12 @@
         <entry key="app/src/main/res/layout/load_state_layout.xml" value="0.12545289855072464" />
         <entry key="app/src/main/res/layout/pair_layout.xml" value="0.12545289855072464" />
         <entry key="app/src/main/res/layout/selected_currency_pair_layout.xml" value="0.375" />
+        <entry key="common/src/main/res/drawable/fx_disabled_button_background.xml" value="0.2015625" />
+        <entry key="common/src/main/res/drawable/ic_refresh.xml" value="0.20208333333333334" />
+        <entry key="common/src/main/res/drawable/selected_background.xml" value="0.20208333333333334" />
+        <entry key="common/src/main/res/drawable/splash_background.xml" value="0.20208333333333334" />
+        <entry key="common/src/main/res/drawable/splash_background_gradient.xml" value="0.20208333333333334" />
+        <entry key="common/src/main/res/layout/main_activity.xml" value="0.184375" />
       </map>
     </option>
   </component>
