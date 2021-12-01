@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment
 import xyz.appic.common.constants.DATETIME
 import xyz.appic.common.constants.LAYOUT
 import xyz.appic.common.constants.TITLE
-import com.platform45.fx45.ui.dashboard.datetime.DateTimePickerFragment
 import xyz.appic.core.R
 
 fun showConfirmDialog(context: Context, title: String, message: String, yesButtonText: String, noButtonText: String, yesCallbackFun: () -> Unit, noCallbackFun: () -> Unit){
