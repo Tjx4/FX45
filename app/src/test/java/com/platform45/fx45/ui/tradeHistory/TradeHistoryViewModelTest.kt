@@ -2,7 +2,7 @@ package com.platform45.fx45.ui.tradeHistory
 
 import android.app.Application
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import xyz.appic.core.retrofit.RetrofitHelper
+import xyz.appic.core.networking.retrofit.RetrofitHelper
 import xyz.appic.core.persistance.room.FX45Db
 import xyz.appic.repositories.IFXRepository
 import org.junit.Assert

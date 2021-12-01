@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../layout/custom_preview.xml" value="0.21145833333333333" />
         <entry key="app/src/main/res/layout/cp_layout.xml" value="0.12545289855072464" />
         <entry key="app/src/main/res/layout/currency_pair_layout.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_confim.xml" value="0.1578125" />

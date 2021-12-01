@@ -1,4 +1,4 @@
-package xyz.appic.core.retrofit
+package xyz.appic.core.networking.retrofit
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

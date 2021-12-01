@@ -1,4 +1,4 @@
-package xyz.appic.core.retrofit
+package xyz.appic.core.networking.retrofit
 
 import xyz.appic.common.models.Currencies
 import xyz.appic.common.models.Series

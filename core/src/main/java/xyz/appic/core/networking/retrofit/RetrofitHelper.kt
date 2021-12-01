@@ -1,4 +1,4 @@
-package com.platform45.fx45.networking.retrofit
+package xyz.appic.core.networking.retrofit
 
 
 import retrofit2.http.*
