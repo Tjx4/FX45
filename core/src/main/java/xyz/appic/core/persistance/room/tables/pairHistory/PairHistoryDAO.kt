@@ -1,4 +1,4 @@
-package com.platform45.fx45.persistance.room.tables.pairHistory
+package xyz.appic.core.persistance.room.tables.pairHistory
 
 import androidx.lifecycle.LiveData
 import androidx.room.*

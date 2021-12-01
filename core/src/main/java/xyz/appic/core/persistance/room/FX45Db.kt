@@ -1,11 +1,11 @@
-package com.platform45.fx45.persistance.room
+package xyz.appic.core.persistance.room
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.platform45.fx45.persistance.room.tables.pairHistory.PairHistoryDAO
-import com.platform45.fx45.persistance.room.tables.pairHistory.PairHistoryTable
+import xyz.appic.core.persistance.room.tables.pairHistory.PairHistoryDAO
+import xyz.appic.core.persistance.room.tables.pairHistory.PairHistoryTable
 
 @Database(entities = [PairHistoryTable::class], version = 1, exportSchema = false)
  abstract class FX45Db : RoomDatabase() {

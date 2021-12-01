@@ -5,6 +5,7 @@ import com.google.gson.internal.LinkedTreeMap
 import com.google.gson.reflect.TypeToken
 import xyz.appic.common.models.DayData
 import xyz.appic.common.models.PairTradeHistory
+import xyz.appic.core.persistance.room.tables.pairHistory.PairHistoryTable
 
 fun Object.toPricseLinkedTreeMap() = this as LinkedTreeMap<String?, LinkedTreeMap<String?, LinkedTreeMap<String?, Double?>?>?>?
 

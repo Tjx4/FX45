@@ -1,10 +1,10 @@
-package com.platform45.fx45.persistance.sharedprefs
+package xyz.appic.core.persistance.sharedprefs
 
 import android.app.Application
 import android.content.SharedPreferences
-import androidx.preference.PreferenceManager
+import android.preference.PreferenceManager
 import com.google.gson.Gson
-import com.platform45.fx45.models.UserModel
+import xyz.appic.common.models.UserModel
 
 class SharedPrefs(private val application: Application) {
     private val sharedPreferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(application)

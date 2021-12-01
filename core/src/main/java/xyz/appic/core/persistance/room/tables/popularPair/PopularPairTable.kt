@@ -1,4 +1,4 @@
-package com.platform45.fx45.persistance.room.tables.popularPair
+package xyz.appic.core.persistance.room.tables.popularPair
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
