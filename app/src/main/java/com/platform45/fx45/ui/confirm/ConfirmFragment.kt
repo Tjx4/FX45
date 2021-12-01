@@ -13,7 +13,7 @@ import com.platform45.fx45.R
 import com.platform45.fx45.adapters.CurrencyPairAdapter
 import com.platform45.fx45.base.fragments.BaseDialogFragment
 import com.platform45.fx45.databinding.FragmentConfimBinding
-import xyz.appic.common.helpers.showDateTimeDialogFragment
+import xyz.appic.core.helpers.showDateTimeDialogFragment
 import com.platform45.fx45.ui.dashboard.datetime.DateTimePickerFragment
 import kotlinx.android.synthetic.main.fragment_confim.*
 import kotlinx.android.synthetic.main.fragment_dashboard.*

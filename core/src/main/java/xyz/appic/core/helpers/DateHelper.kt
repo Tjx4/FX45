@@ -1,4 +1,4 @@
-package xyz.appic.common.helpers
+package xyz.appic.core.helpers
 
 import java.text.SimpleDateFormat
 import java.util.*

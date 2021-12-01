@@ -17,7 +17,7 @@ import com.github.mikephil.charting.data.CandleDataSet
 import com.github.mikephil.charting.data.CandleEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.platform45.fx45.R
-import xyz.appic.common.helpers.toDayDataList
+import xyz.appic.core.helpers.toDayDataList
 import xyz.appic.core.persistance.room.tables.pairHistory.PairHistoryTable
 
 class HistoryPagingAdapter(var context: Context) : PagingDataAdapter<PairHistoryTable, HistoryPagingAdapter.HistoryViewHolder>(HistoryComparator)  {

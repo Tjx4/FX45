@@ -3,7 +3,7 @@ package com.platform45.fx45.ui.tradeHistory.paging
 import androidx.paging.PagingSource
 import xyz.appic.common.constants.API_KEY
 import xyz.appic.common.constants.H_PAGE_SIZE
-import xyz.appic.common.helpers.getPairHistoryList
+import xyz.appic.core.helpers.getPairHistoryList
 import xyz.appic.core.persistance.room.tables.pairHistory.PairHistoryTable
 import xyz.appic.repositories.IFXRepository
 import java.lang.NullPointerException

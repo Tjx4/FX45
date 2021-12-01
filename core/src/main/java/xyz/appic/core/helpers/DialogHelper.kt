@@ -1,4 +1,4 @@
-package xyz.appic.common.helpers
+package xyz.appic.core.helpers
 
 import android.app.Activity
 import android.app.AlertDialog

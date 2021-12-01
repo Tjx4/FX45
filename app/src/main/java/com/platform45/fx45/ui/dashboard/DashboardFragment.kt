@@ -17,7 +17,7 @@ import com.platform45.fx45.databinding.FragmentDashboardBinding
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import kotlinx.coroutines.flow.collectLatest
 import xyz.appic.common.extensions.splitInTwo
-import xyz.appic.common.helpers.showErrorDialog
+import xyz.appic.core.helpers.showErrorDialog
 
 class DashboardFragment : BaseFragment(), PopularPairsPagingAdapter.AddPairClickListener {
     private lateinit var binding: FragmentDashboardBinding

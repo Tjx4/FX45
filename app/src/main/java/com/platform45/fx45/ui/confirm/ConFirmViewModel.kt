@@ -3,8 +3,8 @@ package com.platform45.fx45.ui.confirm
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import com.platform45.fx45.base.viewmodel.SharedViewModel
-import xyz.appic.common.helpers.getClosestWeekDay
-import xyz.appic.common.helpers.getCurrentDate
+import xyz.appic.core.helpers.getClosestWeekDay
+import xyz.appic.core.helpers.getCurrentDate
 import xyz.appic.repositories.IFXRepository
 import java.util.*
 import kotlin.collections.ArrayList
