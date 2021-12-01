@@ -1,4 +1,4 @@
-package com.platform45.fx45.customViews
+package xyz.appic.components.customViews
 
 import android.content.Context
 import android.util.AttributeSet
