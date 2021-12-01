@@ -12,5 +12,8 @@ val networkingModule = module {
 
 val persistenceModule = module {
     single { FX45Db.getInstance(androidApplication())}
+}
+
+val analyticsModule = module {
     single { FirebaseCrashlytics.getInstance()}
 }
