@@ -66,4 +66,5 @@
             app:popEnterAnim="@anim/no_transition"
             app:popExitAnim="@anim/fade_out" />
     </dialog>
+
 </navigation>
